@@ -7,7 +7,8 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "changeDetection": "OnPush"
         }
       },
       "root": "",
@@ -21,28 +22,56 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/assets"
               }
             ],
             "styles": [
+              "src/styles.scss",
+              "src/assets/css/app.css",
+              "src/assets/css/vendors.css",
+              "src/assets/css/app.css",
+              "src/assets/vendors/css/forms/icheck/icheck.css",
+              "src/assets/vendors/css/forms/icheck/custom.css",
+              "src/assets/css/pages/account-login.css",
+              "src/assets/vendors/css/charts/chartist.css",
+              "src/assets/vendors/css/charts/chartist-plugin-tooltip.css",
+              "src/assets/css/core/menu/menu-types/vertical-compact-menu.css",
+              "src/assets/vendors/css/cryptocoins/cryptocoins.css",
+              "src/assets/css/pages/timeline.css",
+              "src/assets/css/pages/dashboard-ico.css",
+              "src/assets/css/style.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/vendors/js/vendors.min.js",
+              "src/assets/vendors/js/charts/chartist.min.js",
+              "src/assets/vendors/js/charts/chartist-plugin-tooltip.min.js",
+              "src/assets/vendors/js/timeline/horizontal-timeline.js",
+              "src/assets/vendors/js/forms/icheck/icheck.min.js",
+              "src/assets/js/core/app-menu.js",
+              "src/assets/js/core/app.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
+              "src/assets/js/scripts/forms/form-login-register.js"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "5MB",
+                  "maximumError": "8MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -80,7 +109,8 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
