@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../_services/home.service';
 import { CommonModule } from '@angular/common';
+import { TokenInterceptor } from '../../_helpers/token.interceptor';
 
 declare let $: any;
 
@@ -10,14 +11,17 @@ declare let $: any;
   imports: [CommonModule],
   templateUrl: './home.component.html',
   styles: ``,
-  providers: [HomeService]
+  providers: [HomeService,TokenInterceptor]
 })
 
 export class HomeComponent implements OnInit {
   content?: string;
 
   constructor(
-    private _homeservice: HomeService) { }
+    private _homeservice: HomeService,
+    private _tokenInterceptor: TokenInterceptor
+  
+  ) { }
 
   ngOnInit(): void {
     this.getCartera();
@@ -29,7 +33,7 @@ export class HomeComponent implements OnInit {
       currency: 'MXN',
       minimumFractionDigits: 2
     })
-    this._homeservice.getCartera().subscribe(
+    this._homeservice.getCartera(this._tokenInterceptor.authenticationService.getToken()).subscribe(
       response => {
         if (response != 'No existen') {
 
