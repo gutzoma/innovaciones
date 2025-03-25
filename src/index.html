@@ -20,7 +20,8 @@
     </script>
 </head>
 
-<body class="vertical-layout vertical-compact-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-compact-menu" data-col="2-columns">
+<body class="vertical-layout vertical-compact-menu 2-columns   menu-expanded fixed-navbar" data-open="click"
+  data-menu="vertical-compact-menu" data-col="2-columns">
   <nav
     class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-bg-color disp-n menu-sections">
     <div class="navbar-wrapper">
@@ -51,11 +52,12 @@
           <ul class="nav navbar-nav float-right">
             <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#"
                 data-toggle="dropdown"> <span class="avatar avatar-online"><img
-                    src="../assets/images/portrait/small/avatar-s-1.png" alt="avatar"></span><span
-                  class="mr-1">Clientes<span class="user-name text-bold-700">3,458.88</span></span></a>
-              <div class="dropdown-menu dropdown-menu-right"><span class="dropdown-item" href="account-profile.html"><i
-                    class="ft-award"></i>John Doe</span>
-                <div class="dropdown-divider"></div><a class="dropdown-item logout" href="javascript:void(0)"><i class="ft-power"></i> Logout</a>
+                    src="../assets/images/portrait/small/avatar.png" alt="avatar"></span><span
+                  class="mr-1">Clientes<span class="user-name text-bold-700 n-prestamos-profile"></span></span></a>
+              <div class="dropdown-menu dropdown-menu-right "><span class="dropdown-item name"
+                  href="account-profile.html"><i class="ft-award"></i></span>
+                <div class="dropdown-divider"></div><a class="dropdown-item logout" href="javascript:void(0)"><i
+                    class="ft-power"></i> Salir</a>
               </div>
             </li>
           </ul>
@@ -68,38 +70,74 @@
         href="index.html"><img class="brand-logo" alt="CryptoDash admin logo"
           src="../assets/images/logo/logo.png" /></a>
       <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-        <li class="active"><a href="../../../html/ltr/vertical-menu/index.html"><i class="icon-grid"></i><span
+        <!-- <li class="active"><a href="../../../html/ltr/vertical-menu/index.html"><i class="icon-grid"></i><span
               class="menu-title" data-i18n="">Dashboard</span></a>
-        </li>
-        <li class=" nav-item"><a href="buy-ico.html"><i class="icon-layers"></i><span class="menu-title"
-              data-i18n="">Buy ICO</span></a>
-        </li>
-        <li class=" nav-item"><a href="wallet.html"><i class="icon-wallet"></i><span class="menu-title"
-              data-i18n="">Wallet</span></a>
-        </li>
-        <li class=" nav-item"><a href="transactions.html"><i class="icon-shuffle"></i><span class="menu-title"
-              data-i18n="">Transactions</span></a>
-        </li>
-        <li class=" nav-item"><a href="faq.html"><i class="icon-support"></i><span class="menu-title"
-              data-i18n="">FAQ</span></a>
-        </li>
-        <li class=" nav-item"><a href="#"><i class="icon-user-following"></i><span class="menu-title"
-              data-i18n="">Account</span></a>
+        </li> -->
+        <li class=" nav-item"><a href="#"><i class="icon-grid"></i><span class="menu-title"
+              data-i18n="">Clientes</span></a>
           <ul class="menu-content">
-            <li><a class="menu-item" href="account-profile.html">Profile</a>
+            <li><a class="menu-item" href="addclient">Registrar</a>
             </li>
-            <li><a class="menu-item" href="account-login-history.html">Login History</a>
-            </li>
-            <li class="navigation-divider"></li>
-            <li><a class="menu-item" href="#">Misc</a>
-              <ul class="menu-content">
-                <li><a class="menu-item" href="account-login.html">Login</a>
-                </li>
-                <li><a class="menu-item" href="account-register.html">Register</a>
-                </li>
-              </ul>
+            <li><a class="menu-item" href="editclient">Editar</a>
             </li>
           </ul>
+        </li>
+        <li class=" nav-item"><a href="#"><i class="icon-layers"></i><span class="menu-title"
+              data-i18n="">Creditos</span></a>
+          <ul class="menu-content">
+            <li><a class="menu-item" href="addcredit">Registrar</a>
+            </li>
+            <li><a class="menu-item" href="editcredit">Editar</a>
+            </li>
+          </ul>
+        </li>
+        <li class=" nav-item"><a href="#"><i class="icon-wallet"></i><span class="menu-title"
+              data-i18n="">Desembolsos</span></a>
+          <ul class="menu-content">
+            <li><a class="menu-item" href="approve">Aprobar</a>
+            </li>
+            <li><a class="menu-item" href="disperse">Dispersar</a>
+            </li>
+          </ul>
+        </li>
+        <li class=" nav-item"><a href="#"><i class="icon-notebook"></i><span class="menu-title"
+              data-i18n="">Reportes</span></a>
+          <ul class="menu-content">
+            <li><a class="menu-item" href="report_credits">Colocacion</a>
+            </li>
+            <li><a class="menu-item" href="report_paid">Liquidaciones</a>
+            </li>
+            <li><a class="menu-item" href="report_payments">Pagos</a>
+            </li>
+          </ul>
+        </li>
+        <li class=" nav-item"><a href="addpayment"><i class="icon-note"></i><span class="menu-title"
+              data-i18n="">Pagos</span></a>
+        </li>
+        <li class=" nav-item"><a href="finalized"><i class="icon-refresh"></i><span class="menu-title"
+              data-i18n="">Liberacion</span></a>
+        </li>
+        <li class=" nav-item"><a href="#"><i class="icon-calculator"></i><span class="menu-title"
+              data-i18n="">Contabilidad</span></a>
+          <ul class="menu-content">
+            <li><a class="menu-item" href="report_payments_conta">Pagos</a>
+            </li>
+          </ul>
+        </li>
+        <li class=" nav-item"><a href="#"><i class="icon-printer"></i><span class="menu-title"
+              data-i18n="">Caja</span></a>
+          <ul class="menu-content">
+            <li><a class="menu-item" href="cashbox">Generar Recibo</a>
+            </li>
+            <li><a class="menu-item" href="report_cashbox">Corte de Caja</a>
+            </li>
+          </ul>
+        </li>
+        <li class=" nav-item"><a href="profile"><i class="icon-user-following"></i><span class="menu-title"
+              data-i18n="">Perfil</span></a>
+        </li>
+        <li class=" nav-item"><a href="search"><i class="icon-puzzle"></i><span class="menu-title"
+              data-i18n="">Buscar</span></a>
         </li>
       </ul>
     </div>
