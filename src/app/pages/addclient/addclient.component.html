@@ -1,608 +1,608 @@
-<div class="container-fluid py-4">
-    <div class="row">
-      <div class="card col-lg-10 col-xs-12 position-relative z-index-2">
-        <div class="card card-plain mb-4">
-          <div class="card-body p-3">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="d-flex flex-column h-100">
-                  <h2 class="font-weight-bolder mb-0">Registro de cliente</h2>
-                </div>
-              </div>
-            </div>
+<div class="app-content content">
+  <div class="content-wrapper">
+    <div class="content-header row">
+      <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+        <h3 class="content-header-title mb-0 d-inline-block">Registro de clientel</h3>
+        <div class="row breadcrumbs-top d-inline-block">
+          <div class="breadcrumb-wrapper col-12">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item active">Registro de cliente
+              </li>
+            </ol>
           </div>
         </div>
-        <form #formCliente="ngForm" (ngSubmit)="saveClient(formCliente)" enctype="multipart/form-data">
-          <div>
-            <h3>Solicitante</h3>
+      </div>
+    </div>
+    <form #formCliente="ngForm" (ngSubmit)="saveClient(formCliente)" enctype="multipart/form-data">
+      <div>
+        <h3>Solicitante</h3>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Sucursal</label>
+            <select required class="form-control mb-3" name="sol_sucursal" #sol_sucursal="ngModel"
+              [(ngModel)]="cliente.sol_sucursal">
+              <option value="">Seleciona una Sucursal</option>
+              <option *ngFor="let sucursal of sucursales;" value="{{sucursal.sucursal_id}}">
+                {{sucursal.nombre}}
+              </option>
+            </select>
+            <span class="col-12 error-form" *ngIf="sol_sucursal.touched && !sol_sucursal.valid">Campo obligatorio</span>
           </div>
-          <div class="row">
-            <div class="col-md-3"><div class="input-group-outline my-3">
-              <label class="form-label">Sucursal</label>
-                  <select required class="form-control mb-3" name="sol_sucursal"
-                      #sol_sucursal="ngModel" [(ngModel)]="cliente.sol_sucursal">
-                      <option value="">Seleciona una Sucursal</option>
-                      <option *ngFor="let sucursal of sucursales;" value="{{sucursal.sucursal_id}}">
-                          {{sucursal.nombre}}
-                      </option>
-                  </select>
-                  <span class="col-12 error-form"
-                      *ngIf="sol_sucursal.touched && !sol_sucursal.valid">Campo obligatorio</span>
-            </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Nombres</label>
+            <input required type="text" name="sol_nom" class="form-control" #sol_nom="ngModel"
+              [(ngModel)]="cliente.sol_nom">
+            <span class="col-12 error-form" *ngIf="sol_nom.touched && !sol_nom.valid">Campo obligatorio</span>
           </div>
-            <div class="col-md-3">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Nombres</label>
-                <input required type="text" name="sol_nom" class="form-control" #sol_nom="ngModel"
-                  [(ngModel)]="cliente.sol_nom">
-                <span class="col-12 error-form" *ngIf="sol_nom.touched && !sol_nom.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Apellido Paterno</label>
-                <input required type="text" name="sol_ap_pat" class="form-control" #sol_ap_pat="ngModel"
-                  [(ngModel)]="cliente.sol_ap_pat">
-                <span class="col-12 error-form" *ngIf="sol_ap_pat.touched && !sol_ap_pat.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Apellido Materno</label>
-                <input required type="text" name="sol_ap_mat" class="form-control" #sol_ap_mat="ngModel"
-                  [(ngModel)]="cliente.sol_ap_mat">
-                <span class="col-12 error-form" *ngIf="sol_ap_mat.touched && !sol_ap_mat.valid">Campo obligatorio</span>
-              </div>
-            </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Apellido Paterno</label>
+            <input required type="text" name="sol_ap_pat" class="form-control" #sol_ap_pat="ngModel"
+              [(ngModel)]="cliente.sol_ap_pat">
+            <span class="col-12 error-form" *ngIf="sol_ap_pat.touched && !sol_ap_pat.valid">Campo obligatorio</span>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Correo</label>
-                <input required type="email" name="sol_email" class="form-control" #sol_email="ngModel"
-                  [(ngModel)]="cliente.sol_email">
-                <span class="col-12 error-form" *ngIf="sol_email.touched && !sol_email.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Red Social</label>
-                <input required type="text" name="sol_red_soc" class="form-control" #sol_red_soc="ngModel"
-                  [(ngModel)]="cliente.sol_red_soc">
-                <span class="col-12 error-form" *ngIf="sol_red_soc.touched && !sol_red_soc.valid">Campo obligatorio</span>
-              </div>
-            </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Apellido Materno</label>
+            <input required type="text" name="sol_ap_mat" class="form-control" #sol_ap_mat="ngModel"
+              [(ngModel)]="cliente.sol_ap_mat">
+            <span class="col-12 error-form" *ngIf="sol_ap_mat.touched && !sol_ap_mat.valid">Campo obligatorio</span>
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Telefono</label>
-                <input required type="tel" name="sol_tel" maxlength="10" class="form-control" #sol_tel="ngModel"
-                  [(ngModel)]="cliente.sol_tel">
-                <span class="col-12 error-form" *ngIf="sol_tel.touched && !sol_tel.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Telefono recados</label>
-                <input required type="tel" name="sol_tel2" maxlength="10" class="form-control" #sol_tel2="ngModel"
-                  [(ngModel)]="cliente.sol_tel2">
-                <span class="col-12 error-form" *ngIf="sol_tel2.touched && !sol_tel2.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Dependientes</label>
-                <input required type="text" name="sol_depend" class="form-control" #sol_depend="ngModel"
-                  [(ngModel)]="cliente.sol_depend">
-                <span class="col-12 error-form" *ngIf="sol_depend.touched && !sol_depend.valid">Campo obligatorio</span>
-              </div>
-            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Correo</label>
+            <input required type="email" name="sol_email" class="form-control" #sol_email="ngModel"
+              [(ngModel)]="cliente.sol_email">
+            <span class="col-12 error-form" *ngIf="sol_email.touched && !sol_email.valid">Campo obligatorio</span>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">CURP</label>
-                <input required type="text" name="sol_curp" maxlength="18" class="form-control" #sol_curp="ngModel"
-                  [(ngModel)]="cliente.sol_curp">
-                <span class="col-12 error-form" *ngIf="sol_curp.touched && !sol_curp.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">INE</label>
-                <input required type="text" name="sol_ine" class="form-control" #sol_ine="ngModel"
-                  [(ngModel)]="cliente.sol_ine">
-                <span class="col-12 error-form" *ngIf="sol_ine.touched && !sol_ine.valid">Campo obligatorio</span>
-              </div>
-            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Red Social</label>
+            <input required type="text" name="sol_red_soc" class="form-control" #sol_red_soc="ngModel"
+              [(ngModel)]="cliente.sol_red_soc">
+            <span class="col-12 error-form" *ngIf="sol_red_soc.touched && !sol_red_soc.valid">Campo obligatorio</span>
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="input-group-static">
-                <label>Fecha de Nacimiento</label>
-                <input class="form-control calendar-input" name="sol_fecha_nac" class="form-control"
-                  #sol_fecha_nac="ngModel" [(ngModel)]="cliente.sol_fecha_nac" disabled>
-              </div>
-            </div>
-            <div class="col-md-8">
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="dropdown">
-                    <select required class="form-control mb-3 select-margin" name="sol_sexo" id="solSexo"
-                      #sol_sexo="ngModel" [(ngModel)]="cliente.sol_sexo">
-                      <option value="">Sexo</option>
-                      <option *ngFor="let sexo of sexo;" value="{{sexo.sexo_id}}">{{sexo.sexo}}</option>
-                    </select>
-                    <span class="col-12 error-form" *ngIf="sol_sexo.touched && !sol_sexo.valid">Campo obligatorio</span>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="dropdown">
-                    <select required class="form-control mb-3 select-margin" name="sol_edo_civ" id="soEdoCiv"
-                      #sol_edo_civ="ngModel" [(ngModel)]="cliente.sol_edo_civ">
-                      <option value="">Estado Civil</option>
-                      <option *ngFor="let edociv of edociv;" value="{{edociv.estado_civil_id}}">{{edociv.estado_civil}}
-                      </option>
-                    </select>
-                    <span class="col-12 error-form" *ngIf="sol_edo_civ.touched && !sol_edo_civ.valid">Campo
-                      obligatorio</span>
-                  </div>
-                </div>
-                <div class="col-md-5">
-                  <div class="dropdown">
-                    <select required class="form-control mb-3 select-margin select-margin" name="sol_t_viv" id="solTviv"
-                      #sol_t_viv="ngModel" [(ngModel)]="cliente.sol_t_viv">
-                      <option value="">Tipo de vivienda</option>
-                      <option *ngFor="let vivienda of vivienda;" value="{{vivienda.tipo_de_vivienda_id}}">
-                        {{vivienda.tipo_de_vivienda}}</option>
-                    </select>
-                    <span class="col-12 error-form" *ngIf="sol_t_viv.touched && !sol_t_viv.valid">Campo obligatorio</span>
-                  </div>
-                </div>
-              </div>
-  
-            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Telefono</label>
+            <input required type="tel" name="sol_tel" maxlength="10" class="form-control" #sol_tel="ngModel"
+              [(ngModel)]="cliente.sol_tel">
+            <span class="col-12 error-form" *ngIf="sol_tel.touched && !sol_tel.valid">Campo obligatorio</span>
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Calle</label>
-                <input required type="text" name="sol_calle" class="form-control" #sol_calle="ngModel"
-                  [(ngModel)]="cliente.sol_calle">
-                <span class="col-12 error-form" *ngIf="sol_calle.touched && !sol_calle.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Numero</label>
-                <input required type="text" name="sol_no" class="form-control" #sol_no="ngModel"
-                  [(ngModel)]="cliente.sol_no">
-                <span class="col-12 error-form" *ngIf="sol_no.touched && !sol_no.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Colonia</label>
-                <input required type="text" name="sol_col" class="form-control" #sol_col="ngModel"
-                  [(ngModel)]="cliente.sol_col">
-                <span class="col-12 error-form" *ngIf="sol_col.touched && !sol_col.valid">Campo obligatorio</span>
-              </div>
-            </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Telefono recados</label>
+            <input required type="tel" name="sol_tel2" maxlength="10" class="form-control" #sol_tel2="ngModel"
+              [(ngModel)]="cliente.sol_tel2">
+            <span class="col-12 error-form" *ngIf="sol_tel2.touched && !sol_tel2.valid">Campo obligatorio</span>
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Municipio</label>
-                <input required type="text" name="sol_mun" class="form-control" #sol_mun="ngModel"
-                  [(ngModel)]="cliente.sol_mun">
-                <span class="col-12 error-form" *ngIf="sol_mun.touched && !sol_mun.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Estado</label>
-                <input required type="text" name="sol_edo" class="form-control" #sol_edo="ngModel"
-                  [(ngModel)]="cliente.sol_edo">
-                <span class="col-12 error-form" *ngIf="sol_edo.touched && !sol_edo.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Codigo postal</label>
-                <input required type="tel" name="sol_cp" class="form-control" #sol_cp="ngModel"
-                  [(ngModel)]="cliente.sol_cp">
-                <span class="col-12 error-form" *ngIf="sol_cp.touched && !sol_cp.valid">Campo obligatorio</span>
-              </div>
-            </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Dependientes</label>
+            <input required type="text" name="sol_depend" class="form-control" #sol_depend="ngModel"
+              [(ngModel)]="cliente.sol_depend">
+            <span class="col-12 error-form" *ngIf="sol_depend.touched && !sol_depend.valid">Campo obligatorio</span>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Descripcion del domicilio</label>
-                <input required type="text" name="sol_desc" class="form-control" #sol_desc="ngModel"
-                  [(ngModel)]="cliente.sol_desc">
-                <span class="col-12 error-form" *ngIf="sol_desc.touched && !sol_desc.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Ubicacion</label>
-                <input required type="text" name="sol_ubi" class="form-control" #sol_ubi="ngModel"
-                  [(ngModel)]="cliente.sol_ubi">
-                <span class="col-12 error-form" *ngIf="sol_ubi.touched && !sol_ubi.valid">Campo obligatorio</span>
-              </div>
-            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">CURP</label>
+            <input required type="text" name="sol_curp" maxlength="18" class="form-control" #sol_curp="ngModel"
+              [(ngModel)]="cliente.sol_curp">
+            <span class="col-12 error-form" *ngIf="sol_curp.touched && !sol_curp.valid">Campo obligatorio</span>
           </div>
-          <div>
-            <h3>Conyugue / Codeudor</h3>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">INE</label>
+            <input required type="text" name="sol_ine" class="form-control" #sol_ine="ngModel"
+              [(ngModel)]="cliente.sol_ine">
+            <span class="col-12 error-form" *ngIf="sol_ine.touched && !sol_ine.valid">Campo obligatorio</span>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Nombres</label>
-                <input required type="text" name="cod_nom" class="form-control" #cod_nom="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_nom">
-                <span class="col-12 error-form" *ngIf="cod_nom.touched && !cod_nom.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Apellido Paterno</label>
-                <input required type="text" name="cod_pat" class="form-control" #cod_pat="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_pat">
-                <span class="col-12 error-form" *ngIf="cod_pat.touched && !cod_pat.valid">Campo obligatorio</span>
-              </div>
-            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group-static">
+            <label>Fecha de Nacimiento</label>
+            <input class="form-control calendar-input" name="sol_fecha_nac" class="form-control"
+              #sol_fecha_nac="ngModel" [(ngModel)]="cliente.sol_fecha_nac" disabled>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Apellido Materno</label>
-                <input required type="text" name="cod_mat" class="form-control" #cod_mat="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_mat">
-                <span class="col-12 error-form" *ngIf="cod_mat.touched && !cod_mat.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Parentesco</label>
-                <input required type="text" name="cod_par" class="form-control" #cod_par="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_par">
-                <span class="col-12 error-form" *ngIf="cod_par.touched && !cod_par.valid">Campo obligatorio</span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Telefono</label>
-                <input required type="tel" maxlength="10" name="cod_tel" class="form-control" #cod_tel="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_tel">
-                <span class="col-12 error-form" *ngIf="cod_tel.touched && !cod_tel.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Telefono recados</label>
-                <input required type="tel" maxlength="10" name="cod_tel2" class="form-control" #cod_tel2="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_tel2">
-                <span class="col-12 error-form" *ngIf="cod_tel2.touched && !cod_tel2.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Ocupacion</label>
-                <input required type="text" name="cod_ocu" class="form-control" #cod_ocu="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_ocu">
-                <span class="col-12 error-form" *ngIf="cod_ocu.touched && !cod_ocu.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Ingreso mensual</label>
-                <input required type="text" name="cod_ing" class="form-control" #cod_ing="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_ing">
-                <span class="col-12 error-form" *ngIf="cod_ing.touched && !cod_ing.valid">Campo obligatorio</span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">CURP</label>
-                <input required type="text" name="cod_curp" class="form-control" #cod_curp="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_curp">
-                <span class="col-12 error-form" *ngIf="cod_curp.touched && !cod_curp.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">INE</label>
-                <input required type="text" name="cod_ine" class="form-control" #cod_ine="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_ine">
-                <span class="col-12 error-form" *ngIf="cod_ine.touched && !cod_ine.valid">Campo obligatorio</span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="input-group-static">
-                <label>Fecha de Nacimiento</label>
-                <input class="form-control calendar-input" name="cod_fecha_nac" class="form-control"
-                  #cod_fecha_nac="ngModel" [(ngModel)]="clientecodeudor.cod_fecha_nac" disabled>
-              </div>
-            </div>
-            <div class="col-md-8">
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="dropdown">
-                    <select required class="form-control mb-3 select-margin" name="cod_sexo" id="codSexo"
-                      #cod_sexo="ngModel" [(ngModel)]="clientecodeudor.cod_sexo">
-                      <option value="">Sexo</option>
-                      <option *ngFor="let sexo of sexo;" value="{{sexo.sexo_id}}">{{sexo.sexo}}</option>
-                    </select>
-                    <span class="col-12 error-form" *ngIf="cod_sexo.touched && !cod_sexo.valid">Campo obligatorio</span>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="dropdown">
-                    <select required class="form-control mb-3 select-margin" name="cod_edo_civ" id="codEdoCiv"
-                      #cod_edo_civ="ngModel" [(ngModel)]="clientecodeudor.cod_edo_civ">
-                      <option value="">Estado Civil</option>
-                      <option *ngFor="let edociv of edociv;" value="{{edociv.estado_civil_id}}">{{edociv.estado_civil}}
-                      </option>
-                    </select>
-                    <span class="col-12 error-form" *ngIf="cod_edo_civ.touched && !cod_edo_civ.valid">Campo
-                      obligatorio</span>
-                  </div>
-                </div>
-                <div class="col-md-5">
-                  <div class="dropdown">
-                    <select required class="form-control mb-3 select-margin" name="cod_t_viv" id="codTviv"
-                      #cod_t_viv="ngModel" [(ngModel)]="clientecodeudor.cod_t_viv">
-                      <option value="">Tipo de vivienda</option>
-                      <option *ngFor="let vivienda of vivienda;" value="{{vivienda.tipo_de_vivienda_id}}">
-                        {{vivienda.tipo_de_vivienda}}</option>
-                    </select>
-                    <span class="col-12 error-form" *ngIf="cod_t_viv.touched && !cod_t_viv.valid">Campo obligatorio</span>
-                  </div>
-                </div>
-              </div>
-  
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Calle</label>
-                <input required type="text" name="cod_calle" class="form-control" #cod_calle="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_calle">
-                <span class="col-12 error-form" *ngIf="cod_calle.touched && !cod_calle.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Numero</label>
-                <input required type="text" name="cod_num" class="form-control" #cod_num="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_num">
-                <span class="col-12 error-form" *ngIf="cod_num.touched && !cod_num.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Colonia</label>
-                <input required type="text" name="cod_col" class="form-control" #cod_col="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_col">
-                <span class="col-12 error-form" *ngIf="cod_col.touched && !cod_col.valid">Campo obligatorio</span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Municipio</label>
-                <input required type="text" name="cod_mun" class="form-control" #cod_mun="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_mun">
-                <span class="col-12 error-form" *ngIf="cod_mun.touched && !cod_mun.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Estado</label>
-                <input required type="edo" name="cod_edo" class="form-control" #cod_edo="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_edo">
-                <span class="col-12 error-form" *ngIf="cod_edo.touched && !cod_edo.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Codigo postal</label>
-                <input required type="tel" name="cod_cp" class="form-control" #cod_cp="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_cp">
-                <span class="col-12 error-form" *ngIf="cod_cp.touched && !cod_cp.valid">Campo obligatorio</span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Descripcion del domicilio</label>
-                <input required type="text" name="cod_des" class="form-control" #cod_des="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_des">
-                <span class="col-12 error-form" *ngIf="cod_des.touched && !cod_des.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Ubicacion</label>
-                <input required type="text" name="cod_ubi" class="form-control" #cod_ubi="ngModel"
-                  [(ngModel)]="clientecodeudor.cod_ubi">
-                <span class="col-12 error-form" *ngIf="cod_ubi.touched && !cod_ubi.valid">Campo obligatorio</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h3>Datos del Negocio</h3>
-          </div>
+        </div>
+        <div class="col-md-8">
           <div class="row">
             <div class="col-md-3">
               <div class="dropdown">
-                <select required class="form-control mb-3 select-margin3" name="sol_t_neg" id="solTneg"
-                  #sol_t_neg="ngModel" [(ngModel)]="clientenegocio.sol_t_neg">
-                  <option value="">Tipo de negocio</option>
-                  <option *ngFor="let negocio of negocio;" value="{{negocio.tipo_de_negocio_id}}">
-                    {{negocio.tipo_de_negocio}}</option>
+                <select required class="form-control mb-3 select-margin" name="sol_sexo" id="solSexo"
+                  #sol_sexo="ngModel" [(ngModel)]="cliente.sol_sexo">
+                  <option value="">Sexo</option>
+                  <option *ngFor="let sexo of sexo;" value="{{sexo.sexo_id}}">{{sexo.sexo}}</option>
                 </select>
-                <span class="col-12 error-form" *ngIf="sol_t_neg.touched && !sol_t_neg.valid">Campo obligatorio</span>
+                <span class="col-12 error-form" *ngIf="sol_sexo.touched && !sol_sexo.valid">Campo obligatorio</span>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Giro de la actividad</label>
-                <input required type="text" name="sol_giro_neg" class="form-control" #sol_giro_neg="ngModel"
-                  [(ngModel)]="clientenegocio.sol_giro_neg">
-                <span class="col-12 error-form" *ngIf="sol_giro_neg.touched && !sol_giro_neg.valid">Campo
+            <div class="col-md-4">
+              <div class="dropdown">
+                <select required class="form-control mb-3 select-margin" name="sol_edo_civ" id="soEdoCiv"
+                  #sol_edo_civ="ngModel" [(ngModel)]="cliente.sol_edo_civ">
+                  <option value="">Estado Civil</option>
+                  <option *ngFor="let edociv of edociv;" value="{{edociv.estado_civil_id}}">{{edociv.estado_civil}}
+                  </option>
+                </select>
+                <span class="col-12 error-form" *ngIf="sol_edo_civ.touched && !sol_edo_civ.valid">Campo
                   obligatorio</span>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Ingreso Mensual</label>
-                <input required type="num" name="sol_ing_neg" class="form-control" #sol_ing_neg="ngModel"
-                  [(ngModel)]="clientenegocio.sol_ing_neg">
-                <span class="col-12 error-form" *ngIf="sol_ing_neg.touched && !sol_ing_neg.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Telefono</label>
-                <input required type="tel" name="sol_tel_neg" class="form-control" #sol_tel_neg="ngModel"
-                  [(ngModel)]="clientenegocio.sol_tel_neg">
-                <span class="col-12 error-form" *ngIf="sol_tel_neg.touched && !sol_tel_neg.valid">Campo obligatorio</span>
+            <div class="col-md-5">
+              <div class="dropdown">
+                <select required class="form-control mb-3 select-margin select-margin" name="sol_t_viv" id="solTviv"
+                  #sol_t_viv="ngModel" [(ngModel)]="cliente.sol_t_viv">
+                  <option value="">Tipo de vivienda</option>
+                  <option *ngFor="let vivienda of vivienda;" value="{{vivienda.tipo_de_vivienda_id}}">
+                    {{vivienda.tipo_de_vivienda}}</option>
+                </select>
+                <span class="col-12 error-form" *ngIf="sol_t_viv.touched && !sol_t_viv.valid">Campo obligatorio</span>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Calle</label>
-                <input required type="text" name="sol_calle_neg" class="form-control" #sol_calle_neg="ngModel"
-                  [(ngModel)]="clientenegocio.sol_calle_neg">
-                <span class="col-12 error-form" *ngIf="sol_calle_neg.touched && !sol_calle_neg.valid">Campo
-                  obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Numero</label>
-                <input required type="text" name="sol_num_neg" class="form-control" #sol_num_neg="ngModel"
-                  [(ngModel)]="clientenegocio.sol_num_neg">
-                <span class="col-12 error-form" *ngIf="sol_num_neg.touched && !sol_num_neg.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Colonia</label>
-                <input required type="text" name="sol_col_neg" class="form-control" #sol_col_neg="ngModel"
-                  [(ngModel)]="clientenegocio.sol_col_neg">
-                <span class="col-12 error-form" *ngIf="sol_col_neg.touched && !sol_col_neg.valid">Campo obligatorio</span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Municipio</label>
-                <input required type="text" name="sol_mun_neg" class="form-control" #sol_mun_neg="ngModel"
-                  [(ngModel)]="clientenegocio.sol_mun_neg">
-                <span class="col-12 error-form" *ngIf="sol_mun_neg.touched && !sol_mun_neg.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Estado</label>
-                <input required type="text" name="sol_edo_neg" class="form-control" #sol_edo_neg="ngModel"
-                  [(ngModel)]="clientenegocio.sol_edo_neg">
-                <span class="col-12 error-form" *ngIf="sol_edo_neg.touched && !sol_edo_neg.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Codigo postal</label>
-                <input required type="tel" name="sol_cp_neg" class="form-control" #sol_cp_neg="ngModel"
-                  [(ngModel)]="clientenegocio.sol_cp_neg">
-                <span class="col-12 error-form" *ngIf="sol_cp_neg.touched && !sol_cp_neg.valid">Campo obligatorio</span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Descripcion</label>
-                <input required type="text" name="sol_des_neg" class="form-control" #sol_des_neg="ngModel"
-                  [(ngModel)]="clientenegocio.sol_des_neg">
-                <span class="col-12 error-form" *ngIf="sol_des_neg.touched && !sol_des_neg.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Ubicacion</label>
-                <input required type="text" name="sol_ubi_neg" class="form-control" #sol_ubi_neg="ngModel"
-                  [(ngModel)]="clientenegocio.sol_ubi_neg">
-                <span class="col-12 error-form" *ngIf="sol_ubi_neg.touched && !sol_ubi_neg.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline my-3">
-                <label class="form-label">Horario</label>
-                <input required type="text" name="sol_hor_neg" class="form-control" #sol_hor_neg="ngModel"
-                  [(ngModel)]="clientenegocio.sol_hor_neg">
-                <span class="col-12 error-form" *ngIf="sol_hor_neg.touched && !sol_hor_neg.valid">Campo obligatorio</span>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline">
-                <label class="form-label">Foto Ine</label>
-                <div class="custom-file">
-                  <input class="custom-file-input1 custom-file-input" name="img1" type="file"
-                    (change)="fileChangeEvent1($event)">
-                  <label class="custom-file-label1 custom-file-label" for="customFile">Selecciona una imagen</label>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline">
-                <label class="form-label">Imagen CURP</label>
-                <div class="custom-file">
-                  <input class="custom-file-input2 custom-file-input" name="img2" type="file"
-                    (change)="fileChangeEvent2($event)">
-                  <label class="custom-file-label2 custom-file-label" for="customFile">Selecciona una imagen</label>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="input-group-outline">
-                <label class="form-label">Imagen comprobante de domicilio</label>
-                <div class="custom-file">
-                  <input class="custom-file-input3 custom-file-input" name="img3" type="file"
-                    (change)="fileChangeEvent3($event)">
-                  <label class="custom-file-label3 custom-file-label" for="customFile">Selecciona una imagen</label>
-                </div>
-              </div>
-            </div>
-          </div>
-  
-          <div class="row" style="margin-bottom: 40px;margin-top: 30px;">
-            <div class="col-md-6">
-            </div>
-            <div class="col-md-6 botonEnd">
-              <input type="submit" value="Guardar" class="btn btn-lg btn-success btn-size"
-                [disabled]="!formCliente.form.valid" />
-            </div>
-            <br>
-          </div>
-        </form>
+
+        </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Calle</label>
+            <input required type="text" name="sol_calle" class="form-control" #sol_calle="ngModel"
+              [(ngModel)]="cliente.sol_calle">
+            <span class="col-12 error-form" *ngIf="sol_calle.touched && !sol_calle.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Numero</label>
+            <input required type="text" name="sol_no" class="form-control" #sol_no="ngModel"
+              [(ngModel)]="cliente.sol_no">
+            <span class="col-12 error-form" *ngIf="sol_no.touched && !sol_no.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Colonia</label>
+            <input required type="text" name="sol_col" class="form-control" #sol_col="ngModel"
+              [(ngModel)]="cliente.sol_col">
+            <span class="col-12 error-form" *ngIf="sol_col.touched && !sol_col.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Municipio</label>
+            <input required type="text" name="sol_mun" class="form-control" #sol_mun="ngModel"
+              [(ngModel)]="cliente.sol_mun">
+            <span class="col-12 error-form" *ngIf="sol_mun.touched && !sol_mun.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Estado</label>
+            <input required type="text" name="sol_edo" class="form-control" #sol_edo="ngModel"
+              [(ngModel)]="cliente.sol_edo">
+            <span class="col-12 error-form" *ngIf="sol_edo.touched && !sol_edo.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Codigo postal</label>
+            <input required type="tel" name="sol_cp" class="form-control" #sol_cp="ngModel"
+              [(ngModel)]="cliente.sol_cp">
+            <span class="col-12 error-form" *ngIf="sol_cp.touched && !sol_cp.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Descripcion del domicilio</label>
+            <input required type="text" name="sol_desc" class="form-control" #sol_desc="ngModel"
+              [(ngModel)]="cliente.sol_desc">
+            <span class="col-12 error-form" *ngIf="sol_desc.touched && !sol_desc.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Ubicacion</label>
+            <input required type="text" name="sol_ubi" class="form-control" #sol_ubi="ngModel"
+              [(ngModel)]="cliente.sol_ubi">
+            <span class="col-12 error-form" *ngIf="sol_ubi.touched && !sol_ubi.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3>Conyugue / Codeudor</h3>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Nombres</label>
+            <input required type="text" name="cod_nom" class="form-control" #cod_nom="ngModel"
+              [(ngModel)]="clientecodeudor.cod_nom">
+            <span class="col-12 error-form" *ngIf="cod_nom.touched && !cod_nom.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Apellido Paterno</label>
+            <input required type="text" name="cod_pat" class="form-control" #cod_pat="ngModel"
+              [(ngModel)]="clientecodeudor.cod_pat">
+            <span class="col-12 error-form" *ngIf="cod_pat.touched && !cod_pat.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Apellido Materno</label>
+            <input required type="text" name="cod_mat" class="form-control" #cod_mat="ngModel"
+              [(ngModel)]="clientecodeudor.cod_mat">
+            <span class="col-12 error-form" *ngIf="cod_mat.touched && !cod_mat.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Parentesco</label>
+            <input required type="text" name="cod_par" class="form-control" #cod_par="ngModel"
+              [(ngModel)]="clientecodeudor.cod_par">
+            <span class="col-12 error-form" *ngIf="cod_par.touched && !cod_par.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Telefono</label>
+            <input required type="tel" maxlength="10" name="cod_tel" class="form-control" #cod_tel="ngModel"
+              [(ngModel)]="clientecodeudor.cod_tel">
+            <span class="col-12 error-form" *ngIf="cod_tel.touched && !cod_tel.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Telefono recados</label>
+            <input required type="tel" maxlength="10" name="cod_tel2" class="form-control" #cod_tel2="ngModel"
+              [(ngModel)]="clientecodeudor.cod_tel2">
+            <span class="col-12 error-form" *ngIf="cod_tel2.touched && !cod_tel2.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Ocupacion</label>
+            <input required type="text" name="cod_ocu" class="form-control" #cod_ocu="ngModel"
+              [(ngModel)]="clientecodeudor.cod_ocu">
+            <span class="col-12 error-form" *ngIf="cod_ocu.touched && !cod_ocu.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Ingreso mensual</label>
+            <input required type="text" name="cod_ing" class="form-control" #cod_ing="ngModel"
+              [(ngModel)]="clientecodeudor.cod_ing">
+            <span class="col-12 error-form" *ngIf="cod_ing.touched && !cod_ing.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">CURP</label>
+            <input required type="text" name="cod_curp" class="form-control" #cod_curp="ngModel"
+              [(ngModel)]="clientecodeudor.cod_curp">
+            <span class="col-12 error-form" *ngIf="cod_curp.touched && !cod_curp.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">INE</label>
+            <input required type="text" name="cod_ine" class="form-control" #cod_ine="ngModel"
+              [(ngModel)]="clientecodeudor.cod_ine">
+            <span class="col-12 error-form" *ngIf="cod_ine.touched && !cod_ine.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group-static">
+            <label>Fecha de Nacimiento</label>
+            <input class="form-control calendar-input" name="cod_fecha_nac" class="form-control"
+              #cod_fecha_nac="ngModel" [(ngModel)]="clientecodeudor.cod_fecha_nac" disabled>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="dropdown">
+                <select required class="form-control mb-3 select-margin" name="cod_sexo" id="codSexo"
+                  #cod_sexo="ngModel" [(ngModel)]="clientecodeudor.cod_sexo">
+                  <option value="">Sexo</option>
+                  <option *ngFor="let sexo of sexo;" value="{{sexo.sexo_id}}">{{sexo.sexo}}</option>
+                </select>
+                <span class="col-12 error-form" *ngIf="cod_sexo.touched && !cod_sexo.valid">Campo obligatorio</span>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="dropdown">
+                <select required class="form-control mb-3 select-margin" name="cod_edo_civ" id="codEdoCiv"
+                  #cod_edo_civ="ngModel" [(ngModel)]="clientecodeudor.cod_edo_civ">
+                  <option value="">Estado Civil</option>
+                  <option *ngFor="let edociv of edociv;" value="{{edociv.estado_civil_id}}">{{edociv.estado_civil}}
+                  </option>
+                </select>
+                <span class="col-12 error-form" *ngIf="cod_edo_civ.touched && !cod_edo_civ.valid">Campo
+                  obligatorio</span>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="dropdown">
+                <select required class="form-control mb-3 select-margin" name="cod_t_viv" id="codTviv"
+                  #cod_t_viv="ngModel" [(ngModel)]="clientecodeudor.cod_t_viv">
+                  <option value="">Tipo de vivienda</option>
+                  <option *ngFor="let vivienda of vivienda;" value="{{vivienda.tipo_de_vivienda_id}}">
+                    {{vivienda.tipo_de_vivienda}}</option>
+                </select>
+                <span class="col-12 error-form" *ngIf="cod_t_viv.touched && !cod_t_viv.valid">Campo obligatorio</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Calle</label>
+            <input required type="text" name="cod_calle" class="form-control" #cod_calle="ngModel"
+              [(ngModel)]="clientecodeudor.cod_calle">
+            <span class="col-12 error-form" *ngIf="cod_calle.touched && !cod_calle.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Numero</label>
+            <input required type="text" name="cod_num" class="form-control" #cod_num="ngModel"
+              [(ngModel)]="clientecodeudor.cod_num">
+            <span class="col-12 error-form" *ngIf="cod_num.touched && !cod_num.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Colonia</label>
+            <input required type="text" name="cod_col" class="form-control" #cod_col="ngModel"
+              [(ngModel)]="clientecodeudor.cod_col">
+            <span class="col-12 error-form" *ngIf="cod_col.touched && !cod_col.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Municipio</label>
+            <input required type="text" name="cod_mun" class="form-control" #cod_mun="ngModel"
+              [(ngModel)]="clientecodeudor.cod_mun">
+            <span class="col-12 error-form" *ngIf="cod_mun.touched && !cod_mun.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Estado</label>
+            <input required type="edo" name="cod_edo" class="form-control" #cod_edo="ngModel"
+              [(ngModel)]="clientecodeudor.cod_edo">
+            <span class="col-12 error-form" *ngIf="cod_edo.touched && !cod_edo.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Codigo postal</label>
+            <input required type="tel" name="cod_cp" class="form-control" #cod_cp="ngModel"
+              [(ngModel)]="clientecodeudor.cod_cp">
+            <span class="col-12 error-form" *ngIf="cod_cp.touched && !cod_cp.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Descripcion del domicilio</label>
+            <input required type="text" name="cod_des" class="form-control" #cod_des="ngModel"
+              [(ngModel)]="clientecodeudor.cod_des">
+            <span class="col-12 error-form" *ngIf="cod_des.touched && !cod_des.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Ubicacion</label>
+            <input required type="text" name="cod_ubi" class="form-control" #cod_ubi="ngModel"
+              [(ngModel)]="clientecodeudor.cod_ubi">
+            <span class="col-12 error-form" *ngIf="cod_ubi.touched && !cod_ubi.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3>Datos del Negocio</h3>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="dropdown">
+            <select required class="form-control mb-3 select-margin3" name="sol_t_neg" id="solTneg" #sol_t_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_t_neg">
+              <option value="">Tipo de negocio</option>
+              <option *ngFor="let negocio of negocio;" value="{{negocio.tipo_de_negocio_id}}">
+                {{negocio.tipo_de_negocio}}</option>
+            </select>
+            <span class="col-12 error-form" *ngIf="sol_t_neg.touched && !sol_t_neg.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Giro de la actividad</label>
+            <input required type="text" name="sol_giro_neg" class="form-control" #sol_giro_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_giro_neg">
+            <span class="col-12 error-form" *ngIf="sol_giro_neg.touched && !sol_giro_neg.valid">Campo
+              obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Ingreso Mensual</label>
+            <input required type="num" name="sol_ing_neg" class="form-control" #sol_ing_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_ing_neg">
+            <span class="col-12 error-form" *ngIf="sol_ing_neg.touched && !sol_ing_neg.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Telefono</label>
+            <input required type="tel" name="sol_tel_neg" class="form-control" #sol_tel_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_tel_neg">
+            <span class="col-12 error-form" *ngIf="sol_tel_neg.touched && !sol_tel_neg.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Calle</label>
+            <input required type="text" name="sol_calle_neg" class="form-control" #sol_calle_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_calle_neg">
+            <span class="col-12 error-form" *ngIf="sol_calle_neg.touched && !sol_calle_neg.valid">Campo
+              obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Numero</label>
+            <input required type="text" name="sol_num_neg" class="form-control" #sol_num_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_num_neg">
+            <span class="col-12 error-form" *ngIf="sol_num_neg.touched && !sol_num_neg.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Colonia</label>
+            <input required type="text" name="sol_col_neg" class="form-control" #sol_col_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_col_neg">
+            <span class="col-12 error-form" *ngIf="sol_col_neg.touched && !sol_col_neg.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Municipio</label>
+            <input required type="text" name="sol_mun_neg" class="form-control" #sol_mun_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_mun_neg">
+            <span class="col-12 error-form" *ngIf="sol_mun_neg.touched && !sol_mun_neg.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Estado</label>
+            <input required type="text" name="sol_edo_neg" class="form-control" #sol_edo_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_edo_neg">
+            <span class="col-12 error-form" *ngIf="sol_edo_neg.touched && !sol_edo_neg.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Codigo postal</label>
+            <input required type="tel" name="sol_cp_neg" class="form-control" #sol_cp_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_cp_neg">
+            <span class="col-12 error-form" *ngIf="sol_cp_neg.touched && !sol_cp_neg.valid">Campo obligatorio</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Descripcion</label>
+            <input required type="text" name="sol_des_neg" class="form-control" #sol_des_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_des_neg">
+            <span class="col-12 error-form" *ngIf="sol_des_neg.touched && !sol_des_neg.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Ubicacion</label>
+            <input required type="text" name="sol_ubi_neg" class="form-control" #sol_ubi_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_ubi_neg">
+            <span class="col-12 error-form" *ngIf="sol_ubi_neg.touched && !sol_ubi_neg.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline my-3">
+            <label class="form-label">Horario</label>
+            <input required type="text" name="sol_hor_neg" class="form-control" #sol_hor_neg="ngModel"
+              [(ngModel)]="clientenegocio.sol_hor_neg">
+            <span class="col-12 error-form" *ngIf="sol_hor_neg.touched && !sol_hor_neg.valid">Campo obligatorio</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline">
+            <label class="form-label">Foto Ine</label>
+            <div class="custom-file">
+              <input class="custom-file-input1 custom-file-input" name="img1" type="file"
+                (change)="fileChangeEvent1($event)">
+              <label class="custom-file-label1 custom-file-label" for="customFile">Selecciona una imagen</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline">
+            <label class="form-label">Imagen CURP</label>
+            <div class="custom-file">
+              <input class="custom-file-input2 custom-file-input" name="img2" type="file"
+                (change)="fileChangeEvent2($event)">
+              <label class="custom-file-label2 custom-file-label" for="customFile">Selecciona una imagen</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group-outline">
+            <label class="form-label">Imagen comprobante de domicilio</label>
+            <div class="custom-file">
+              <input class="custom-file-input3 custom-file-input" name="img3" type="file"
+                (change)="fileChangeEvent3($event)">
+              <label class="custom-file-label3 custom-file-label" for="customFile">Selecciona una imagen</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 40px;margin-top: 30px;">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-6 botonEnd">
+          <input type="submit" value="Guardar" class="btn btn-lg btn-success btn-size"
+            [disabled]="!formCliente.form.valid" />
+        </div>
+        <br>
+      </div>
+    </form>
   </div>
