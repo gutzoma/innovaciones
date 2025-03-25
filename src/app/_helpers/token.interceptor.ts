@@ -1,28 +1,20 @@
-import { AuthenticationService } from './../_services/authentication.service';
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-} from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { isPlatformServer } from '@angular/common';
+import { HttpInterceptor, HttpInterceptorFn } from '@angular/common/http';
+import { inject, Inject, PLATFORM_ID } from '@angular/core';
 
-@Injectable()
-export class TokenInterceptor implements HttpInterceptor {
-  constructor(public authenticationService: AuthenticationService) {}
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    if (this.authenticationService.isLoggedIn()) {
-      let newRequest = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${this.authenticationService.getToken()}`,
-        },
-      });
-      return next.handle(newRequest);
-    }
-    return next.handle(request);
+export const TokenInterceptor: HttpInterceptorFn = (req, next) => {
+  const plataformid = inject(PLATFORM_ID);
+  if (isPlatformServer(plataformid)) {
+    return next(req);
   }
-}
+
+  const token = localStorage.getItem('token');
+
+  let headers = req.headers.set('Content-Type', 'application/json');
+
+  if (token) {
+    headers = headers.set('Authorization', `Bearer ${token}`);
+  }
+  const authReq = req.clone({ headers });
+  return next(authReq);
+};
