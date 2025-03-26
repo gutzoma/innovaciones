@@ -1,1 +1,241 @@
-<p>cashbox works!</p>
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Registro de clientel</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">Registro de cliente
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form #formLiquidar="ngForm" (ngSubmit)="runInsertCashbox(formLiquidar)" enctype="multipart/form-data">
+            <div class="col-xs-12 col-md-8">
+                <ngx-select-dropdown id="search_cred_id" (change)="onSelectionChange($event)" [config]="config"
+                    [options]="clientes"></ngx-select-dropdown>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group-outline">
+                        <label class="form-label">Numero de prestamo</label>
+                        <input disabled required type="text" name="prestamo_id" #prestamo_id="ngModel"
+                            [(ngModel)]="payment.prestamo_id" class="form-control" />
+                        <span class="col-12 error-form" *ngIf="prestamo_id.touched && !prestamo_id.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group-static">
+                        <label class="form-label">Fecha de pago</label>
+                        <input class="form-control calendar-input" [matDatepicker]="cred" name="fecha_payment" />
+                        <mat-datepicker-toggle matSuffix [for]="cred"></mat-datepicker-toggle>
+                        <mat-datepicker #cred></mat-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group-outline">
+                        <label class="form-label">P. Credito</label>
+                        <input required type="text" name="p_credito" #p_credito="ngModel"
+                            [(ngModel)]="payment.p_credito" class="form-control" />
+                        <span class="col-12 error-form" *ngIf="p_credito.touched && !p_credito.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group-outline">
+                        <label class="form-label">P. Mora</label>
+                        <input required type="text" name="p_mora" #p_mora="ngModel" [(ngModel)]="payment.p_mora"
+                            class="form-control" />
+                        <span class="col-12 error-form" *ngIf="p_mora.touched && !p_mora.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group-outline">
+                        <label class="form-label">Total</label>
+                        <input disabled required type="text" name="cantidad" #cantidad="ngModel"
+                            [(ngModel)]="payment.cantidad" class="form-control" />
+                        <span class="col-12 error-form" *ngIf="cantidad.touched && !cantidad.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group-outline">
+                        <label class="form-label">No pago</label>
+                        <input required type="text" name="number" #number="ngModel" [(ngModel)]="payment.number"
+                            class="form-control" />
+                        <span class="col-12 error-form" *ngIf="number.touched && !number.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group-outline">
+                        <label class="form-label">Concepto</label>
+                        <input required type="text" name="cocept" #cocept="ngModel" [(ngModel)]="payment.cocept"
+                            class="form-control" />
+                        <span class="col-12 error-form" *ngIf="cocept.touched && !cocept.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Forma de Pago</label>
+                    <div class="dropdown">
+                        <select required class="form-control mb-3" name="payment_type" id="payment_type"
+                            #payment_type="ngModel" [(ngModel)]="payment.payment_type">
+                            <option value="Efectivo">Efectivo</option>
+                            <option value="Cheque">Cheque</option>
+                            <option value="Transferencia">Transferencia</option>
+                        </select>
+                        <span class="col-12 error-form" *ngIf="payment_type.touched && !payment_type.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Pago en</label>
+                    <div class="dropdown">
+                        <select required class="form-control mb-3" name="place" id="place"
+                            #place="ngModel" [(ngModel)]="payment.place">
+                            <option value="Oficina">Oficina</option>
+                            <option value="Campo">Campo</option>
+                        </select>
+                        <span class="col-12 error-form" *ngIf="place.touched && !place.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+
+                <div class="col-md-2 botonEnd">
+                    <a class="btn btn-lg btn-success margin-top-cuztom" href="javascript:;" (click)="printPage()"><i
+                            class="material-icons text-sm me-2"></i>Imprimir Recibo</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Text input with checkbox"
+                                    class="cred_garantia" value=""  id="print_valid" name="print_valid" #print_valid="ngModel"
+                                    [(ngModel)]="payment.print_valid">
+                            </div>
+                        </div>
+                        <input disabled type="text" class="form-control" placeholder="Has Impreso el Recibo?"
+                            aria-label="checkbox" aria-describedby="basic-addon1">
+                    </div>
+                    <input type="submit" value="Guardar Pago" class="btn btn-lg btn-success margin-top-cuztom save-payment"
+                        [disabled]="!formLiquidar.form.valid" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="agrrement-section" style="display: none">
+        <div style="text-align: center">
+            <img src="../assets/images/logo/logo.png" class="img-fluid rounded-normal light-logo ticketLogo" alt="logo">
+            <h3 style="text-transform: uppercase">RECIBO DE PAGO (CLIENTE)</h3>
+        </div>
+        <div align="right">
+            <h3><b>Fecha: <span class="fecha_recibo"></span></b></h3>
+        </div>
+        <div>
+            <div align="right">
+                <h3 class="text_recibo"><b>Cantidad: </b> <span class="textCantidadT"></span></h3>
+            </div>
+            <div align="left"><span class="text_recibo"><b>Recibi de: </b> <span class="cliente_name"></span></span>
+            </div>
+            <span class="text_recibo"><b>Concepto: </b> <span class="concepto"></span></span><br />
+            <span class="text_recibo"><b>Forma de pago: </b> <span class="forma_pago"></span></span><br />
+        </div>
+        <table class="default" width="100%">
+            <tr>
+                <td width="40%" align="center" height="30">
+                </td>
+                <td width="20%" align="center"></td>
+                <td width="40%" align="center"></td>
+            </tr>
+            <tr>
+                <td width="40%" align="center">
+                </td>
+                <td width="20%" align="center"></td>
+                <td width="40%" align="center">
+                    <hr class="firma_recibo">
+                </td>
+            </tr>
+            <tr>
+                <td width="40%" align="center">
+                </td>
+                <td width="20%" align="center"></td>
+                <td width="40%" align="left">Recibido Por <br>INNOVACIONES PAAY<br>Ing. Felipe Robles Paulino
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div style="text-align: center">
+            <div class="card">
+                <div class="">
+                    <span><b>Direccion de las oficinas de Innovaciones Paay</b></span><br />
+                    <span>Av Chapultepec #34 Lt 1 Amecameca Col. Centro.</span><br />
+                    <span><b>Número telefónico 597-1154141 o 597-1154143</b></span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr class="firma_recibo" style="border: 1px dashed;">
+        <br>
+        <div style="text-align: center">
+            <img src="../assets/images/logo/logo.png" class="img-fluid rounded-normal light-logo ticketLogo" alt="logo">
+            <h3 style="text-transform: uppercase">RECIBO DE PAGO (PAAY)</h3>
+        </div>
+        <div align="right">
+            <h3><b>Fecha: <span class="fecha_recibo"></span></b></h3>
+        </div>
+        <div>
+            <div align="right">
+                <h3 class="text_recibo"><b>Cantidad: </b> <span class="textCantidadT"></span></h3>
+            </div>
+            <div align="left"><span class="text_recibo"><b>Recibi de: </b> <span class="cliente_name"></span></span>
+            </div>
+            <span class="text_recibo"><b>Concepto: </b> <span class="concepto"></span></span><br />
+            <span class="text_recibo"><b>Forma de pago: </b> <span class="forma_pago"></span></span><br />
+        </div>
+        <table class="default" width="100%">
+            <tr>
+                <td width="40%" align="center" height="30">
+                </td>
+                <td width="20%" align="center"></td>
+                <td width="40%" align="center"></td>
+            </tr>
+            <tr>
+                <td width="40%" align="center">
+                </td>
+                <td width="20%" align="center"></td>
+                <td width="40%" align="center">
+                    <hr class="firma_recibo">
+                </td>
+            </tr>
+            <tr>
+                <td width="40%" align="center">
+                </td>
+                <td width="20%" align="center"></td>
+                <td width="40%" align="left">Recibido Por <br>INNOVACIONES PAAY<br>Ing. Felipe Robles Paulino
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div style="text-align: center">
+            <div class="card">
+                <div class="">
+                    <span><b>Direccion de las oficinas de Innovaciones Paay</b></span><br />
+                    <span>Av Chapultepec #34 Lt 1 Amecameca Col. Centro.</span><br />
+                    <span><b>Número telefónico 597-1154141 o 597-1154143</b></span>
+                </div>
+            </div>
+        </div>
+    </div>

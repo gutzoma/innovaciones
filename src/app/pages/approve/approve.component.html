@@ -1,1 +1,214 @@
-<p>approve works!</p>
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Registro de clientel</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">Registro de cliente
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form #formCredito="ngForm" (ngSubmit)="upCredit(formCredito)">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <ngx-select-dropdown id="apro_cliente_id" (change)="onSelectionChange($event)" [config]="config"
+                        [options]="clientes"></ngx-select-dropdown>
+
+                </div>
+                <div class="col-md-6 row">
+                    <div class="col-md-7">
+                        <div class="input-group-outline my-3">
+                            <span class="">Id Cliente: <b><span id="idCli"></span></b></span>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group-outline my-3">
+                            <span class="">No credito: <b><span id="noCreCli"></span></b></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="disp-n" id="formEdit">
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Monto Solicitado</label>
+                            <input readonly type="number" name="cred_mon_sol" #cred_mon_sol="ngModel"
+                                [(ngModel)]="clientecredito.cred_mon_sol" class="form-control" required>
+                            <span class="col-12 error-form" *ngIf="cred_mon_sol.touched && !cred_mon_sol.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Plazo Solicitado</label>
+                            <select disabled required class="form-control mb-3" name="cred_plazo" id="cred_plazo"
+                                #cred_plazo="ngModel" [(ngModel)]="clientecredito.cred_plazo">
+                                <option value="">Plazo</option>
+                                <option *ngFor="let plazo of plazos;" value="{{plazo.id_plazo}}">{{plazo.cuotas}}
+                                    {{plazo.name}}</option>
+                            </select>
+                            <span class="col-12 error-form" *ngIf="cred_plazo.touched && !cred_plazo.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Destino de credito</label>
+                            <input readonly type="text" class="form-control" name="cred_des" #cred_des="ngModel"
+                                [(ngModel)]="clientecredito.cred_des" required>
+                            <span class="col-12 error-form" *ngIf="cred_des.touched && !cred_des.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <h3>Datos de Aprobacion</h3>
+                    </div>
+                    <div class="">
+                        <div class="form-check form-check-inline">
+                            <label class="form-label status-magin"><b>Status:</b></label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="0" name="cred_status"
+                                #cred_status="ngModel" [(ngModel)]="clientecredito.cred_status">
+                            <label class="form-check-label">En espara</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="cred_status" #cred_status="ngModel"
+                                [(ngModel)]="clientecredito.cred_status" value="1">
+                            <label class="form-check-label">Aprobado</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="cred_status" #cred_status="ngModel"
+                                [(ngModel)]="clientecredito.cred_status" value="2">
+                            <label class="form-check-label">Rechazado</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="cred_status" #cred_status="ngModel"
+                                [(ngModel)]="clientecredito.cred_status" value="3">
+                            <label class="form-check-label">Cancelado</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group-outline my-3">
+                                <label class="form-label">Monto Autorizado</label>
+                                <input type="number" class="form-control" name="cred_mon_aut" #cred_mon_aut="ngModel"
+                                    [(ngModel)]="clientecredito.cred_mon_aut" required>
+                                <span class="col-12 error-form"
+                                    *ngIf="cred_mon_aut.touched && !cred_mon_aut.valid">Campo obligatorio</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="dropdown">
+                                <select required class="form-control mb-3 select-margin3" name="cred_plazo_aut"
+                                    #cred_plazo_aut="ngModel" [(ngModel)]="clientecredito.cred_plazo_aut" required>
+                                    <option value="">Plazo</option>
+                                    <option *ngFor="let plazo of plazos;" value="{{plazo.id_plazo}}">
+                                        {{plazo.cuotas}}
+                                        {{plazo.name}}</option>
+                                </select>
+                                <span class="col-12 error-form"
+                                    *ngIf="cred_plazo_aut.touched && !cred_plazo_aut.valid">Campo obligatorio</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group-outline my-3">
+                                <label class="form-label">Interes</label>
+                                <input type="text" name="cred_int_aut" #cred_int_aut="ngModel"
+                                    [(ngModel)]="clientecredito.cred_int_aut" class="form-control" required>
+                                <span class="col-12 error-form"
+                                    *ngIf="cred_int_aut.touched && !cred_int_aut.valid">Campo obligatorio</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" aria-label="Text input with checkbox"
+                                            class="cred_garantia" value="0" name="cred_garantia"
+                                            #cred_garantia="ngModel" [(ngModel)]="clientecredito.cred_garantia"
+                                            (change)="checkClickFunc()">
+                                    </div>
+                                </div>
+                                <input disabled type="text" class="form-control" placeholder="Aplica garantia?"
+                                    aria-label="checkbox" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row disp-n warranty">
+                        <div class="col-md-4">
+                            <div class="input-group-outline my-3">
+                                <label class="form-label">Foto:</label>
+                                <input ngModel class="form-control" id="garantia_img" name="garantia_img" type="file"
+                                    (change)="fileChangeEvent1($event)">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group-outline my-3">
+                                <label class="form-label">Avaluo</label>
+                                <input type="text" name="garantia_avaluo" #garantia_avaluo="ngModel"
+                                    [(ngModel)]="clientegarantia.garantia_avaluo" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="input-group-outline my-3">
+                                <label class="form-label">Descripcion</label>
+                                <input type="text" name="garantia_des" #garantia_des="ngModel"
+                                    [(ngModel)]="clientegarantia.garantia_des" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group-static">
+                                <label>Fecha de desembolso</label>
+                                <input class="form-control calendar-input" [matDatepicker]="cred" name="cred_fecha_aut"
+                                    class="form-control" #cred_fecha_aut="ngModel"
+                                    [(ngModel)]="clientecredito.cred_fecha_aut" required>
+                                <mat-datepicker-toggle matSuffix [for]="cred"></mat-datepicker-toggle>
+                                <mat-datepicker #cred></mat-datepicker>
+                                <span class="col-12 error-form"
+                                    *ngIf="cred_fecha_aut.touched && !cred_fecha_aut.valid">Campo
+                                    obligatorio</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dropdown">
+                                <select required class="form-control mb-3 select-margin4" name="cred_asesor"
+                                    #cred_asesor="ngModel" [(ngModel)]="clientecredito.cred_asesor">
+                                    <option value="">Asesor</option>
+                                    <option *ngFor="let asesores of asesores;" value="{{asesores.cartera}}">
+                                        {{asesores.nombres + ' ' + asesores.paterno}}
+                                    </option>
+                                </select>
+                                <span class="col-12 error-form" *ngIf="cred_asesor.touched && !cred_asesor.valid">Campo
+                                    obligatorio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6 botonEnd">
+                        <input type="submit" value="Guardar" class="btn btn-lg btn-success btn-size"
+                            [disabled]="!formCredito.form.valid" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>

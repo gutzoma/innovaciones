@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { GeneralesService } from '../../_services/generales.service';
-import { CreditosService } from '../../_services/creditos.service';
 import { SearchService } from '../../_services/search.service';
 import { formatDate } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -14,7 +13,7 @@ import {
   NativeDateAdapter,
   DateAdapter,
   MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
+  MAT_DATE_LOCALE
 } from '@angular/material/core';
 
 declare let $: any;
@@ -57,6 +56,7 @@ class PickDateAdapter extends NativeDateAdapter {
     GeneralesService,
     { provide: DateAdapter, useClass: PickDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
   ],
 })
 export class AddpaymentComponent {
