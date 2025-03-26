@@ -17,7 +17,6 @@ export class GeneralesService{
 	getTcliente(): Observable<any> {
 		let headers = new HttpHeaders()
 		  .set('Content-Type', 'application/json')
-	  
 		return this._http.get(this.url + 'tipo-cliente', { headers: headers });
 	  }
 	getTvivienda(): Observable<any>{

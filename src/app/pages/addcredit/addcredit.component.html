@@ -1,1 +1,249 @@
-<p>addcredit works!</p>
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Registro de Credito</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">Registro de Credito
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form #formCredito="ngForm" (ngSubmit)="saveCredit(formCredito)">
+            <div class="row">
+                <div class="col-md-6">
+                    <ngx-select-dropdown id="cred_cli_id" (change)="onSelectionChange($event)" [config]="config"
+                        [options]="clientes"></ngx-select-dropdown>
+                </div>
+                <div class="col-md-6 row">
+                    <div class="col-md-6">
+                        <div class="input-group-outline my-3">
+                            <span class="">Id Cliente: <b><span id="idCli"></span></b></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group-outline my-3">
+                            <span class="">No credito: <b><span id="noCreCli"></span></b></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="input-group-outline my-3">
+                        <label class="form-label">Monto Solicitado</label>
+                        <input required type="number" name="cred_mon_sol" #cred_mon_sol="ngModel"
+                            [(ngModel)]="clientecredito.cred_mon_sol" class="form-control">
+                        <span class="col-12 error-form" *ngIf="cred_mon_sol.touched && !cred_mon_sol.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown">
+                        <select required class="form-control mb-3 select-margin3" name="cred_plazo" id="cred_plazo"
+                            #cred_plazo="ngModel" [(ngModel)]="clientecredito.cred_plazo">
+                            <option value="">Plazo</option>
+                            <option *ngFor="let plazo of plazos;" value="{{plazo.id_plazo}}">{{plazo.cuotas}}
+                                {{plazo.name}}</option>
+                        </select>
+                        <span class="col-12 error-form" *ngIf="cred_plazo.touched && !cred_plazo.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="input-group-outline my-3">
+                        <label class="form-label">Destino de credito</label>
+                        <input required type="text" class="form-control" name="cred_des" #cred_des="ngModel"
+                            [(ngModel)]="clientecredito.cred_des">
+                        <span class="col-12 error-form" *ngIf="cred_des.touched && !cred_des.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Referencias Personales</h3>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">1.-</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="cred_ref1_nom" #cred_ref1_nom="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref1_nom">
+                            <span class="col-12 error-form" *ngIf="cred_ref1_nom.touched && !cred_ref1_nom.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Parentesco</label>
+                            <input type="text" class="form-control" name="cred_ref1_par" #cred_ref1_par="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref1_par">
+                            <span class="col-12 error-form" *ngIf="cred_ref1_par.touched && !cred_ref1_par.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Comentarios</label>
+                            <input type="text" class="form-control" name="cred_ref1_com" #cred_ref1_com="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref1_com">
+                            <span class="col-12 error-form" *ngIf="cred_ref1_com.touched && !cred_ref1_com.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Direccion</label>
+                            <input type="text" class="form-control" name="cred_ref1_dir" #cred_ref1_dir="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref1_dir">
+                            <span class="col-12 error-form" *ngIf="cred_ref1_dir.touched && !cred_ref1_dir.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Telefono</label>
+                            <input type="tel" class="form-control" name="cred_ref1_tel" #cred_ref1_tel="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref1_tel">
+                            <span class="col-12 error-form" *ngIf="cred_ref1_tel.touched && !cred_ref1_tel.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">2.-</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="cred_ref2_nom" #cred_ref2_nom="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref2_nom">
+                            <span class="col-12 error-form" *ngIf="cred_ref2_nom.touched && !cred_ref2_nom.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Parentesco</label>
+                            <input type="text" class="form-control" name="cred_ref2_par" #cred_ref2_par="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref2_par">
+                            <span class="col-12 error-form" *ngIf="cred_ref2_par.touched && !cred_ref2_par.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Comentarios</label>
+                            <input type="text" class="form-control" name="cred_ref2_com" #cred_ref2_com="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref2_com">
+                            <span class="col-12 error-form" *ngIf="cred_ref2_com.touched && !cred_ref2_com.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Direccion</label>
+                            <input type="text" class="form-control" name="cred_ref2_dir" #cred_ref2_dir="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref2_dir">
+                            <span class="col-12 error-form" *ngIf="cred_ref2_dir.touched && !cred_ref2_dir.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Telefono</label>
+                            <input type="text" class="form-control" name="cred_ref2_tel" #cred_ref2_tel="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref2_tel">
+                            <span class="col-12 error-form" *ngIf="cred_ref2_tel.touched && !cred_ref2_tel.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">3.-</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="cred_ref3_nom" #cred_ref3_nom="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref3_nom">
+                            <span class="col-12 error-form" *ngIf="cred_ref3_nom.touched && !cred_ref3_nom.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Parentesco</label>
+                            <input type="text" class="form-control" name="cred_ref3_par" #cred_ref3_par="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref3_par">
+                            <span class="col-12 error-form" *ngIf="cred_ref3_par.touched && !cred_ref3_par.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Comentarios</label>
+                            <input type="text" class="form-control" name="cred_ref3_com" #cred_ref3_com="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref3_com">
+                            <span class="col-12 error-form" *ngIf="cred_ref3_com.touched && !cred_ref3_com.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Direccion</label>
+                            <input type="text" class="form-control" name="cred_ref3_dir" #cred_ref3_dir="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref3_dir">
+                            <span class="col-12 error-form" *ngIf="cred_ref3_dir.touched && !cred_ref3_dir.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group-outline my-3">
+                            <label class="form-label">Telefono</label>
+                            <input type="text" class="form-control" name="cred_ref3_tel" #cred_ref3_tel="ngModel"
+                                [(ngModel)]="clientecredito.cred_ref3_tel">
+                            <span class="col-12 error-form" *ngIf="cred_ref3_tel.touched && !cred_ref3_tel.valid">Campo
+                                obligatorio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6 botonEnd">
+                    <input type="submit" value="Guardar" class="btn btn-lg btn-success btn-size"
+                        [disabled]="!formCredito.form.valid" />
+                </div>
+            </div>
+        </form>
+    </div>

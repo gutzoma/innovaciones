@@ -108,6 +108,10 @@ export class EditclientComponent {
         }
       },
       error => {
+        if(error.status === 401){
+          localStorage.clear();
+          window.location.href = '';
+        }
         console.log(<any>error);
       }
     );
@@ -200,6 +204,10 @@ export class EditclientComponent {
       },
       error => {
         console.log(<any>error);
+        if(error.status === 401){
+          localStorage.clear();
+          window.location.href = '';
+        }
       }
     );
   }

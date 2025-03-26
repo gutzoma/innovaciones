@@ -1,0 +1,89 @@
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Registrar Pago</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">Registrar Pago
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form #formLiquidar="ngForm" (ngSubmit)="runInsertPayment(formLiquidar)" enctype="multipart/form-data">
+            <div class="col-xs-12 col-md-8">
+
+                <ngx-select-dropdown id="search_cred_id" (change)="onSelectionChange($event)" [config]="config"
+                    [options]="clientes"></ngx-select-dropdown>
+
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group-outline ">
+                        <label class="form-label">Numero de prestamo</label>
+                        <input disabled required type="text" name="prestamo_id" #prestamo_id="ngModel"
+                            [(ngModel)]="payment.prestamo_id" class="form-control">
+                        <span class="col-12 error-form" *ngIf="prestamo_id.touched && !prestamo_id.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group-static">
+                        <label class="form-label">Fecha de pago</label>
+                        <input class="form-control calendar-input" [matDatepicker]="cred" name="fecha_payment">
+                        <mat-datepicker-toggle matSuffix [for]="cred"></mat-datepicker-toggle>
+                        <mat-datepicker #cred></mat-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group-outline ">
+                        <label class="form-label">P. Credito</label>
+                        <input required type="text" name="p_credito" #p_credito="ngModel"
+                            [(ngModel)]="payment.p_credito" class="form-control">
+                        <span class="col-12 error-form" *ngIf="p_credito.touched && !p_credito.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group-outline ">
+                        <label class="form-label">P. Mora</label>
+                        <input required type="text" name="p_mora" #p_mora="ngModel" [(ngModel)]="payment.p_mora"
+                            class="form-control">
+                        <span class="col-12 error-form" *ngIf="p_mora.touched && !p_mora.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group-outline ">
+                        <label class="form-label">Total</label>
+                        <input disabled required type="text" name="cantidad" #cantidad="ngModel"
+                            [(ngModel)]="payment.cantidad" class="form-control">
+                        <span class="col-12 error-form" *ngIf="cantidad.touched && !cantidad.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group-outline">
+                        <label class="form-label">No pago</label>
+                        <input required type="text" name="number" #number="ngModel" [(ngModel)]="payment.number"
+                            class="form-control">
+                        <span class="col-12 error-form" *ngIf="number.touched && !number.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6 botonEnd">
+                    <input type="submit" value="Confirmar" class="btn btn-lg btn-success add-payment"
+                        [disabled]="!formLiquidar.form.valid" />
+                </div>
+            </div>
+        </form>
+    </div>
