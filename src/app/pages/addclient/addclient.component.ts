@@ -126,6 +126,10 @@ export class AddclientComponent implements OnInit {
         }else{
           alert('Error, Intente nuevamente');
         }
+        if(error.status === 401){
+          localStorage.clear();
+          window.location.href = '';
+        }
 			}
 		);
     //form.reset();
@@ -139,6 +143,10 @@ export class AddclientComponent implements OnInit {
         }
       },
       error => {
+        if(error.status === 401){
+          localStorage.clear();
+          window.location.href = '';
+        }
         console.log(<any>error);
       }
     );

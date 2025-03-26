@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Global } from './global';
-import { Cliente } from '../_models/cliente';
-import { ClienteCodeudor } from '../_models/codeudor';
-import { ClienteNegocio } from '../_models/negocio';
 import { Liquidaciones } from '../_models/liquidaciones';
 
 @Injectable()
@@ -17,11 +14,12 @@ export class GeneralesService{
 		this.url = Global.url;
 	}
 
-	getTcliente(): Observable<any>{
-		let headers = new HttpHeaders().set('Content-Type', 'application/json');
-
-		return this._http.get(this.url+'tipo-cliente', {headers: headers});
-	}
+	getTcliente(): Observable<any> {
+		let headers = new HttpHeaders()
+		  .set('Content-Type', 'application/json')
+	  
+		return this._http.get(this.url + 'tipo-cliente', { headers: headers });
+	  }
 	getTvivienda(): Observable<any>{
 		let headers = new HttpHeaders().set('Content-Type', 'application/json');
 
