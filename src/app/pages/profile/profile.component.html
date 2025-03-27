@@ -49,293 +49,304 @@
                 </div>
             </div>
         </div>
-        
-            <div class="row mt-4">
-                <div class="col-12">
-                    <div class="card mb-4 ">
-                        <div class="d-flex">
-                            <h6 class="mt-3 mb-2 ms-3 title-tabs">Mis recuperaciones</h6>
-                        </div>
-                        <div class="card-body p-3">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="table-responsive">
-                                        <table class="table align-items-center">
-                                            <thead>
-                                                <tr>
-                                                    <td class="w-30">
-                                                        <div class="d-flex px-2 py-1 align-items-center">
-                                                            <div class="ms-4">
-                                                                <p class="text-xs font-weight-bold mb-0 ">ID CREDITO
-                                                                </p>
-                                                            </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card mb-4 ">
+                    <div class="d-flex">
+                        <h6 class="mt-3 mb-2 ms-3 title-tabs">Mis recuperaciones</h6>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table align-items-center">
+                                        <thead>
+                                            <tr>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">ID CREDITO
+                                                            </p>
                                                         </div>
-                                                    </td>
-                                                    <td class="w-30">
-                                                        <div class="d-flex px-2 py-1 align-items-center">
-                                                            <div class="ms-4">
-                                                                <p class="text-xs font-weight-bold mb-0 ">ID CLIENTE
-                                                                </p>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">ID CLIENTE
+                                                            </p>
                                                         </div>
-                                                    </td>
-                                                    <td class="w-30">
-                                                        <div class="d-flex px-2 py-1 align-items-center">
-                                                            <div class="ms-4">
-                                                                <p class="text-xs font-weight-bold mb-0 ">NOMBRE</p>
-                                                            </div>
+                                                    </div>
+                                                </td>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">NOMBRE</p>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <p class="text-xs font-weight-bold mb-0 ">NO. PAGO</p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">NO. PAGO</p>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle text-sm">
+                                                    <div class="col text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">MONTO</p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">FECHA</p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">DIAS DE ATRASO</p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">ASESOR</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (dato_agenda of datos_agenda; track $index) {
+                                            <tr>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">
+                                                                {{dato_agenda.prestamo_id}}
+                                                            </p>
                                                         </div>
-                                                    </td>
-                                                    <td class="align-middle text-sm">
-                                                        <div class="col text-center">
-                                                            <p class="text-xs font-weight-bold mb-0 ">MONTO</p>
+                                                    </div>
+                                                </td>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">
+                                                                {{dato_agenda.cliente_id}}
+                                                            </p>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <p class="text-xs font-weight-bold mb-0 ">FECHA</p>
+                                                    </div>
+                                                </td>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 "
+                                                                style="font-size:12px">{{dato_agenda.paterno}}
+                                                                {{dato_agenda.materno}} {{dato_agenda.nombres}}</p>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <p class="text-xs font-weight-bold mb-0 ">DIAS DE ATRASO</p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">
+                                                            {{dato_agenda.no_pago}}</p>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle text-sm">
+                                                    <div class="col text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">{{dato_agenda.cuota}}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">{{dato_agenda.fecha}}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <p *ngIf="dato_agenda.atraso > 0"
+                                                            class="text-amort text-xs font-weight-bold mb-0 ">
+                                                            {{dato_agenda.atraso}}</p>
+                                                        <p *ngIf="dato_agenda.atraso == 0"
+                                                            class="text-xs font-weight-bold mb-0 ">
+                                                            {{dato_agenda.atraso}}</p>
+                                                    </div>
+                                                </td>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 "
+                                                                style="font-size:12px">{{dato_agenda.asesor_paterno}}
+                                                                {{dato_agenda.asesor_materno}}
+                                                                {{dato_agenda.asesor_nombre}}</p>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <p class="text-xs font-weight-bold mb-0 ">ASESOR</p>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @for (dato_agenda of datos_agenda; track $index) {
-                                                <tr>
-                                                    <td class="w-30">
-                                                        <div class="d-flex px-2 py-1 align-items-center">
-                                                            <div class="ms-4">
-                                                                <p class="text-xs font-weight-bold mb-0 ">{{dato_agenda.prestamo_id}}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="w-30">
-                                                        <div class="d-flex px-2 py-1 align-items-center">
-                                                            <div class="ms-4">
-                                                                <p class="text-xs font-weight-bold mb-0 ">{{dato_agenda.cliente_id}}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="w-30">
-                                                        <div class="d-flex px-2 py-1 align-items-center">
-                                                            <div class="ms-4">
-                                                                <p class="text-xs font-weight-bold mb-0 " style="font-size:12px">{{dato_agenda.paterno}} {{dato_agenda.materno}} {{dato_agenda.nombres}}</p>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <p class="text-xs font-weight-bold mb-0 ">{{dato_agenda.no_pago}}</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="align-middle text-sm">
-                                                        <div class="col text-center">
-                                                            <p class="text-xs font-weight-bold mb-0 ">{{dato_agenda.cuota}}</p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <p class="text-xs font-weight-bold mb-0 ">{{dato_agenda.fecha}}</p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-center">
-                                                            <p *ngIf="dato_agenda.atraso > 0" class="text-amort text-xs font-weight-bold mb-0 ">{{dato_agenda.atraso}}</p>
-                                                            <p *ngIf="dato_agenda.atraso == 0" class="text-xs font-weight-bold mb-0 ">{{dato_agenda.atraso}}</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="w-30">
-                                                        <div class="d-flex px-2 py-1 align-items-center">
-                                                            <div class="ms-4">
-                                                                <p class="text-xs font-weight-bold mb-0 " style="font-size:12px">{{dato_agenda.asesor_paterno}} {{dato_agenda.asesor_materno}} {{dato_agenda.asesor_nombre}}</p>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                             }
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        
+        </div>
 
-    <div class="row mt-4">
-        <div class="col-12 tab-profile">
-            <div class="card mb-4 ">
-                <div class="d-flex">
-                    <h6 class="mt-3 mb-2 ms-3 title-tabs">Mi cartera</h6>
-                </div>
-                <div class="card-body p-3">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="table-responsive">
-                                <table class="table align-items-center ">
-                                    <thead>
-                                        <tr>
-                                            <td class="w-30">
-                                                <div class="d-flex px-2 py-1 align-items-center">
-                                                    <div class="ms-4">
-                                                        <p class="text-xs font-weight-bold mb-0 ">ID CREDITO
-                                                        </p>
+        <div class="row mt-4">
+            <div class="col-12 tab-profile">
+                <div class="card mb-4 ">
+                    <div class="d-flex">
+                        <h6 class="mt-3 mb-2 ms-3 title-tabs">Mi cartera</h6>
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive">
+                                    <table class="table align-items-center ">
+                                        <thead>
+                                            <tr>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">ID CREDITO
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="w-30">
-                                                <div class="d-flex px-2 py-1 align-items-center">
-                                                    <div class="ms-4">
-                                                        <p class="text-xs font-weight-bold mb-0 ">ID CLIENTE
-                                                        </p>
+                                                </td>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">ID CLIENTE
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="w-30">
-                                                <div class="d-flex px-2 py-1 align-items-center">
-                                                    <div class="ms-4">
-                                                        <p class="text-xs font-weight-bold mb-0 ">CICLO
-                                                        </p>
+                                                </td>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">CICLO
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="w-30">
-                                                <div class="d-flex px-2 py-1 align-items-center">
-                                                    <div class="ms-4">
-                                                        <p class="text-xs font-weight-bold mb-0 ">NOMBRE</p>
+                                                </td>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">NOMBRE</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="text-center">
-                                                    <p class="text-xs font-weight-bold mb-0 ">FECHA
-                                                        DESEMBOLSO</p>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-sm">
-                                                <div class="col text-center">
-                                                    <p class="text-xs font-weight-bold mb-0 ">PAGO</p>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-sm">
-                                                <div class="col text-center">
-                                                    <p class="text-xs font-weight-bold mb-0 ">PRESTAMO</p>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-sm">
-                                                <div class="col text-center">
-                                                    <p class="text-xs font-weight-bold mb-0 ">NO PAGOS</p>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-sm">
-                                                <div class="col text-center">
-                                                    <p class="text-xs font-weight-bold mb-0 ">PERIODO</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @for (datos_agenda_cliente of datos_agenda_cliente; track $index) {
-                                        <tr>
-                                            <td class="w-30">
-                                                <div class="d-flex px-2 py-1 align-items-center">
-                                                    <div class="ms-4">
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">FECHA
+                                                            DESEMBOLSO</p>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle text-sm">
+                                                    <div class="col text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">PAGO</p>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle text-sm">
+                                                    <div class="col text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">PRESTAMO</p>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle text-sm">
+                                                    <div class="col text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">NO PAGOS</p>
+                                                    </div>
+                                                </td>
+                                                <td class="align-middle text-sm">
+                                                    <div class="col text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">PERIODO</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (datos_agenda_cliente of datos_agenda_cliente; track $index) {
+                                            <tr>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">
+                                                                {{datos_agenda_cliente.prestamo_id}}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">
+                                                                {{datos_agenda_cliente.cliente_id}}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">
+                                                                {{datos_agenda_cliente.no_credito}}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="w-30">
+                                                    <div class="d-flex px-2 py-1 align-items-center">
+                                                        <div class="ms-4">
+                                                            <p class="text-xs font-weight-bold mb-0 ">
+                                                                {{datos_agenda_cliente.paterno}}
+                                                                {{datos_agenda_cliente.materno}}
+                                                                {{datos_agenda_cliente.nombres}}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
                                                         <p class="text-xs font-weight-bold mb-0 ">
-                                                            {{datos_agenda_cliente.prestamo_id}}
-                                                        </p>
+                                                            {{datos_agenda_cliente.fecha}}</p>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="w-30">
-                                                <div class="d-flex px-2 py-1 align-items-center">
-                                                    <div class="ms-4">
+                                                </td>
+                                                <td class="align-middle text-sm">
+                                                    <div class="col text-center">
                                                         <p class="text-xs font-weight-bold mb-0 ">
-                                                            {{datos_agenda_cliente.cliente_id}}
-                                                        </p>
+                                                            {{datos_agenda_cliente.cuota}}</p>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="w-30">
-                                                <div class="d-flex px-2 py-1 align-items-center">
-                                                    <div class="ms-4">
+                                                </td>
+                                                <td class="align-middle text-sm">
+                                                    <div class="col text-center">
                                                         <p class="text-xs font-weight-bold mb-0 ">
-                                                            {{datos_agenda_cliente.no_credito}}
-                                                        </p>
+                                                            {{datos_agenda_cliente.monto}}</p>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="w-30">
-                                                <div class="d-flex px-2 py-1 align-items-center">
-                                                    <div class="ms-4">
+                                                </td>
+                                                <td class="align-middle text-sm">
+                                                    <div class="col text-center">
                                                         <p class="text-xs font-weight-bold mb-0 ">
-                                                            {{datos_agenda_cliente.paterno}}
-                                                            {{datos_agenda_cliente.materno}}
-                                                            {{datos_agenda_cliente.nombres}}</p>
+                                                            {{datos_agenda_cliente.no_pagos}}</p>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="text-center">
-                                                    <p class="text-xs font-weight-bold mb-0 ">
-                                                        {{datos_agenda_cliente.fecha}}</p>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-sm">
-                                                <div class="col text-center">
-                                                    <p class="text-xs font-weight-bold mb-0 ">
-                                                        {{datos_agenda_cliente.cuota}}</p>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-sm">
-                                                <div class="col text-center">
-                                                    <p class="text-xs font-weight-bold mb-0 ">
-                                                        {{datos_agenda_cliente.monto}}</p>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-sm">
-                                                <div class="col text-center">
-                                                    <p class="text-xs font-weight-bold mb-0 ">
-                                                        {{datos_agenda_cliente.no_pagos}}</p>
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-sm">
-                                                <div class="col text-center">
-                                                    <p class="text-xs font-weight-bold mb-0 ">
-                                                        {{datos_agenda_cliente.frecuencia}}</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        }@empty {
-                                        <li>No Hay Datos</li>
-                                        }
-                                    </tbody>
-                                </table>
+                                                </td>
+                                                <td class="align-middle text-sm">
+                                                    <div class="col text-center">
+                                                        <p class="text-xs font-weight-bold mb-0 ">
+                                                            {{datos_agenda_cliente.frecuencia}}</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            }@empty {
+                                            <li>No Hay Datos</li>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-
     </div>
 </div>
