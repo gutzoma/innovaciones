@@ -135,7 +135,6 @@ export class CashboxComponent {
       },
       (error) => {
         console.log(<any>error);
-        console.log(<any>error);
         if (error.status === 401) {
           localStorage.clear();
           window.location.href = '';
@@ -172,7 +171,6 @@ export class CashboxComponent {
       },
       (error) => {
         console.log(<any>error);
-        console.log(<any>error);
         if (error.status === 401) {
           localStorage.clear();
           window.location.href = '';
@@ -204,7 +202,6 @@ export class CashboxComponent {
           (error) => {
             console.log(<any>error);
             alert('Revisa tu informacion');
-            console.log(<any>error);
             if (error.status === 401) {
               localStorage.clear();
               window.location.href = '';

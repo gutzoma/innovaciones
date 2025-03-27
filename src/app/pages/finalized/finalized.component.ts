@@ -43,6 +43,10 @@ export class FinalizedComponent {
       },
       error => {
         console.log(<any>error);
+        if (error.status === 401) {
+          localStorage.clear();
+          window.location.href = '';
+        }
       }
     );
   }
