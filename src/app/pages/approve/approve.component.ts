@@ -61,8 +61,7 @@ class PickDateAdapter extends NativeDateAdapter {
     GeneralesService,
     UploadService,
     { provide: DateAdapter, useClass: PickDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS },
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
+    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS }
   ],
 })
 export class ApproveComponent {

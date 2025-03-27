@@ -1,1 +1,1023 @@
-<p>disperse works!</p>
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Dispersar</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">Dispersar
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form #formDesem="ngForm" (ngSubmit)="saveDesem(formDesem)">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <ngx-select-dropdown id="des_cliente_id" (change)="onSelectionChange($event)" [config]="config"
+                        [options]="clientes"></ngx-select-dropdown>
+
+                </div>
+                <div class="col-md-6 row">
+                    <div class="col-md-6">
+                        <div class="input-group-outline my-3">
+                            <span class="">Id Cliente: <b><span id="idCli"></span></b></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group-outline my-3">
+                            <span class="">No credito: <b><span id="noCreCli"></span></b></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="disp-n" id="formEdit">
+                <div>
+                    <h3>Datos de Aprobacion</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="">Asesor: </label>
+                        <div class="dropdown dropdown-des">
+                            <select disabled class="form-control mb-3" name="asesor" #asesor="ngModel"
+                                [(ngModel)]="data_credito.asesor">
+                                <option value="">Asesor</option>
+                                <option *ngFor="let asesores of asesores;" class="dropdown-menu"
+                                    value="{{asesores.id}}">{{asesores.nombres + ' ' + asesores.paterno}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group-static">
+                            <label>Fecha de desembolso</label>
+                            <input class="form-control calendar-input" [matDatepicker]="cred" name="fecha_des"
+                                #fecha_des="ngModel" [(ngModel)]="data_credito.fecha_des">
+                            <mat-datepicker-toggle matSuffix [for]="cred"></mat-datepicker-toggle>
+                            <mat-datepicker #cred></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group-static">
+                            <label>Fecha pago inicial</label>
+                            <input class="form-control calendar-input" [matDatepicker]="pag" name="fecha_pag"
+                                #fecha_pag="ngModel" [(ngModel)]="data_credito.fecha_pag">
+                            <mat-datepicker-toggle matSuffix [for]="pag"></mat-datepicker-toggle>
+                            <mat-datepicker #pag></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-md-2 button-details">
+                        <input type="button" value="Amortizacion" name="amortizacion"
+                            class="btn btn-lg btn-outline-success select-margin">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <h1 class="">Tabla de Amortizacion</h1>
+                        <div class="card">
+                            <div class="table-responsive">
+                                <table class="table align-items-center mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Pago</th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                Cuota</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Fecha</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let fecha of fechas_pagos;">
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-xs">{{fecha.no}}</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">
+                                                    {{this.moneda(fecha.cuota)}}</p>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span
+                                                    class="text-secondary text-xs font-weight-normal">{{fecha.fecha}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex flex-column">
+                            <h1 class="">Informacion del Credito</h1>
+                            <h6 class="mb-3 text-sm">Comision por apertura</h6>
+                            <span class="mb-2 text-xs">Comision: <span
+                                    class="text-dark font-weight-bold ms-sm-2">{{comision}}</span></span>
+                            <h6 class="mb-3 text-sm">Datos del cliente</h6>
+                            <span class="mb-2 text-xs">Nombre: <span
+                                    class="text-dark font-weight-bold ms-sm-2">{{data_credito.nombres}}</span></span>
+                            <span class="mb-2 text-xs">Apellido paterno: <span
+                                    class="text-dark font-weight-bold ms-sm-2">{{data_credito.paterno}}</span></span>
+                            <span class="mb-2 text-xs">Apellido maaterno: <span
+                                    class="text-dark font-weight-bold ms-sm-2">{{data_credito.materno}}</span></span>
+                            <span class="mb-2 text-xs">CURP: <span
+                                    class="text-dark font-weight-bold ms-sm-2">{{data_credito.curp}}</span></span>
+                            <span class="mb-2 text-xs">INE: <span
+                                    class="text-dark font-weight-bold ms-sm-2">{{data_credito.ine}}</span></span>
+                            <h6 class="mb-3 text-sm">Detalles del credito</h6>
+                            <span class="mb-2 text-xs">Monto: <span name="monto"
+                                    class="text-dark font-weight-bold ms-sm-2">{{this.moneda(data_credito.mont_aut)}}</span></span>
+                            <span class="mb-2 text-xs">Interes: <span id="interes"
+                                    class="text-dark font-weight-bold ms-sm-2">{{data_credito.int_aut}}</span></span>
+                            <span class="mb-2 text-xs">Plazo: <span id="plazo"
+                                    class="text-dark font-weight-bold ms-sm-2">{{data_credito.plazo_cuotas}}
+                                    {{data_credito.plazo_name}}</span></span>
+                            <span class="mb-2 text-xs">Credito con garantia: <span id="plazo"
+                                    class="text-dark font-weight-bold ms-sm-2"
+                                    *ngIf="(data_credito.garantia == 0)">No</span><span id="plazo"
+                                    class="text-dark font-weight-bold ms-sm-2" *ngIf="(data_credito.garantia == 1)"
+                                    style="color: red !important;">Si</span></span>
+                            <h6 class="mb-3 text-sm">Direccion y Telefono</h6>
+                            <span class="mb-2 text-xs">Calle: <span
+                                    class="text-dark font-weight-bold ms-sm-2">{{data_credito.calle}}</span></span>
+                            <span class="mb-2 text-xs">Numero: <span
+                                    class="text-dark ms-sm-2 font-weight-bold">{{data_credito.numero}}</span></span>
+                            <span class="mb-2 text-xs">Colonia: <span
+                                    class="text-dark ms-sm-2 font-weight-bold">{{data_credito.colonia}}</span></span>
+                            <span class="mb-2 text-xs">Municipio: <span
+                                    class="text-dark ms-sm-2 font-weight-bold">{{data_credito.municipio}}</span></span>
+                            <span class="mb-2 text-xs">Estado: <span
+                                    class="text-dark ms-sm-2 font-weight-bold">{{data_credito.estado}}</span></span>
+                            <span class="mb-2 text-xs">Telefono: <span
+                                    class="text-dark ms-sm-2 font-weight-bold">{{data_credito.telefono}}</span></span>
+                        </div>
+                        <div class="legales" style="display:none;">
+                            <label class="form-label">Escribe la fecha</label>
+                            <input required type="text" id="textFecha" class="form-control" value=""
+                                placeholder='"dia" de "mes" del "año"'>
+                            <label class="form-label">Escribe la cantidad del prestamo</label>
+                            <input required type="text" id="textCantidad" class="form-control" value=""
+                                placeholder='"cantidad escrita con letra"'>
+                            <label class="form-label">Escribe la cantidad total a pagar</label>
+                            <input required type="text" id="textCantidadT" class="form-control" value=""
+                                placeholder='"cantidad escrita con letra"'>
+                            <div class="ms-auto text-end">
+                                <a *ngIf="(data_credito.garantia == 0)" class="btn btn-link text-danger px-3 mb-0"
+                                    href="javascript:;" (click)="printPage()"><i
+                                        class="material-icons text-sm me-2"></i>Imprimir Contrato</a><br>
+                                <a *ngIf="(data_credito.garantia == 1)" class="btn btn-link text-danger px-3 mb-0"
+                                    href="javascript:;" (click)="printPage4()"><i
+                                        class="material-icons text-sm me-2"></i>Imprimir Contrato<br></a>
+                                <a class="btn btn-link text-danger px-3 mb-0" href="javascript:;"
+                                    (click)="printPage2()"><i class="material-icons text-sm me-2"></i>Imprimir
+                                    Pagare</a><br>
+                                <a class="btn btn-link text-danger px-3 mb-0" href="javascript:;"
+                                    (click)="printPage3()"><i class="material-icons text-sm me-2"></i>Imprimir
+                                    Tabla</a><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="legales" style="display:none;">
+                                    <div class="form-check form-check-info text-start ps-0">
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input type="checkbox" aria-label="Text input with checkbox"
+                                                        class="cred_garantia" value="" id="vigente" name="vigente"
+                                                        #vigente="ngModel" [(ngModel)]="data_credito.vigente">
+                                                </div>
+                                            </div>
+                                            <input disabled type="text" class="form-control"
+                                                placeholder="Has impreso los doccumentos?" aria-label="checkbox"
+                                                aria-describedby="basic-addon1">
+                                        </div>
+
+                                        <span class="col-12 error-form" *ngIf="vigente.touched && !vigente.valid">Valida
+                                            la impresion del los
+                                            documentos</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 botonEnd" style="padding: 22px;">
+                                <input type="submit" value="Desembolsar" id="desembolsar"
+                                    class="btn btn-lg btn-success lineCenter" [disabled]="!formDesem.form.valid" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="agrrement-section" style="display:none;">
+        <div class="Section1" id="htmlData2">
+            <p align="center"><b>CONTRATO DE CRÉDITO SIMPLE</b></p>
+            <p>CONTRATO DE CRÉDITO SIMPLE QUE CELEBRAN POR UNA PARTE <b>INNOVACIONES PAAY SAS DE CV</b>, REPRESENTADA EN
+                ESTE ACTO POR <b>FELIPE ROBLES PAULINO</b>,
+                A QUIEN EN LO SUCESIVO SE LE DENOMINARÁ <b>“PAAY”</b> Y POR OTRA PARTE <span
+                    style="text-transform: uppercase;">{{data_credito.nombres}} {{data_credito.paterno}}
+                    {{data_credito.materno}}</span> A QUIEN EN LO SUCESIVO SE LE DENOMINARÁ EL <b>“ACREDITADO”</b>,
+                MISMOS QUE SE SUJETAN AL TENOR DE LAS DECLARACIONES Y CLÁUSULAS SIGUIENTES:</p>
+            <p align="center">
+                <b><ins>DECLARACIONES </ins></b>,
+            </p>
+            <p>
+                <span>
+                    <b>I.- Declara “PAAY” por conducto de su representante legal:</b>
+                </span> <br>
+                <span>
+                    a).-Ser una sociedad mercantil legalmente constituida, cuyo objeto social es Prestamos y Empeños,
+                    con
+                    domicilio en Av. Chapultepec #34 lote 1, entre calle
+                    Insurgentes y Libertad, Col. Centro C.P. 56900 Sector Sacramonte Municipio de Amecameca, Estado de
+                    México que se encuentra representada en este acto por el señor
+                    Felipe Robles Paulino, en su calidad de representante legal, según se desprende del contrato social,
+                    con
+                    folio SAS2023575109, FME 2023010421 de fecha 09 de febrero de 2023.
+                </span>
+            </p>
+            <p align="left">
+                <span>
+                    <b>II.- Declara el “ACREDITADO”:</b>
+                </span> <br>
+                <span>
+                    a).-Ser comerciante y tener la capacidad física y legal para celebrar el presente contrato, con
+                    domicilio en <span>{{data_credito.calle}} {{data_credito.numero}}
+                        {{data_credito.colonia}} {{data_credito.municipio}}, {{data_credito.estado}} C.P
+                        {{data_credito.cp}}</span>,
+                </span>
+            </p>
+            <p align="left">
+                <span>
+                    <b>III.- De “LOS OBLIGADOS SOLIDARIOS”:</b>
+                </span> <br>
+                <span>
+                    a).- El (Los) señor(es) <span>{{data_credito.cod_nombre}} {{data_credito.cod_paterno}}
+                        {{data_credito.cod_materno}}</span> declara(n) que cuentan con capacidad legal y facultades
+                    suficientes para celebrar el presente Contrato,
+                    así como para asumir y dar cumplimiento a las obligaciones que en el mismo se establecen y que
+                    interviene(n) en el presente Contrato en su
+                    calidad de “OBLIGADO(S) SOLIDARIO(S)” del “ACREDITADO”, el cual suscribe(n) por su propio derecho.
+                </span> <br><br>
+                <span>
+                    b).- Que es su deseo e intención celebrar el presente Contrato y estar obligado(s) conforme al
+                    mismo, en
+                    su calidad de “OBLIGADO(S) SOLIDARIO(S)”,
+                    haciendo suyas todas y cada una de las obligaciones contenidas en el presente Contrato y que son a
+                    cargo
+                    del “ACREDITADO”, y que cuenta (n) con
+                    los recursos financieros necesarios y suficientes para cumplir con las obligaciones derivadas del
+                    presente contrato y sus anexos; y que dichos
+                    recursos no son, ni serán de procedencia ilícita.
+                </span>
+            </p>
+            <p align="left">
+                Expuesto lo anterior las partes otorgan las siguientes:
+            </p>
+
+            <p align="center">
+                <b><ins>CLÁUSULAS</ins></b>
+            </p>
+            <p align="left">
+                <b>PRIMERA.- IMPORTE DEL CRÉDITO.- INNOVACIONES PAAY, S.A.S. DE C.V.</b> , con domicilio en Av.
+                Chapultepec
+                #34 lote 1, entre calle Insurgentes y Libertad,
+                Col. Centro C.P. 56900 Sector Sacramonte Municipio de Amecameca, Estado de México en adelante
+                <b>"PAAY"</b>,
+                otorga al <b>“ACREDITADO”</b> un crédito simple
+                por la cantidad de <span id="textCantidad2"></span>, en lo sucesivo el <b>“CRÉDITO”</b>, cantidad que le
+                será ENTREGADA O depositada mediante transferencia
+                bancaria o dinero en efectivo a la cuenta que haya señalado previamente a "PAAY", misma que deberá estar
+                a
+                su nombre, constituyendo el comprobante de dicha
+                transferencia el recibo más amplio que en derecho proceda respecto al importe del <b>“CRÉDITO”</b>.
+            </p>
+            <p align="left">
+                En el importe del <b>“CRÉDITO”</b> no quedan comprendidos las comisiones, los intereses, ni los demás
+                gastos
+                que deba cubrir el <b>“ACREDITADO”</b> a <b>“PAAY”</b>.
+            </p>
+            <p align="left">
+                <b>SEGUNDA.- MODIFICACIÓN DE SALDOS</b>.- Las partes convienen en que el monto del <b>“CRÉDITO”</b>
+                podrá
+                ser modificado, en la misma proporción en que
+                se incremente el saldo insoluto del mismo, como resultado de los pagos y/o cargos adicionales que
+                <b>PAAY</b> realice por cuenta y orden del
+                <b>“ACREDITADO”</b>, incluyendo de manera enunciativa, cualesquier primas de seguro, impuesto al valor
+                agregado (IVA) y/o ampliaciones adicionales
+                del <b>“CRÉDITO”</b>. En este caso, el importe de los pagos que deba realizar el <b>“ACREDITADO”</b>, se
+                incrementará en la misma proporción.
+            </p>
+            <p align="left">
+                <b>TERCERA</b>.- <b>PAGARÉ</b>.- El <b>“ACREDITADO”</b> conjuntamente con el presente contrato, suscribe
+                un
+                pagaré <b>(Anexo B)</b> a favor de
+                <b>“PAAY”</b> que documenta la disposición del <b>“CRÉDITO”</b>.
+            </p>
+            <p align="left">
+                El <b>“ACREDITADO”</b> autoriza en este acto a <b>“PAAY”</b> a ceder, endosar o negociar en cualquier
+                forma
+                antes de su vencimiento, el pagaré que
+                documente la disposición del presente <b>“CRÉDITO”</b>.
+            </p>
+            <p align="left">
+                En caso de que por cualquier causa estipulada en la cláusula <b>DÉCIMA PRIMERA</b> se rescinda o se dé
+                por
+                vencido anticipadamente el <b>“CRÉDITO”</b>,
+                <b>“PAAY”</b> dará por vencido anticipadamente el pagaré.
+            </p>
+            <p align="left">
+                <b>CUARTA</b>.- <b>PAGOS</b>.- El <b>“ACREDITADO”</b>“ACREDITADO” se obliga a pagar a <b>“PAAY”</b> el
+                monto
+                del <b>“CRÉDITO”</b> mediante abonos sucesivos, con la periodicidad,
+                por las cantidades y en los días pactados en el <b>Anexo B (Pagaré)</b> del presente contrato, que
+                comprenderán amortizaciones de capital y pagos de
+                intereses ordinarios de acuerdo con lo pactado en la cláusula <b>QUINTA</b>.
+            </p>
+            <p align="left">
+                <b>PAGOS ANTICIPADOS</b>.- <b>“EL ACREDITADO”</b> podrá realizar amortizaciones anticipadas, cuando así
+                lo
+                solicite, en el entendido de que los amortizaciones
+                anticipadas deberán hacerse por una cantidad igual o mayor al pago que deba realizarse en el periodo
+                correspondiente y estando <b>“EL ACREDITADO”</b>
+                al corriente en los pagos exigibles de conformidad con el presente contrato.
+            </p>
+            <p align="left">
+                <b>“EL ACREDITADO”</b> faculta expresamente a <b>“PAAY”</b> para que la aplicación de las amortizaciones
+                anticipadas se efectúe al saldo insoluto del capital,
+                caso en el cual el número de pagos acordados se reducirá, manteniéndose el importe de los mismos. <b>“EL
+                    ACREDITADO”</b> recibirá informes del
+                Saldo Insoluto de <b>“PAAY”</b> por correo electrónico cada vez que efectúe un pago anticipado o bien,
+                por
+                escrito, si el pago lo hace en sucursal.
+            </p>
+            <p align="left">
+                <b>PAGOS ADELANTADOS</b>.- <b>“EL ACREDITADO”</b> podrá realizar amortizaciones adelantadas cuando así
+                lo
+                solicite, con el fin de aplicarlos a cubrir
+                amortizaciones periódicas inmediatas siguientes. En caso de que <b>“EL ACREDITADO”</b> realizara una
+                amortización superior al que deba cubrirse
+                en un período, <b>“PAAY”</b> recibirá por parte de <b>“EL ACREDITADO”</b> un escrito con firma autógrafa
+                que
+                incluya la leyenda siguiente: <b>“EL ACREDITADO”</b>
+                autoriza que los recursos que se entregan en exceso a sus obligaciones exigibles, no se apliquen para el
+                pago anticipado del principal,
+                sino que se utilicen para cubrir por adelantado las amortizaciones periódicas del crédito inmediatas
+                siguientes”.
+            </p>
+            <p align="left">
+                Cuando <b>“PAAY”</b> reciba la amortización aun no exigible del período o importes inferiores, no será
+                necesario el escrito mencionado en el párrafo anterior.
+                Cada vez que <b>“EL ACREDITADO”</b> efectúe una amortización adelantada, podrá solicitar a <b>“PAAY”</b>
+                un
+                comprobante de dicho pago.
+            </p>
+            <p align="left">
+                Todos los pagos pactados en el presente contrato serán acreditados por <b>“PAAY”</b> a favor de <b>“EL
+                    ACREDITADO”</b> en la fecha en que efectivamente
+                quede abonado el pago en su cuenta bancaria. En caso de que el pago sea en efectivo, éste deberá ser
+                depositado directamente en las
+                cuentas bancarias de <b>”PAAY”</b>, las cuales <b>“EL ACREDITADO”</b> manifiesta conocer y quedará
+                acreditado el mismo día en que se realice,
+                para lo cual se deberá entregar una copia del comprobante de depósito a <b>“PAAY”</b>, igual obligación
+                tendrá en caso de depósito de cheques,
+                toda vez que no se cuenta con el servicio de depósito referenciado, siendo necesario el comprobante a
+                efecto
+                de identificar y aplicar el pago
+                correspondiente.
+            </p>
+            <p align="left">
+                <b>QUINTA</b>.- <b>INTERESES ORDINARIOS</b>.- El <b>“ACREDITADO”</b> pagará a <b>“PAAY”</b>, a partir de
+                la
+                firma del presente contrato, los intereses ordinarios
+                <b>a la tasa anual fija del 135.6% Anual</b> más el Impuesto al Valor Agregado que en su caso se genere,
+                mismos que se generarán sobre los saldos.
+                El pago de dichos intereses se realizará por todo el tiempo que exista un saldo pendiente de liquidar,
+                con
+                independencia del plazo otorgado.
+                El pago de los intereses podrá ser exigido por adelantado, junto con el pago de la última cuota a cargo
+            </p>
+            <p align="left">
+                En su caso, el cálculo de los <b>intereses ordinarios y moratorios</b>, se realizará sobre la base de un
+                año
+                de 360 (trescientos sesenta) días y por el
+                número de días efectivamente transcurridos, de conformidad con el siguiente procedimiento:
+            </p>
+            <p align="left">
+                <b>1</b>1. Dividir la TASA ANUAL DE INTERÉS aplicable expresada en porcentaje entre 360 (trescientos
+                sesenta) días.<br>
+                <b>2</b>. El resultado de la operación anterior expresado en porcentaje, se multiplicará por el número
+                de
+                días efectivamente transcurridos
+                en el período de intereses.<br>
+                <b>3</b> . El resultado de la operación anterior expresado en porcentaje, se multiplicará por el saldo
+                del
+                capital dispuesto y el producto
+                que arroje dicha multiplicación se expresará en pesos mexicanos y corresponderá al monto de intereses a
+                pagar en el período de intereses.
+            </p>
+            <p align="left">
+                <b>SEXTA</b>.- <b>INTERESES MORATORIOS</b>.- En caso de incumplimiento de cualquiera de las obligaciones
+                de
+                pago a cargo del <b>“ACREDITADO”</b>, éste pagará
+                a <b>“PAAY”</b> un interés moratorio <b>a la tasa anual fija</b> sobre saldos insolutos por 2 veces la
+                tasa
+                ordinari más impuestos que en su caso se generen.
+                Dichos intereses se causarán durante todo el tiempo en que dure la mora o en su caso la comisión por
+                mora de
+                100 pesos por día de atraso, lo que resulte mayor.
+            </p>
+            <p align="left">
+                En caso de que conforme a la Ley del Impuesto al Valor Agregado, <b>“EL ACREDITADO”</b> deba pagar tal
+                impuesto sobre los intereses pactados
+                en esta cláusula, éste se obliga a pagar a <b>“PAAY”</b>, el impuesto citado juntamente con los
+                referidos
+                intereses.
+            </p>
+            <p align="left">
+                <b>SÉPTIMA</b>.- <b>LUGAR DE PAGO</b>.- El <b>“ACREDITADO”</b> se obliga a realizar cualquier pago a que
+                se
+                encuentre obligado por virtud de este contrato,
+                sin deducción o retención por cualquier concepto, mediante pago en ventanilla bancaria a la cuenta a
+                nombre
+                de <b>“PAAY”</b>
+            </p>
+            <p align="left">
+                <b>OCTAVA</b>.- <b>VIGENCIA</b>.- El plazo para liquidar el presente <b>“CRÉDITO”</b> será por el plazo
+                estipulado en la <b>Pagare</b> de este contrato, contando a partir
+                de la fecha de este instrumento, momento en el cual deberán haber sido cubiertas todas y cada una de las
+                obligaciones de pago a cargo del
+                <b>“ACREDITADO”</b> y a favor de <b>“PAAY”</b>, dicho plazo no es prorrogable.
+            </p>
+            <p align="left">
+                <b>“EL ACREDITADO”</b> podrá solicitar la terminación anticipada del presente contrato, siempre y cuando
+                cubra de manera absoluta y en la forma pactada
+                el monto total adeudado, así como todos los accesorios que se hubiesen generado a la fecha en la cual se
+                solicite la terminación anticipada.
+            </p>
+            <p align="left">
+                En caso de que <b>“EL ACREDITADO”</b> desee dar por terminado en forma anticipada, deberá estar al
+                corriente
+                en el pago de todas y cada una de
+                las obligaciones y deberá notificarlo a “PAAY”, bastando para ello la presentación de una solicitud por
+                escrito y de manera personal
+                en el domicilio de <b>“PAAY”</b>.
+            </p>
+            <p align="left">
+                En este caso <b>“PAYY”</b> una vez cerciorada de la identidad del cliente, proporcionará acuse de recibo
+                y
+                un número de folio. <b>“PAAY”</b> dará por
+                terminado el contrato el día hábil siguiente a aquel en que reciba la solicitud si no existen adeudos.
+                De lo
+                contrario, a más tardar el día
+                hábil siguiente al de la recepción de la solicitud, comunicará a <b>“EL ACREDITADO”</b> el importe de
+                los
+                adeudos y dentro de los cinco días hábiles
+                siguientes a su solicitud pondrá a su disposición dicho dato en el domicilio de <b>“PAAY”</b> y una vez
+                liquidados los adeudos se dará por terminado
+                el contrato.
+            </p>
+            <p align="left">
+                En caso de existir un saldo a favor de <b>“EL ACREDITADO”</b> le será entregado en la fecha en que se dé
+                por
+                terminado el contrato si aquél
+                acude a las oficinas de <b>“PAAY”</b> o, de lo contrario, se le informará ese mismo día que se encuentra
+                a
+                su disposición y la manera en la que
+                le será devuelto.
+            </p>
+            <p align="left">
+                No obstante lo anterior, <b>“EL ACREDITADO”</b> podrá cancelar el presente contrato en un periodo de
+                diez
+                días hábiles posteriores a su firma
+                sin responsabilidad alguna, siempre y cuando <b>“EL ACREDITADO”</b> no haya dispuesto del crédito.
+            </p>
+            <p align="left">
+                <b>NOVENA</b>.- <b>APLICACIÓN DE PAGOS</b>.- Todo pago se aplicará con la siguiente prelación: En primer
+                lugar en su caso, a intereses moratorios,
+                en segundo lugar a intereses ordinarios, en tercer lugar a cualquier gasto de cobranza, gastos y costas
+                de
+                juicio, honorarios de abogados y
+                en último lugar a capital.
+            </p>
+            <p align="left">
+                <b>DÉCIMA</b>.- <b>VENCIMIENTO ANTICIPADO</b>.- “PAAY” podrá dar por vencidas anticipadamente las
+                obligaciones a cargo del <b>“ACREDITADO”</b> y exigir el pago
+                del <b>“CRÉDITO”</b> y sus accesorios pactados en este contrato, sin necesidad de declaración judicial
+                previa en los siguientes casos:
+            </p>
+            <p align="left">
+                <b>a)</b>.- Si el <b>“ACREDITADO”</b> deja de cubrir puntualmente dos o más de las obligaciones de pago
+                pactadas en este instrumento. <br>
+
+                <b>b)</b>.- Si el <b>“ACREDITADO”</b> no cumpliere con cualquiera de las obligaciones a su cargo,
+                derivadas
+                de este contrato o de la Ley.
+            </p>
+            <p align="left">
+                En los casos anteriores se dará por vencido anticipadamente el plazo y se hará exigible en una sola
+                exhibición la totalidad del capital adeudado,
+                de sus intereses y demás accesorios legales y convencionales pactados en este contrato y en el pagaré.
+            </p>
+            <p align="left">
+                <b>DÉCIMA PRIMERA</b>.- <b>DE LOS OBLIGADOS SOLIDARIOS</b>.- Las personas que firman con el carácter de
+                <b>“OBLIGADOS SOLIDARIOS”</b> el presente instrumento,
+                se constituyen frente a <b>“PAAY”</b> con tal carácter, respecto de todas y cada una de las obligaciones
+                que
+                contrae el <b>“ACREDITADO”</b> por virtud
+                de este contrato, de acuerdo a la declaración III del mismo.
+            </p>
+            <p align="left">
+                Con base en lo anterior, los <b>“OBLIGADOS SOLIDARIOS”</b> se obligan a pagar puntual y oportunamente el
+                importe total del <b>“CREDITO”</b> y sus accesorios
+                legales, en los mismos términos en que se encuentra obligado el <b>“ACREDITADO”</b>, respondiendo ante
+                <b>“PAAY”</b> con todo su patrimonio presente y futuro,
+                del cumplimiento de todas y cada una de las obligaciones establecidas en este contrato, inclusive las de
+                pago.
+            </p>
+            <p align="left">
+                La obligación solidaria asumida en esta cláusula no implica ni implicará una extinción, disminución,
+                liberación, modificación o transmisión de
+                las obligaciones del <b>“ACREDITADO”</b> derivadas del <b>“CRÉDITO”</b> y de las demás establecidas en
+                términos de este contrato. La obligación solidaria
+                subsistirá íntegra hasta que se cubra a <b>“PAAY”</b>, todo cuanto se le adeudare por virtud del
+                <b>“CREDITO”</b> y sus accesorios legales.
+            </p>
+            <p align="left">
+                <b>DECIMA SEGUNDA</b>.- <b>AUTORIZACIONES</b>. El <b>“ACREDITADO”</b> y los <b>“OBLIGADOS
+                    SOLIDARIOS”</b>
+                otorgan de forma expresa <b>la Consulta de Buró de Crédito</b>,
+                su consentimiento para que <b>“PAAY”</b> solicite a las Sociedades de Información Crediticia nacionales
+                o
+                extranjeras que estime convenientes,
+                la información relativa e inherente a su historial crediticio. De igual manera, <b>“PAAY”</b> queda
+                autorizada para realizar revisiones periódicas.
+            </p>
+            <p align="left">
+                Dicha autorización estará vigente cuando menos durante tres años contados a partir de la fecha de su
+                firma o
+                en tanto exista una relación
+                jurídica con <b>“PAAY”</b>. El <b>“ACREDITADO”</b> y los <b>“OBLIGADOS SOLIDARIOS”</b> manifiestan que
+                conocen plenamente la naturaleza, alcance y las consecuencias
+                de la información que se solicitará en forma periódica para su análisis financiero y crediticio.
+            </p>
+            <p align="left">
+                <b>DÉCIMA TERCERA</b>.- <b>CESIÓN</b>.- <b>“PAAY”</b> en el momento que así lo estime pertinente, podrá
+                ceder total o parcialmente los derechos inherentes a
+                este contrato, por cualquier medio legal a quien <b>“PAAY”</b> considere conveniente en los términos
+                establecidos por la ley para éstos casos,
+                para lo cual el <b>“ACREDITADO”</b> y/o sus <b>“OBLIGADOS SOLIDARIOS”</b> manifiestan expresamente su
+                conformidad.
+            </p>
+            <p align="left">
+                El <b>“ACREDITADO”</b> y/o sus <b>“OBLIGADOS SOLIDARIOS”</b> no podrán ceder ningún derecho y/u
+                obligación
+                derivada de este contrato a ningún tercero,
+                sin la previa autorización de <b>“PAAY”</b> otorgada por escrito.
+            </p>
+            <p align="left">
+                <b>DÉCIMA CUARTA</b>.- <b>TÍTULOS DE LAS CLÁUSULAS</b>. Los títulos de las cláusulas que aparecen en el
+                presente instrumento se han puesto con el exclusivo
+                propósito de facilitar su lectura, por tanto, no definen ni limitan el contenido de las mismas. Para
+                efectos
+                de interpretación de este contrato
+                deberá atenderse exclusivamente al contenido de sus definiciones, declaraciones y cláusulas y de ninguna
+                manera al título de estas últimas.
+            </p>
+            <p align="left">
+                <b>DECIMA QUINTA</b>.- <b>TÍTULO EJECUTIVO</b>. El presente contrato acompañado del estado de cuenta
+                certificado por contador de <b>“PAAY”</b> constituirá
+                título ejecutivo sin necesidad de reconocimiento del juzgado donde se realice la reclamacion jurídica.
+            </p>
+            <p align="left">
+                <b>DECIMA SEXTA</b>.- <b>JURISDICCIÓN</b>.- Para todo lo relativo a la interpretación, cumplimiento y
+                ejecución, en su caso, del presente contrato,
+                las partes se someten expresamente a la jurisdicción y competencia de los tribunales correspondientes al
+                del
+                lugar de firma o bien, al del
+                domicilio del demandado que se haya señalado en el presente contrato, elección que corresponderá tomar
+                al
+                actor, renunciando expresamente a
+                cualquier otro fuero que por razón de su actual o futuro domicilio, o por cualquier otra causa les
+                pudiera
+                llegar a corresponder.<br>
+                Leído que fue el presente contrato y enteradas las partes de su contenido y alcance legal, lo firman en
+                la
+                Ciudad de Amecamecas,
+                el día <span class="textFecha"></span> habiendo recibido cada una de ellas un ejemplar del mismo y de
+                sus
+                anexos, , misma que firmada por las
+                partes forma parte integrante del presente instrumento, y de la tabla de amortización correspondiente,
+                lo
+                que se hace constar para todos
+                los efectos legales a que haya lugar.
+            </p>
+            <br><br>
+            <table class="default" width="100%">
+                <tr>
+                    <td width="40%" align="center">
+                        <hr>
+                    </td>
+                    <td width="20%" align="center"></td>
+                    <td width="40%" align="center">
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40%" align="center">INNOVACIONES PAAY SAS DE CV
+                    </td>
+                    <td width="20%" align="center"></td>
+                    <td width="40%" align="center">EL “ACREDITADO”</td>
+                </tr>
+                <tr>
+                    <td width="40%" align="center" height="60">
+                    </td>
+                    <td width="20%" align="center"></td>
+                    <td width="40%" align="center"></td>
+                </tr>
+                <tr>
+                    <td width="40%" align="center">
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40%" align="center">OBLIGADOS SOLIDARIOS
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="agrrement-section4" style="display:none;">
+        <div class="Section1" id="htmlData2">
+            <p align="center"><b>CONTRATO DE PRENDA MERCANTIL</b></p>
+            <p>Contrato de Prenda Mercantil que celebran por una parte la empresa <b>Innovaciones Paay SAS de CV</b>,
+                representada en este acto por el
+                Señor Felipe Robles Paulino, en su carácter de representante legal de a quien se le denominará en lo
+                subsecuente “Acreedor Prendario” y
+                por la otra el Sr. <span>{{data_credito.nombres}} {{data_credito.paterno}}
+                    {{data_credito.materno}}</span>,
+                <b>a quien se le denominará “El Deudor”, contrato accesorio al contrato de Préstamo Simple con
+                    Interés</b> celebrado por las mismas partes, conforme a las declaraciones y cláusulas siguientes:
+            </p>
+            <p align="center"><b><ins>DECLARACIONES</ins></b></p>
+            <span>
+                1.- Declara el “Acreedor Prendario” ser una sociedad mercantil legalmente constituida, cuyo objeto
+                social es
+                Prestamos y Empeños, con domicilio en
+                Av. Chapultepec #34 lote 1, entre calle Insurgentes y Libertad, Col. Centro C.P. 56900 Sector Sacramonte
+                Municipio de Amecameca, Estado de México que se encuentra
+                representada en este acto por el señor Felipe Robles Paulino, en su calidad de representante legal,
+                según se
+                desprende del contrato social, con folio SAS2023575109,
+                FME 2023010421 de fecha 09 de febrero de 2023.<br>
+                2.- Declara el “El Deudor” ser comerciante y tener la capacidad física y legal para celebrar el presente
+                contrato, con domicilio en <span>{{data_credito.calle}}
+                    {{data_credito.numero}} {{data_credito.colonia}} {{data_credito.municipio}}, {{data_credito.estado}}
+                    C.P
+                    {{data_credito.cp}}</span><br>
+                3.- Ambas partes declaran que se reconocen mutuamente la personalidad con la que comparecen y que es su
+                deseo celebrar el presente contrato,
+                al tenor de las siguientes:
+            </span>
+            <p align="center"><b><ins>CLAUSULAS</ins></b></p>
+            <span>
+                <b>PRIMERA.</b> El presente contrato tiene como objeto el endoso de bienes muebles sin transmisión de
+                posesión constituyéndolos como prenda,
+                que otorga “El Deudor” en favor de el “Acreedor Prendario”, como garantía del cumplimiento de la
+                obligación
+                principal contraída en el
+                contrato de fecha <span class="textFecha"></span> consistente en: {{data_credito.garantia_des}}, por lo
+                que
+                en este acto el “Acreedor Prendario”
+                se constituye en depositario del bien citado.
+            </span><br><br>
+            <span>
+                <b>SEGUNDA.</b> El “El Deudor” se obliga a conservar en buen estado el bien o título dado en prenda, así
+                como a notificar a “Acreedor Prendario”
+                en caso de que se deteriore o sufra cambios, y en caso de omisión, él responderá por los daños que éste
+                pudiera tener estando bajo su custodia
+            </span><br><br>
+            <span>
+                <b>TERCERA.</b> El “Acreedor Prendario” se obliga a la guarda y conservación del bien en el inmueble
+                ubicado
+                en Av. Chapultepec #34 lote 1, entre
+                calle Insurgentes y Libertad, Col. Centro C.P. 56900 Sector Sacramonte Municipio de Amecameca, Estado de
+                México.
+            </span><br><br>
+            <span>
+                <b>CUARTA.</b> El “Acreedor Prendario” a mantener el resguardo por el bien dado en prenda, en el que
+                constará el día y fecha en que lo recibe,
+                así como su descripción detallada y demás datos que el “Acreedor Prendario” considere necesarios para su
+                identificación.
+            </span><br><br>
+            <span>
+                <b>QUINTA.</b> Las partes acuerdan que en caso de que el valor del bien dado en prenda, llegue a
+                disminuir
+                de manera que no sea suficiente para cubrir
+                el importe de la deuda y un 20% más, el “Acreedor Prendario” podrá proceder a la venta de la prenda, en
+                los
+                términos de la cláusula sexta.
+            </span><br><br>
+            <span>
+                <b>SEXTA.</b> El “Acreedor Prendario” podrá pedir al juez autorice la venta del bien dado en prenda
+                cuando
+                se venza la obligación garantizada y
+                no haya sido cumplida, siguiendo el procedimiento establecido en el artículo 341 de la Ley General de
+                Títulos y Operaciones de Crédito.
+            </span><br><br>
+            <span>
+                <b>SÉPTIMA.</b> Las partes convienen en que en el caso de la venta del bien dado en prenda, el producto
+                de
+                la venta será conservado por el
+                “Acreedor Prendario” en substitución de los bienes vendidos.
+            </span><br><br>
+            <span>
+                <b>OCTAVA.</b> El “Acreedor Prendario” se obliga a restituir al “Deudor” el bien o título dado en prenda
+                a
+                los 7 dias habiles, previo pago de la
+                obligación principal señalada en la cláusula primera, obligándose a su vez “El Deudor” a devolver al
+                “Acreedor Prendario” el recibo de resguardo mencionado
+                en la cláusula Cuarta, y a liquidarle los gastos que por su conservación hubiera erogado.
+            </span><br><br>
+            <span>
+                <b>NOVENA.</b> Los gastos de tramitación de este contrato correrán por cuenta de ambas partes por partes
+                iguales. Los gastos que se generen por rescisión
+                imputable a “El Deudor” o al “Acreedor Prendario” correrán por cuenta de cada uno en su caso,
+                respectivamente.
+            </span><br><br>
+            <span>
+                <b>NOVENA PRIMERA.</b> Son causales de rescisión del presente contrato, imputables al “Acreedor
+                Prendario”:
+                a) que disponga del bien o el título dado en prenda para un fin diverso al estipulado en el presente
+                contrato,
+                b) que venda, arriende, permute o dé en comodato, el bien dado en prenda, sin el previo consentimiento
+                de
+                “El Deudor”, y
+                c) que ejecute la garantía otorgada en su favor por “El Deudor”, sin que éste haya incurrido en
+                incumplimiento alguno.
+                Son causales de rescisión del presente contrato, imputables a “El Deudor”:
+                a) que venda, arriende, permute o dé en comodato, el bien dado en prenda, sin el previo consentimiento
+                del
+                “Acreedor Prendario”.
+                En el caso de que el presente contrato sea objeto de rescisión, el “Acreedor Prendario” se obliga a
+                pagar o
+                restituir el objeto dado en prenda,
+                al momento en que le sea requerido por “El Deudor”.
+            </span><br><br>
+            <span>
+                <b>NOVENA SEGUNDA.</b> Las partes acuerdan que el presente contrato podrá darse por terminado en forma
+                anticipada por cualquiera de ellas,
+                previo aviso con 30 días habiles de anticipación y previa liquidación de los gastos que se hubieran
+                generado
+                por la guarda de los bienes dados en
+                prenda, y la liquidación de la obligación principal por parte de “El Deudor”, obligándose el “Acreedor
+                Prendario” a su vez a restituirle el bien
+                dado en prenda.
+            </span><br><br>
+            <span>
+                <b>NOVENA TERCERA.</b> Las partes convienen en que para la interpretación o solución de cualquier
+                controversia emanada del presente contrato se someterán a
+                la jurisdicción de los tribunales del Estado de México municipio de Amecameca según corresponda según el
+                domicilio del “Acreedor Prendario”,
+                renunciando desde este momento a cualquier otro tribunal que pudiera corresponderles en razón de su
+                domicilio presente o futuro.
+            </span><br><br>
+            <span>
+                En este acto intervienen como testigos los señores <span>{{data_credito.cod_nombre}}
+                    {{data_credito.cod_paterno}} {{data_credito.cod_materno}}</span>, y el señorita Maribel Cisneros
+                Guerrero con domicilio
+                en <span>{{data_credito.calle}} {{data_credito.numero}} {{data_credito.colonia}}
+                    {{data_credito.municipio}},
+                    {{data_credito.estado}} C.P {{data_credito.cp}}</span> y en Av. Chapultepec #34 lote 1, entre calle
+                Insurgentes y Libertad, Col. Centro C.P. 56900 Sector Sacramonte Municipio de Amecameca, Estado de
+                México,
+                respectivamente.
+            </span><br><br>
+            <span>
+                Leído el presente contrato, conformes con su contenido valor y fuerza legal, lo firman quienes en él
+                intervinieron, en la ciudad de Amecameca de Juárez
+                a <span class="textFecha"></span>.
+            </span><br><br>
+            <br><br>
+            <table class="default" width="100%">
+                <tr>
+                    <td width="40%" align="center">
+                        <hr>
+                    </td>
+                    <td width="20%" align="center"></td>
+                    <td width="40%" align="center">
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40%" align="center">El "El Deudor"
+                    </td>
+                    <td width="20%" align="center"></td>
+                    <td width="40%" align="center">El "Acreedor Prendario"</td>
+                </tr>
+                <tr>
+                    <td width="40%" align="center" height="60">
+                    </td>
+                    <td width="20%" align="center"></td>
+                    <td width="40%" align="center"></td>
+                </tr>
+                <tr>
+                    <td width="40%" align="center">
+                        <hr>
+                    </td>
+                    <td width="20%" align="center"></td>
+                    <td width="40%" align="center">
+                        <hr>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40%" align="center">Testigo
+                    </td>
+                    <td width="20%" align="center"></td>
+                    <td width="40%" align="center">Testigo
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="agrrement-section2" style="display:none;">
+        <div class="Section1" id="htmlData">
+            <div align="center">
+                <h1><b>PAGARÉ</b></h1>
+            </div>
+            <div align="right">
+                <h3><b>BUENO POR <span>{{this.moneda(this.total_pagar)}}</span></b></h3>
+            </div>
+            <div class="title-center">
+                <p><b>Amecameca de Juárez, Estado de México a <span class="textFecha"></span>.</b></p>
+            </div>
+            <p><b>BUENO POR: <span>{{this.moneda(this.total_pagar)}} </span><span><span>(<span
+                                class="textCantidadT"></span>)</span></span></b></p>
+            <p align="left">
+                Deberemos y pagaremos incondicionalmente a la orden de INNOVACIONES PAAY S.A.S DE CV en su domicilio
+                ubicado
+                en Av. Chapultepec #34, lote 1,
+                entre las calles Insurgentes y calle libertad, Colonia centro con código postal 56900, del Municipio de
+                Amecameca, Estado de México, la suma de
+                <span><b>{{this.moneda(this.total_pagar)}}</b></span>
+            </p>
+            <div align="center" style="background-color: darkgrey; border-radius: 1px;border: solid 1px;">
+                <span>(<span class="textCantidadT"></span>)</span>
+            </div>
+            <p align="left">
+                Que cubriremos de la siguiente forma: <span>{{this.data_credito.plazo_cuotas}}</span> Amortizaciones
+                <span>{{this.data_credito.plazo_periodos}}</span> de <span>{{this.moneda(this.cuota)}}</span>
+                cada una con vencimiento los días <span *ngIf="(data_credito.plazo_name != 'Semanas')">marcados en la
+                    tabla
+                    de amortización</span><span *ngIf="(data_credito.plazo_name == 'Semanas')"><span
+                        class="diasTab"></span>
+                    de cada semana</span> a partir de la fecha de suscripción, hasta cubrir el importe total
+                de este documento. El cual tiene fecha de vencimiento el día <span>{{this.fecha_p_final}}</span> por el
+                importe total de la deuda.
+            </p>
+            <p align="left">
+                Este Pagaré causará intereses ordinarios a razón de aplicar una tasa de
+                <span>{{data_credito.int_aut}}</span> % mensual sobre saldos insolutos de cada amortización,
+                más el Impuesto al Valor Agregado, conforme a la Ley del IVA vigente, y cualquier otro impuesto que por
+                su
+                naturaleza sea trasladable.
+            </p>
+            <p align="left">
+                La falta de pago oportuno de una o más amortizaciones, dará por vencido anticipadamente este título de
+                crédito, haciendo exigible el
+                saldo total del presente pagaré con fundamento en lo dispuesto en el último párrafo del artículo 79 de
+                la
+                Ley General de
+                Títulos y Operaciones de Crédito.
+            </p>
+            <p align="left">
+                La falta oportuna de las obligaciones consignadas en este pagaré, causará un interés moratorio
+                equivalente
+                al resultado de
+                multiplicar la tasa ordinaria vigente a la fecha de pago por dos veces más el Impuesto al Valor
+                Agregado,
+                conforme a la Ley del IVA vigente, y cualquier otro impuesto que por su naturaleza sea trasladable.
+            </p>
+            <table class="default" width="100%" style="border-collapse: collapse;" border="1">
+                <tr>
+                    <td width="50%" align="center"><b>SUSCRIPTOR</b></td>
+                    <td width="50%" align="center"><b>FIRMA</b></td>
+                </tr>
+                <tr>
+                    <td width="50%" align="center">
+                        Nombre y domicilio <br>
+                        <span>{{data_credito.paterno}} {{data_credito.materno}} {{data_credito.nombres}}</span><br>
+                        <span>{{data_credito.calle}} {{data_credito.numero}}</span><br>
+                        <span>{{data_credito.colonia}}</span><br>
+                        <span>{{data_credito.municipio}}, {{data_credito.estado}}</span><br>
+                        <span>C.P {{data_credito.cp}}</span>
+                    </td>
+                    <td width="50%"></td>
+                </tr>
+                <tr>
+                    <td width="50%" align="center"><b>AVAL</b></td>
+                    <td width="50%" align="center"><b>FIRMA</b></td>
+                </tr>
+                <tr>
+                    <td width="50%" align="center">
+                        Nombre y domicilio <br>
+                        <span>{{data_credito.cod_paterno}} {{data_credito.cod_materno}}
+                            {{data_credito.cod_nombre}}</span><br>
+                        <span>{{data_credito.cod_calle}} {{data_credito.cod_numero}}</span><br>
+                        <span>{{data_credito.cod_colonia}}</span><br>
+                        <span>{{data_credito.cod_municipio}}, {{data_credito.estado}}</span><br>
+                        <span>C.P {{data_credito.cod_cp}}</span>
+                    </td>
+                    <td width="50%"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="agrrement-section3" style="display:none;">
+        <div style="text-align: center;">
+
+            <h3 style="text-transform: uppercase;">INNOVACIONES PAAY S.A.S DE C.V</h3>
+            <p style="text-transform: uppercase;">{{data_credito.paterno}} {{data_credito.materno}}
+                {{data_credito.nombres}}</p>
+            <p style="text-transform: uppercase;">Tabla de Amortizacion</p>
+        </div>
+        <div>
+            <span><b>Nombre del Asesor:</b> <span id="asesorName"></span></span><br>
+            <span><b>Fecha de desembolso:</b> <span id="fechaTab"></span></span><br>
+            <span><b>Monto de credito:</b> <span id="montoTab"></span></span><br>
+            <span><b>Frecuencia de pago:</b> <span id="FrecuenciaTab"></span></span><br>
+            <span *ngIf="(data_credito.plazo_name == 'Semanas')"><b>Pago dias:</b> <span
+                    class="diasTab"></span><br></span>
+            <span><b>Horario:</b> 9:00 A 12:00</span><br>
+            <span><b>No de cliente:</b> <span id="NoClienteTab"></span></span><br>
+            <span><b>Monto de los pagos:</b> <span id="MontoTab"></span></span>
+        </div>
+        <div style="text-align: right;">
+            <span><b>Monto total a pagar:</b> {{this.moneda(this.total_pagar)}}</span><br>
+            <span><b>Monto de cada pago:</b>{{this.moneda(this.cuota)}}</span><br>
+            <span><b>Fecha de ultimo pago:</b> {{this.fecha_p_final}}</span><br>
+            <span><b>COMISION 3% {{this.moneda(this.comision)}} + PA {{this.data_credito.plazo_cuotas}}
+                    {{this.moneda(this.cuota)}} = <span class="totalPagoI"></span></b></span><br>
+        </div>
+        <div style="text-align: center;">
+            <div class="card">
+                <div class="">
+                    <h3 style="text-transform: uppercase;">Tabla de Pagos</h3>
+                    <table class="table" border="1">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                    width="33%" align="center" height="25">
+                                    Pago&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                    width="34%" align="center" height="25">
+                                    Cuota&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                    width="33%" align="center" height="25">
+                                    Fecha&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let fecha of fechas_pagos;">
+                                <td>
+                                    <span class="text-secondary font-weight-normal">{{fecha.no}}</span>
+                                </td>
+                                <td>
+                                    <p class=" font-weight-bold mb-0">{{this.moneda(fecha.cuota)}}</p>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="text-secondary font-weight-normal">{{fecha.fecha}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>BBVA NO DE CUENTA:0120066117</p>
+                    <p>NO DE CUENTA CLABE:012424001200661171 (TRANSFERENCIA O PAGO EN VENTANILLA)</p>
+                    <p style="text-decoration: underline;font-size:15px;"><b>REFERENCIA: {{this.ref}}P(Numero de
+                            Pago).</b></p>
+                    <p><b>NOMBRE DE LA EMPRESA INNOVACIONES PAAY.</b></p>
+                    <span>SE LES INFORMA QUE TIKET NO ENVIADO ES TIKET NO REGISTRADO EVITEMOS PENALIZACIONES Y/O
+                        GASTOS</span><br>
+                    <span>ADICIONALES (PENALIZACION POR PAGO A DESTIEMPO $100 PESOS POR DIA)</span>
+                    <span><b>Direccion de las oficinas de Innovaciones Paay</b></span><br>
+                    <span>Av Chapultepec #34 Lt 1 Amecameca Col. Centro.</span><br>
+                    <span><b>Número telefónico 597-1154147 o 597-1154143 </b></span>
+                    <span><b>Número para WhatsApp 56-38-22-91-86</b></span>
+                </div>
+            </div>
+        </div>
+    </div>

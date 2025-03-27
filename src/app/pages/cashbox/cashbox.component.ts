@@ -55,8 +55,7 @@ class PickDateAdapter extends NativeDateAdapter {
     SearchService,
     GeneralesService,
     { provide: DateAdapter, useClass: PickDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS },
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
+    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS }
   ],
 })
 export class CashboxComponent {
