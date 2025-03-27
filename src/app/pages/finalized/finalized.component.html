@@ -1,0 +1,45 @@
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Generar Recibo</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">Generar Recibo
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form #formLiquidar="ngForm" (ngSubmit)="runLiquidacin(formLiquidar)" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="input-group-outline my-3">
+                        <label class="form-label">Numero de cliente</label>
+                        <input required type="text" name="cliente_id" #cliente_id="ngModel"
+                            [(ngModel)]="liquidaciones.cliente_id" class="form-control">
+                        <span class="col-12 error-form" *ngIf="cliente_id.touched && !cliente_id.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group-outline my-3">
+                        <label class="form-label">Numero de prestamo</label>
+                        <input required type="text" name="prestamo_id" #prestamo_id="ngModel"
+                            [(ngModel)]="liquidaciones.prestamo_id" class="form-control">
+                        <span class="col-12 error-form" *ngIf="prestamo_id.touched && !prestamo_id.valid">Campo
+                            obligatorio</span>
+                    </div>
+                </div>
+                <div class="col-md-4" style="margin-top: 47px">
+                    <input type="submit" value="Confirmar" class="btn-lg btn-gradient-primary"
+                        [disabled]="!formLiquidar.form.valid" />
+                </div>
+            </div>
+        </form>
+    </div>
+    
