@@ -131,7 +131,11 @@ export class ReportCreditsComponent {
           }
         },
         error => {
-          console.log(<any>error);
+          var errortype = error.error;
+            if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
+              localStorage.clear();
+              window.location.href = '';
+            }
         }
       );
     }

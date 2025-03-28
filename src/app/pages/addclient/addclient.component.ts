@@ -123,10 +123,8 @@ export class AddclientComponent implements OnInit {
         var errortype = error.error;
         if (errortype.includes('Duplicate entry') && errortype.includes('curp')){
                 alert('Curp Duplicada');
-        }else{
-          alert('Error, Intente nuevamente');
         }
-        if(error.status === 401){
+        if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
           localStorage.clear();
           window.location.href = '';
         }

@@ -228,13 +228,11 @@ export class EditclientComponent {
 				}
 			},
 			error => {
-				//console.log(<any>error.error);
-        var errortype = error.error;
-        if (errortype.includes('Duplicate entry') && errortype.includes('curp')){
-                alert('Curp Duplicada');
-        }else{
-          alert('Error, Intente nuevamente');
-        }
+				var errortype = error.error;
+            if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
+              localStorage.clear();
+              window.location.href = '';
+            }
 			}
 		);
   }

@@ -124,11 +124,11 @@ export class ReportCashboxComponent {
           }, 300);
         },
         error => {
-          console.log(<any>error);
-          if (error.status === 401) {
-            localStorage.clear();
-            window.location.href = '';
-          }
+          var errortype = error.error;
+            if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
+              localStorage.clear();
+              window.location.href = '';
+            }
         }
       );
     }

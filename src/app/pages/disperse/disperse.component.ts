@@ -305,11 +305,11 @@ export class DisperseComponent {
         }
       },
       error => {
-        console.log(<any>error);
-        if (error.status === 401) {
-          localStorage.clear();
-          window.location.href = '';
-        }
+        var errortype = error.error;
+            if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
+              localStorage.clear();
+              window.location.href = '';
+            }
       }
     );
   }
@@ -338,16 +338,10 @@ this._creditosservice.createPrest(this.data_credito, this.fechas_pagos[0], this.
     }
   },
   error => {
-    if (error.status === 401) {
+    var errortype = error.error;
+    if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
       localStorage.clear();
       window.location.href = '';
-    }
-    //console.log(<any>error.error);
-    var errortype = error.error;
-    if (errortype.includes('Duplicate entry') && errortype.includes('curp')){
-            alert('Ocurrio un error');
-    }else{
-      alert('Error, Intente nuevamente');
     }
   }
 );

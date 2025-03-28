@@ -291,20 +291,10 @@ export class ApproveComponent {
             }
           },
           (error) => {
-            //console.log(<any>error.error);
-            console.log(<any>error);
-            if (error.status === 401) {
+            var errortype = error.error;
+            if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
               localStorage.clear();
               window.location.href = '';
-            }
-            var errortype = error.error;
-            if (
-              errortype.includes('Duplicate entry') &&
-              errortype.includes('curp')
-            ) {
-              alert('Error');
-            } else {
-              alert('Error, Intente nuevamente');
             }
           }
         );

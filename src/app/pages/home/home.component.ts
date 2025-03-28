@@ -14,16 +14,12 @@ declare let $: any;
 })
 
 export class HomeComponent implements OnInit {
-  content?: string;
-  public asesor!: any;
   constructor(
     private _homeservice: HomeService
   ) { }
 
   ngOnInit(): void {
-
     this.getCartera();
-    this.asesor = JSON.parse(localStorage.getItem('userData')!);
   }
 
   getCartera() {
@@ -35,11 +31,9 @@ export class HomeComponent implements OnInit {
     this._homeservice.getCartera().subscribe(
       response => {
         if (response != 'No existen') {
-
           $('.n-clientes').html(response[0].no_clientes);
           $('.n-prestamos').html(response[0].no_prestamos);
           $('.total-cartera').html(formatter.format(response[0].saldo_cartera));
-
         }
       },
       error => {
