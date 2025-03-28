@@ -1,1 +1,411 @@
-<p>search works!</p>
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Buscar</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">Buscar
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <ngx-select-dropdown id="id_search" (change)="onSelectionChange($event)" [config]="config"
+                        [options]="clientes"></ngx-select-dropdown>
+                </div><br>
+                <div class="row gx-4 mb-2 disp-n" id="showSearch">
+                    <div class="my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+                        <tabset class="menu-searchs">
+                            <tab heading="Generales">
+                                <div class="col-md-12 mb-12">
+                                    <div class="card shadow-lg">
+                                        <div class="card-header text-center pt-4 pb-3 bg-transparent">
+                                            <h3 class="font-weight-bold mt-2 text-body">
+                                                Cliente: <span>{{clienteInfo.cliente_id}}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="card-body text-lg-start text-center pt-0">
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Nombre: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.nombres
+                                                        +' '+ clienteInfo.paterno +' '+
+                                                        clienteInfo.materno}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Correo: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.correo}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Telefonos: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.telefono
+                                                        +' '+ clienteInfo.telefono2}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Dependientes: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.no_dependientes}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Curp: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.curp}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Ine: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ine}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Fecha de nacimiento: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.fecha_de_nacimiento}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Foto: <span
+                                                        class="tps-3 text-body font-weight-bold"><a
+                                                            href="http://admin01.paayito.com/finanback/public/ines/{{clienteInfo.img_ine}}"
+                                                            target="_blank" rel="noopener noreferrer">Abrir
+                                                            Imagen</a></span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-4 ps-3 text-body">Sexo: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.sexo}}</span></span>
+                                                <span class="col-4 ps-3 text-body">Estado civil: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.estado_civil}}</span></span>
+                                                <span class="col-4 ps-3 text-body">Tipo de vivienda: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.tipo_de_vivienda}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-12 ps-3 text-body">Direccion: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.calle
+                                                        +', '+ clienteInfo.numero +', '+ clienteInfo.colonia +', '+
+                                                        clienteInfo.municipio +', '+ clienteInfo.estado +', '+
+                                                        clienteInfo.cp}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Descripcion: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.descripcion}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Ubicacion: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ubicacion}}</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="card hadow-lg">
+                                        <div class="card-header text-center pt-4 pb-3 bg-transparent">
+                                            <h3 class="font-weight-bold mt-2 text-body">
+                                                Negocio
+                                            </h3>
+                                        </div>
+                                        <div class="card-body text-lg-start text-center pt-0">
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Tipo de Negocio: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.neg_tipo}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Giro: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.neg_giro}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Ingreso Mensual: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.neg_ingreso}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Telefono: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.neg_telefono}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-12 ps-3 text-body">Direccion: 
+                                                    <span class="tps-3 text-body font-weight-bold">
+                                                {{clienteInfo.neg_calle +', '+ clienteInfo.neg_numero +', '+ clienteInfo.neg_colonia +','+ clienteInfo.neg_municipio +', '+ clienteInfo.neg_estado +', '+ clienteInfo.neg_cp}}
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Descripcion: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.neg_descripcion}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Ubicacion: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.neg_ubicacion}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Horaario: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.neg_horario}}</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="card hadow-lg">
+                                        <div class="card-header text-center pt-4 pb-3 bg-transparent">
+                                            <h3 class="font-weight-bold mt-2 text-body">
+                                                Aval/Codeudor
+                                            </h3>
+                                        </div>
+                                        <div class="card-body text-lg-start text-center pt-0">
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Nombre: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_nombres
+                                                        +' '+ clienteInfo.cod_paterno +' '+
+                                                        clienteInfo.cod_materno}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Telefonos: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_telefono
+                                                        +' '+ clienteInfo.cod_telefono2}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Parentesco: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_parentesco}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Ocupacion: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_ocupacion}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Ingreso mensual: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_ingresos}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Curp: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_curp}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Ine: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_ine}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-12 ps-3 text-body">Fecha de nacimiento: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_fecha_de_nacimiento}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-4 ps-3 text-body">Sexo: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_sexo}}</span></span>
+                                                <span class="col-4 ps-3 text-body">Estado civil: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_estado_civil}}</span></span>
+                                                <span class="col-4 ps-3 text-body">Tipo de vivienda: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_tipo_de_vivienda}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-12 ps-3 text-body">Direccion: 
+                                                    <span class="tps-3 text-body font-weight-bold">
+                                                        {{clienteInfo.cod_calle +', '+ clienteInfo.cod_numero +', '+ clienteInfo.cod_colonia +', '+ clienteInfo.cod_municipio +', '+ clienteInfo.cod_estado +', '+ clienteInfo.cod_cp}}
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Descripcion: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_descripcion}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Ubicacion: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.cod_ubicacion}}</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+                            <tab heading="Referencias">
+                                <div class="col-md-12 mb-12">
+                                    <div class="card hadow-lg">
+                                        <div class="card-header text-center pt-4 pb-3 bg-transparent">
+                                            <h3 class="font-weight-bold mt-2 text-body">
+                                                Referencia 1
+                                            </h3>
+                                        </div>
+                                        <div class="card-body text-lg-start text-center pt-0">
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Nombre: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ref_nombre}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Comentario: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ref_comentario}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Direccion: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ref_direccion}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Telefono: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ref_telefono}}</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="card hadow-lg">
+                                        <div class="card-header text-center pt-4 pb-3 bg-transparent">
+                                            <h3 class="font-weight-bold mt-2 text-body">
+                                                Referencia 2
+                                            </h3>
+                                        </div>
+                                        <div class="card-body text-lg-start text-center pt-0">
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Nombre: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ref_nombre2}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Comentario: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ref_comentario2}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Direccion: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ref_direccion2}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Telefono: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ref_telefono2}}</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="card hadow-lg">
+                                        <div class="card-header text-center pt-4 pb-3 bg-transparent">
+                                            <h3 class="font-weight-bold mt-2 text-body">
+                                                Referencia 3
+                                            </h3>
+                                        </div>
+                                        <div class="card-body text-lg-start text-center pt-0">
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Nombre: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ref_nombre3}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Comentario: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ref_comentario3}}</span></span>
+                                            </div>
+                                            <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                                                <span class="col-6 ps-3 text-body">Direccion: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ref_direccion3}}</span></span>
+                                                <span class="col-6 ps-3 text-body">Telefono: <span
+                                                        class="tps-3 text-body font-weight-bold">{{clienteInfo.ref_telefono3}}</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+                            <tab heading="Credito">
+                                <div class="row">
+                                    <div class="col-md-11 mb-4">
+                                        <div class="card shadow-lg">
+                                            <div class="card-header text-center pt-4 pb-3">
+                                                <h1 class="font-weight-bold mt-2">
+                                                    <span
+                                                        class="font-weight-bold mt-2 text-body title-tab-custom">Credito:
+                                                        {{clienteInfo.prestamo_id}}</span>
+                                                    <span
+                                                        class="title-tab font-weight-bold mt-2 text-body title-tab-custom">
+                                                        Ciclo: {{clienteInfo.no_credito}}</span>
+                                                    <span
+                                                        class="title-tab font-weight-bold mt-2 text-body title-tab-custom">
+                                                        Monto: {{clienteInfo.pres_monto}}</span>
+                                                    <span
+                                                        class="title-tab font-weight-bold mt-2 text-body title-tab-custom">
+                                                        T. a Pagar: {{clienteInfo.pres_total_pagar}}</span>
+                                                    <span
+                                                        class="title-tab font-weight-bold mt-2 text-body title-tab-custom">
+                                                        Saldo: {{clienteInfo.pres_total_pagar - this.pagos_sum}}</span>
+                                                </h1>
+                                            </div>
+                                            <div class="card-body text-lg-start text-center pt-0">
+
+                                                <table class="table align-items-center mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary font-weight-bolder ">
+                                                                No pago</th>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary font-weight-bolder ps-2">
+                                                                Monto</th>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary font-weight-bolder ">
+                                                                Fecha pago</th>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary font-weight-bolder ">
+                                                                Fecha deposito</th>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary font-weight-bolder ">
+                                                                Depositado</th>
+                                                            <th
+                                                                class="text-center text-uppercase text-secondary font-weight-bolder opacity-7">
+                                                                Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let datos_credito of datos_credito;">
+                                                            <td>
+                                                                <div class="align-middle text-center">
+                                                                    <p class=" font-weight-bold mb-0">
+                                                                        {{datos_credito.no_pago}}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td class="align-middle text-center">
+                                                                <p class=" font-weight-bold mb-0">
+                                                                    {{datos_credito.cuota}}</p>
+                                                            </td>
+                                                            <td class="align-middle text-center">
+                                                                <span
+                                                                    class="text-secondary font-weight-normal">{{datos_credito.fecha}}</span>
+                                                            </td>
+                                                            <td class="align-middle text-center">
+                                                                <span
+                                                                    class="text-secondary font-weight-normal">{{datos_credito.fecha_pago}}</span>
+                                                            </td>
+                                                            <td class="align-middle text-center">
+                                                                <span
+                                                                    class="text-secondary font-weight-normal">{{datos_credito.deposito}}</span>
+                                                            </td>
+                                                            <td class="align-middle text-center">
+                                                                <span
+                                                                    *ngIf="datos_credito.deposito >= datos_credito.cuota || datos_credito.pagado == 1"
+                                                                    class="badge badge-sm badge-success">Pagado</span>
+                                                                <span
+                                                                    *ngIf="datos_credito.deposito < datos_credito.cuota && datos_credito.pagado == 0"
+                                                                    class="badge badge-sm badge-secondary">Pendiente</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="btn btn-link text-danger px-3 mb-0" href="javascript:;"
+                                        (click)="printPage()"><i class="material-icons text-sm me-2">edit</i>Imprimir
+                                        Tabla</a><br>
+
+                                </div>
+                            </tab>
+                        </tabset>
+                        <div class="disp-n" id="agrrement-section">
+                            <h1 class="font-weight-bold mt-2">
+                                Credito:<span>{{clienteInfo.prestamo_id}}</span>
+                            </h1>
+                            <h1 class="font-weight-bold mt-2">
+                                Ciclo:<span>{{clienteInfo.no_credito}}</span>
+                            </h1>
+                            <h1 class="font-weight-bold mt-2">
+                                Monto:<span>{{clienteInfo.pres_monto}}</span>
+                            </h1>
+                            <h1 class="col-6 ps-3 text-body font-weight-bold">Cliente:{{clienteInfo.nombres +' '+
+                                clienteInfo.paterno +' '+ clienteInfo.materno}}</h1>
+                            <table class="table" border="1">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            width="25%" align="center" height="50">
+                                            Pago&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+                                            width="25%" align="center" height="50">
+                                            Cuota&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                        </th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            width="25%" align="center" height="50">
+                                            Fecha&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                        </th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            width="25%" align="center" height="50">
+                                            Status&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let datos_credito of datos_credito;">
+                                        <td class="align-middle text-center">
+                                            <span
+                                                class="text-secondary font-weight-normal">{{datos_credito.no_pago}}</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class=" font-weight-bold mb-0">{{datos_credito.cuota}}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span
+                                                class="text-secondary font-weight-normal">{{datos_credito.fecha}}</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span *ngIf="datos_credito.pagado == 1"
+                                                class="badge badge-sm badge-success">Pagado</span>
+                                            <span *ngIf="datos_credito.pagado != 1"
+                                                class="badge badge-sm badge-secondary">Pendiente</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

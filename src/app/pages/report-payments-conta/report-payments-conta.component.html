@@ -1,1 +1,195 @@
-<p>report-payments-conta works!</p>
+<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+                <h3 class="content-header-title mb-0 d-inline-block">Reporde de Pagos</h3>
+                <div class="row breadcrumbs-top d-inline-block">
+                    <div class="breadcrumb-wrapper col-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active">Reporde de Pagos
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form #formReport="ngForm" (ngSubmit)="getReportPayments(formReport)" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="input-group-static">
+                        <label>Fecha Inicial</label>
+                        <input class="form-control calendar-input" [matDatepicker]="pickerI" name="f_inicial">
+                        <mat-datepicker-toggle matSuffix [for]="pickerI"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerI></mat-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group-static">
+                        <label>Fecha Final</label>
+                        <input class="form-control calendar-input" [matDatepicker]="pickerF" name="f_final">
+                        <mat-datepicker-toggle matSuffix [for]="pickerF"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerF></mat-datepicker>
+                    </div>
+                </div>
+                <div class="col-md-3" style="text-align: center;">
+                    <div class="dropdown">
+                        <select class="form-control mb-3 select-margin" name="sucursal" #sucursal="ngModel"
+                            [(ngModel)]="report.sucursal">
+                            <option value="">Sucursal</option>
+                            <option value="01">Amecameca</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4" style="text-align: center;">
+                    <div class="dropdown">
+                        <select class="form-control mb-3 select-margin" name="asesor" #asesor="ngModel"
+                            [(ngModel)]="report.asesor">
+                            <option value="">Asesor</option>
+                            <option *ngFor="let asesores of asesores;" value="{{asesores.id}}">
+                                {{asesores.nombres + ' ' + asesores.paterno}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1 botonEnd" style="text-align: center;margin-top: 30px">
+                    <input type="submit" value="Buscar" class="btn btn-lg btn-success lineCenter"
+                        [disabled]="!formReport.form.valid" />
+                </div>
+            </div>
+        </form>
+        <div class="disp-n print-report">
+            <button class="btn btn-lg btn-success lineCenter" (click)="descargar()">Descargar</button>
+        </div>
+        <br>
+        <div class="row tab-profile tab-font-custom">
+            <div class="card">
+                <div class="table-responsive tableFixHead">
+                    <table class="table align-items-center mb-0" id="miTabla">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                    style="width: 350px !important;">
+                                    Asesor</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                    style="width: 250px !important;">
+                                    Cliente</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                    style="width: 350px !important;">
+                                    Nombre</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                    style="width: 250px !important;">
+                                    Prestamo ID</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pago
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Fecha</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Concepto</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Capital</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Interes</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Iva
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Depositado</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Penalizacion</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Comision</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Iva2
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let report of reportInfo;">
+                                <td>
+                                    <div class="d-flex px-2 py-1">
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <p class="text-xs font-weight-bold mb-0">{{report.asesor_paterno}}
+                                                {{report.asesor_materno}} {{report.asesor_nombre}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle text-sm">
+                                    <span class="text-xs font-weight-bold mb-0">{{report.cliente_id}}</span>
+                                </td>
+                                <td>
+                                    <p class="text-xs font-weight-bold mb-0">{{report.paterno}} {{report.materno}}
+                                        {{report.nombres}}</p>
+                                </td>
+                                <td class="align-middle text-sm">
+                                    <span class="text-xs font-weight-bold mb-0">{{report.prestamo_id}}</span>
+                                </td>
+
+                                <td class="align-middle text-sm">
+                                    <span class="text-xs font-weight-bold mb-0">{{(report.p_credito *
+                                        1).toFixed(2)}}</span>
+                                </td>
+                                <td class="align-middle text-sm">
+                                    <span class="text-xs font-weight-bold mb-0">{{report.fecha_pago}}</span>
+                                </td>
+                                <td class="align-middle text-sm">
+                                    <span class="text-xs font-weight-bold mb-0">{{report.no_pago}}</span>
+                                </td>
+                                <td class="align-middle">
+                                    <span *ngIf="report.no_pago != 'CAP' && report.no_pago != 'COM'"
+                                        class="text-xs font-weight-bold mb-0">{{(report.p_credito *
+                                        .70361).toFixed(2)}}</span>
+                                    <span *ngIf="report.no_pago == 'COM'" class="text-xs font-weight-bold mb-0">{{(0 *
+                                        .255508).toFixed(2)}}</span>
+                                    <span *ngIf="report.no_pago == 'CAP'"
+                                        class="text-xs font-weight-bold mb-0">{{(report.p_credito *
+                                        1).toFixed(2)}}</span>
+                                </td>
+                                <td class="align-middle">
+                                    <span *ngIf="report.no_pago != 'CAP' && report.no_pago != 'COM'"
+                                        class="text-xs font-weight-bold mb-0">{{(report.p_credito *
+                                        .255508).toFixed(2)}}</span>
+                                    <span *ngIf="report.no_pago == 'COM'" class="text-xs font-weight-bold mb-0">{{(0 *
+                                        .255508).toFixed(2)}}</span>
+                                </td>
+                                <td class="align-middle">
+                                    <span *ngIf="report.no_pago != 'CAP' && report.no_pago != 'COM'"
+                                        class="text-xs font-weight-bold mb-0">{{(report.p_credito *
+                                        .040881).toFixed(2)}}</span>
+                                    <span *ngIf="report.no_pago == 'COM'" class="text-xs font-weight-bold mb-0">{{(0 *
+                                        .255508).toFixed(2)}}</span>
+                                </td>
+                                <td class="align-middle">
+                                    <span class="text-xs font-weight-bold mb-0">{{(report.monto * 1).toFixed(2)}}</span>
+                                </td>
+                                <td class="align-middletext-sm">
+                                    <span *ngIf="report.p_mora > 0"
+                                        class="text-xs font-weight-bold mb-0">{{(report.p_mora /
+                                        1.16).toFixed(2)}}</span>
+                                </td>
+                                <td class="align-middle">
+                                    <span
+                                        *ngIf="report.no_pago == 'Com' || report.no_pago == 'com' || report.no_pago == 'COM'"
+                                        class="text-xs font-weight-bold mb-0">{{(report.p_credito /
+                                        1.16).toFixed(2)}}</span>
+                                </td>
+                                <td class="align-middle">
+                                    <span *ngIf="report.p_mora > 0"
+                                        class="text-xs font-weight-bold mb-0">{{((report.p_mora /
+                                        1.16)*.16).toFixed(2)}}</span>
+                                    <span
+                                        *ngIf="report.no_pago == 'Com' || report.no_pago == 'com' || report.no_pago == 'COM'"
+                                        class="text-xs font-weight-bold mb-0">{{((report.p_credito /
+                                        1.16)*.16).toFixed(2)}}</span>
+                                </td>
+                                <td class="align-middle">
+                                    <span class="text-xs font-weight-bold mb-0">{{(report.monto * 1).toFixed(2)}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
