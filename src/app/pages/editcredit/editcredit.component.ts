@@ -206,6 +206,7 @@ export class EditcreditComponent {
           localStorage.clear();
           window.location.href = '';
         }
+        alert('Error Valida que tu informacion sea correcta');
       }
     );
   }

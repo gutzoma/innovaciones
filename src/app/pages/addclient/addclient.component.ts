@@ -128,6 +128,7 @@ export class AddclientComponent implements OnInit {
           localStorage.clear();
           window.location.href = '';
         }
+        alert('Error Valida que tu informacion sea correcta');
 			}
 		);
     //form.reset();
