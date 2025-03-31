@@ -21,7 +21,6 @@ export class MenuComponent {
     let name = user.nombres + ' ' + user.paterno + ' ' + user.materno;
     $('.name').html(name);
     this.profile = user.rol;
-
     this.cdr.detectChanges();
     $('.navigation').find('li').has('ul').addClass('has-sub');
 

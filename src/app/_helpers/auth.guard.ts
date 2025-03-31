@@ -24,7 +24,6 @@ export class AuthGuard implements CanActivate {
     if (!this.authService.isLoggedIn()) {
       this.router.navigate(['/login']);
     } else {
-
       function scheduleTokenExpiration(token: string): void {
         const payload = JSON.parse(atob(token.split('.')[1]));
         const expirationTime = payload.exp * 1000 - Date.now(); // Tiempo restante en milisegundos
