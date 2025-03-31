@@ -25,7 +25,7 @@ export class AuthenticationService {
         $(".alert-text").removeClass("disp-n");
         setTimeout(() => {
           $(".alert-text").addClass("disp-n");
-        }, 1500);
+        }, 2000);
       }
     });
   }
