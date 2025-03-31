@@ -38,7 +38,6 @@
               "src/styles.scss",
               "src/assets/css/app.css",
               "src/assets/css/vendors.css",
-              "src/assets/css/app.css",
               "src/assets/vendors/css/forms/icheck/icheck.css",
               "src/assets/vendors/css/forms/icheck/custom.css",
               "src/assets/css/pages/account-login.css",

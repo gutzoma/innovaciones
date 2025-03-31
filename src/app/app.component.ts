@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-
+declare let $: any;
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
@@ -9,4 +9,7 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'paayito_v3';
+  ngOnInit(){
+    $('.navigation').find('li').has('ul').addClass('has-sub');
+  }
 }
