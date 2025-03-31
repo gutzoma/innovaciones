@@ -20,7 +20,9 @@ export class AuthenticationService {
       if (data.status === 1) {
         localStorage.setItem(this.tokenKey, JSON.stringify(data.user));
         localStorage.setItem(this.token, JSON.stringify(data.token));
-        this.router.navigate(['']);
+        this.router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
       }else{
         $(".alert-text").removeClass("disp-n");
         setTimeout(() => {

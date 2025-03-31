@@ -21,6 +21,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCartera();
+    setTimeout(() => {
+      $(".home").removeClass('disp-n');
+    }, 200);
   }
 
   getCartera() {
