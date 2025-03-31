@@ -5,11 +5,12 @@ import { GeneralesService } from '../../_services/generales.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { MenuComponent } from "../menu/menu.component";
 
 declare let $: any;
 @Component({
   selector: 'app-addcredit',
-  imports: [FormsModule, CommonModule, SelectDropDownModule],
+  imports: [FormsModule, CommonModule, SelectDropDownModule, MenuComponent],
   standalone: true,
   templateUrl: './addcredit.component.html',
   styles: ``,

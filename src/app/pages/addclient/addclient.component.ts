@@ -8,12 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ClienteCodeudor } from '../../_models/codeudor';
 import { ClienteNegocio } from '../../_models/negocio';
+import { MenuComponent } from "../menu/menu.component";
 declare let $: any;
 
 
 @Component({
   selector: 'app-addclient',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MenuComponent],
   standalone: true,
   templateUrl: './addclient.component.html',
   styles: ``,

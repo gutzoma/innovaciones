@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../_services/home.service';
 import { CommonModule } from '@angular/common';
+import { MenuComponent } from "../menu/menu.component";
 
 declare let $: any;
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MenuComponent],
   templateUrl: './home.component.html',
   styles: ``,
   providers: [HomeService]

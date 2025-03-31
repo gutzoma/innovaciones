@@ -3,11 +3,12 @@ import { SearchService } from '../../_services/search.service';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { TabsModule} from 'ngx-bootstrap/tabs';
 import { CommonModule } from '@angular/common';
+import { MenuComponent } from "../menu/menu.component";
 
 declare let $: any;
 @Component({
   selector: 'app-search',
-  imports: [SelectDropDownModule,TabsModule, CommonModule],
+  imports: [SelectDropDownModule, TabsModule, CommonModule, MenuComponent],
   templateUrl: './search.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,

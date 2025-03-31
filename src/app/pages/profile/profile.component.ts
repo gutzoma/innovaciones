@@ -4,6 +4,7 @@ import { ProfileService } from '../../_services/profile.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
+import { MenuComponent } from "../menu/menu.component";
 
 declare let $: any;
 
@@ -12,8 +13,9 @@ declare let $: any;
   standalone: true,
   imports: [
     FormsModule,
-    CommonModule
-  ],
+    CommonModule,
+    MenuComponent
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './profile.component.html',
   styles: ``,

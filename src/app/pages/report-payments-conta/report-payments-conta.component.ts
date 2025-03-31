@@ -16,6 +16,7 @@ import {
   MAT_DATE_FORMATS
 } from '@angular/material/core';
 import { ReportsService } from '../../_services/reports.service';
+import { MenuComponent } from "../menu/menu.component";
 
 declare let $: any;
 
@@ -48,7 +49,8 @@ class PickDateAdapter extends NativeDateAdapter {
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-  ],
+    MenuComponent
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './report-payments-conta.component.html',
   styles: ``,

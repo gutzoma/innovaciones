@@ -17,6 +17,7 @@ import {
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE
 } from '@angular/material/core';
+import { MenuComponent } from "../menu/menu.component";
 
 declare let $: any;
 
@@ -49,7 +50,8 @@ class PickDateAdapter extends NativeDateAdapter {
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-  ],
+    MenuComponent
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './disperse.component.html',
   styles: ``,

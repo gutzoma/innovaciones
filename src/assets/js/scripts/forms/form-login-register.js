@@ -12,9 +12,4 @@ $(document).ready(function(){
 	// 		radioClass: 'iradio_square-blue',
 	// 	});
 	// }
-	$(".logout").on("click", () => {
-		localStorage.clear();
-		window.location.href = '';
-	  });
-
 });

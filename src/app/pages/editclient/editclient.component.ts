@@ -9,11 +9,12 @@ import { CommonModule } from '@angular/common';
 import { ClienteCodeudor } from '../../_models/codeudor';
 import { ClienteNegocio } from '../../_models/negocio';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { MenuComponent } from "../menu/menu.component";
 declare let $: any;
 
 @Component({
   selector: 'app-editclient',
-  imports: [FormsModule, CommonModule,SelectDropDownModule],
+  imports: [FormsModule, CommonModule, SelectDropDownModule, MenuComponent],
   standalone: true,
   templateUrl: './editclient.component.html',
   styles: ``,

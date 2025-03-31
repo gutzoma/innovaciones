@@ -3,6 +3,7 @@ import { GeneralesService } from '../../_services/generales.service';
 import { Liquidaciones } from "../../_models/liquidaciones";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MenuComponent } from "../menu/menu.component";
 
 declare let $: any;
 
@@ -11,8 +12,9 @@ declare let $: any;
   standalone: true,
   imports: [
     FormsModule,
-    CommonModule
-  ],
+    CommonModule,
+    MenuComponent
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './finalized.component.html',
   styles: ``,
