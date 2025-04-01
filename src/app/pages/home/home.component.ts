@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
     this.getCartera();
     setTimeout(() => {
       $(".home").removeClass('disp-n');
-    }, 200);
+    }, 600);
   }
 
   getCartera() {
