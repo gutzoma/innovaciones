@@ -43,7 +43,7 @@
   <div class="main-menu-content"><a class="navigation-brand d-none d-md-block d-lg-block d-xl-block"
       href="index.html"><img class="brand-logo" alt="CryptoDash admin logo" src="../assets/images/logo/logo.png" /></a>
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-      @if(profile === 3 || profile === 4 || profile === 2){
+      @if(profile == 3 || profile == 4 || profile == 2){
       <li class="nav-item"><a href="#"><i class="icon-grid"></i><span class="menu-title"
             data-i18n="">Clientes</span></a>
         <ul class="menu-content">
@@ -63,7 +63,7 @@
         </ul>
       </li>
       }
-      @if(profile === 4 || profile === 2){
+      @if(profile == 4 || profile == 2){
       <li class="nav-item"><a href="#"><i class="icon-wallet"></i><span class="menu-title"
             data-i18n="">Desembolsos</span></a>
         <ul class="menu-content">
@@ -74,7 +74,7 @@
         </ul>
       </li>
       }
-      @if(profile === 2){
+      @if(profile == 2){
       <li class="nav-item"><a href="#"><i class="icon-notebook"></i><span class="menu-title"
             data-i18n="">Reportes</span></a>
         <ul class="menu-content">
@@ -87,17 +87,17 @@
         </ul>
       </li>
       }
-      @if(profile === 5 || profile === 4 || profile === 2){
+      @if(profile == 5 || profile == 4 || profile == 2){
       <li class="nav-item"><a href="addpayment"><i class="icon-note"></i><span class="menu-title"
             data-i18n="">Pagos</span></a>
       </li>
       }
-      @if(profile === 4 || profile === 2){
+      @if(profile == 4 || profile == 2){
       <li class="nav-item"><a href="finalized"><i class="icon-refresh"></i><span class="menu-title"
             data-i18n="">Liberacion</span></a>
       </li>
       }
-      @if(profile === 5 || profile === 2){
+      @if(profile == 5 || profile == 2){
       <li class="nav-item"><a href="#"><i class="icon-calculator"></i><span class="menu-title"
             data-i18n="">Contabilidad</span></a>
         <ul class="menu-content">
@@ -106,14 +106,14 @@
         </ul>
       </li>
       }
-      @if(profile === 5 || profile === 2 || profile === 4){
+      @if(profile == 5 || profile == 2 || profile == 4){
       <li class="nav-item"><a href="#"><i class="icon-printer"></i><span class="menu-title" data-i18n="">Caja</span></a>
         <ul class="menu-content">
-          @if(profile === 5 || profile === 2){
+          @if(profile == 5 || profile == 2){
           <li><a class="menu-item" href="cashbox">Generar Recibo</a>
           </li>
           }
-          @if(profile === 4 || profile === 2){
+          @if(profile == 4 || profile == 2){
           <li><a class="menu-item" href="report_cashbox">Corte de Caja</a>
           </li>
           }

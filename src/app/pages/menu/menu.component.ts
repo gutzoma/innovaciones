@@ -14,7 +14,7 @@ export class MenuComponent {
   public profile:any;
 
   constructor(private cdr: ChangeDetectorRef) {
-  
+
      }
   ngOnInit(){
     const user = JSON.parse(localStorage.getItem('userData')!);
@@ -24,7 +24,7 @@ export class MenuComponent {
     setTimeout(() => {
       $('.navigation').find('li').has('ul').addClass('has-sub');
     }, 500);
-
+    this.cdr.detectChanges();
     $(".logout").on("click", () => {
       localStorage.clear();
       window.location.href = '';

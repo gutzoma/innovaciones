@@ -35,10 +35,10 @@ export class AuthGuard implements CanActivate {
           }, expirationTime);
         }
       }
-
-      // if (token) {
-      //   scheduleTokenExpiration(token);
-      // }
+      const token = localStorage.getItem('token');
+      if (token) {
+        scheduleTokenExpiration(token);
+      }
     }
 
     return true;
