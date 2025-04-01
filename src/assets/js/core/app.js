@@ -24,7 +24,8 @@
 
         setTimeout(function() {
             $html.removeClass('loading').addClass('loaded');
-        }, 1200);
+            $('.contenido').removeClass('disp-n');
+        }, 500);
 
         $.app.menu.init(compactMenu);
 
