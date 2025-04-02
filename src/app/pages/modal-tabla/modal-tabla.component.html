@@ -1,0 +1,45 @@
+<table class="table align-items-center mb-0">
+  <thead>
+    <tr>
+      <th class="text-center text-uppercase text-secondary font-weight-bolder ">
+        No pago</th>
+      <th class="text-center text-uppercase text-secondary font-weight-bolder ps-2">
+        Monto</th>
+      <th class="text-center text-uppercase text-secondary font-weight-bolder ">
+        Fecha pago</th>
+      <th class="text-center text-uppercase text-secondary font-weight-bolder ">
+        Fecha deposito</th>
+      <th class="text-center text-uppercase text-secondary font-weight-bolder ">
+        Depositado</th>
+      <th class="text-center text-uppercase text-secondary font-weight-bolder opacity-7">
+        Atraso</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (creditoInfo of creditoInfo; track $index) {
+    <tr>
+      <td class="align-middle text-center">
+          <span class="text-secondary font-weight-normal">{{creditoInfo.no_pago}}</span>
+      </td>
+      <td class="align-middle text-center">
+        <span class="text-secondary font-weight-normal">{{creditoInfo.cuota}}</span>
+      </td>
+      <td class="align-middle text-center">
+        <span class="text-secondary font-weight-normal">{{creditoInfo.fecha}}</span>
+      </td>
+      <td class="align-middle text-center">
+        <span class="text-secondary font-weight-normal">{{creditoInfo.fecha_pago}}</span>
+      </td>
+      <td class="align-middle text-center">
+        <span class="text-secondary font-weight-normal">{{creditoInfo.deposito}}</span>
+      </td>
+      <td class="align-middle text-center">
+        <p class=" font-weight-bold mb-0">{{creditoInfo.atraso}}</p>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+
+
+<button class="btn btn-gradient-secondary" mat-button (click)="cerrarModal()">Cerrar</button>
