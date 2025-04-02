@@ -24,7 +24,10 @@ export class HistoryCliente{
       public telefono: string,
       public telefono2: string,
       public tipo_de_vivienda: string,
-      public ubicacion: string
+      public ubicacion: string,
+      public cod_materno: string,
+      public cod_nombres: string,
+      public cod_paterno: string
       ){
 
   }

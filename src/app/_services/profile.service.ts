@@ -44,5 +44,10 @@ export class ProfileService{
 
 		return this._http.get(this.url+'credit-history3/'+id, {headers: headers});
 	}
+  getCreditHistory4(id: number): Observable<any>{
+		let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+		return this._http.get(this.url+'credit-history4/'+id, {headers: headers});
+	}
 
 }

@@ -18,6 +18,18 @@
     </div>
     <div class="col-md-12 mb-12">
       @if(info){
+        @if(infoAval){
+          <div class="card hadow-lg">
+            <div class="card-header text-center pt-4 pb-3 bg-transparent aval-alert">
+              <h4 class="font-weight-bold mt-2">
+                {{clienteInfo.cod_nombres
+                  +' '+ clienteInfo.cod_paterno +' '+
+                  clienteInfo.cod_materno}}
+              </h4>
+              <h3>Es Aval De:</h3>
+            </div>
+          </div>
+        }
         <div class="card shadow-lg">
           <div class="card-header text-center pt-4 pb-3 bg-transparent">
             <div class="row d-flex justify-content-lg-start justify-content-center p-2">

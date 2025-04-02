@@ -24,11 +24,12 @@ export class CreditHistoryComponent {
   public clienteInfo: HistoryCliente;
   public prestamosInfo!: any;
   public info = false;
+  public infoAval = false;
 
   constructor(private _router:ActivatedRoute, private cdr: ChangeDetectorRef, private _profileservice: ProfileService, public dialog: MatDialog) {
 this.clienteInfo = new HistoryCliente('','','','',''
   ,'','','','','','','','','','','','',''
-  ,'','','','','','','');
+  ,'','','','','','','','','','');
    }
 
    ngOnInit (){
@@ -42,6 +43,8 @@ this.clienteInfo = new HistoryCliente('','','','',''
         if(response != 'No existen'){
           this.clienteInfo = response[0];
           this.getCreditHistory2(this.clienteInfo.cliente_id)
+        }else{
+          this.getCreditHistory4(params)
         }
       },
       error => {
@@ -59,6 +62,22 @@ this.clienteInfo = new HistoryCliente('','','','',''
         if(response != 'No existen'){
           this.prestamosInfo = response;
           this.info = true;
+          this.cdr.detectChanges();
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
+  getCreditHistory4(params: any) {
+    this._profileservice.getCreditHistory4 (params).subscribe(
+      response => {
+        if(response != 'No existen'){
+          this.clienteInfo = response[0];
+          this.getCreditHistory2(this.clienteInfo.cliente_id)
+          this.info = true;
+          this.infoAval = true;
           this.cdr.detectChanges();
         }
       },
