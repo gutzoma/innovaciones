@@ -28,5 +28,21 @@ export class ProfileService{
 
 		return this._http.get(this.url+'cartera-asesor-clientes/'+id, {headers: headers});
 	}
-	
+
+  getCreditHistory(id: number): Observable<any>{
+		let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+		return this._http.get(this.url+'credit-history/'+id, {headers: headers});
+	}
+  getCreditHistory2(id: number): Observable<any>{
+		let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+		return this._http.get(this.url+'credit-history2/'+id, {headers: headers});
+	}
+  getCreditHistory3(id: number): Observable<any>{
+		let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+		return this._http.get(this.url+'credit-history3/'+id, {headers: headers});
+	}
+
 }

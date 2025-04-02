@@ -1,0 +1,91 @@
+<app-menu/>
+  <div class="app-content content">
+      <div class="content-wrapper">
+          <div class="content-header row">
+              <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+                  <h3 class="content-header-title mb-0 d-inline-block">Historial</h3>
+                  <div class="row breadcrumbs-top d-inline-block">
+                      <div class="breadcrumb-wrapper col-12">
+                          <ol class="breadcrumb">
+                              <li class="breadcrumb-item"><a href="/">Dashboard</a>
+                              </li>
+                              <li class="breadcrumb-item active">Historial
+                              </li>
+                          </ol>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-12 mb-12">
+            <div class="card shadow-lg">
+                <div class="card-header text-center pt-4 pb-3 bg-transparent">
+                  <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                    <h3 class="col-6 font-weight-bold mt-2 text-body">
+                      Cliente: <span>{{clienteInfo.cliente_id}}</span>
+                  </h3>
+                  <h3 class="col-6 font-weight-bold mt-2 text-body">
+                    Ciclos: <span>{{clienteInfo.no_credito}}</span>
+                </h3>
+                  </div>
+                </div>
+                <div class="card-body text-lg-start text-center pt-0">
+                    <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                        <span class="col-6 ps-3 text-body">Nombre: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.nombres
+                                +' '+ clienteInfo.paterno +' '+
+                                clienteInfo.materno}}</span></span>
+                        <span class="col-6 ps-3 text-body">Correo: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.correo}}</span></span>
+                    </div>
+                    <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                        <span class="col-6 ps-3 text-body">Telefonos: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.telefono
+                                +' '+ clienteInfo.telefono2}}</span></span>
+                        <span class="col-6 ps-3 text-body">Dependientes: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.no_dependientes}}</span></span>
+                    </div>
+                    <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                        <span class="col-6 ps-3 text-body">Curp: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.curp}}</span></span>
+                        <span class="col-6 ps-3 text-body">Ine: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.ine}}</span></span>
+                    </div>
+                    <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                        <span class="col-6 ps-3 text-body">Fecha de nacimiento: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.fecha_de_nacimiento}}</span></span>
+                        <span class="col-6 ps-3 text-body">Imagenes: <span
+                                class="tps-3 text-body font-weight-bold"><a
+                                    href="http://admin01.paayito.com/finanback/public/ines/{{clienteInfo.img_ine}}"
+                                    target="_blank" rel="noopener noreferrer">Ine</a></span><span> - </span>
+                                    <span
+                                class="tps-3 text-body font-weight-bold"><a
+                                    href="http://admin01.paayito.com/finanback/public/domicilios/{{clienteInfo.img_domicilio}}"
+                                    target="_blank" rel="noopener noreferrer"> Domicilio</a></span>
+                                  </span>
+                    </div>
+                    <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                        <span class="col-4 ps-3 text-body">Sexo: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.sexo}}</span></span>
+                        <span class="col-4 ps-3 text-body">Estado civil: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.estado_civil}}</span></span>
+                        <span class="col-4 ps-3 text-body">Tipo de vivienda: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.tipo_de_vivienda}}</span></span>
+                    </div>
+                    <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                        <span class="col-12 ps-3 text-body">Direccion: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.calle
+                                +', '+ clienteInfo.numero +', '+ clienteInfo.colonia +', '+
+                                clienteInfo.municipio +', '+ clienteInfo.estado +', '+
+                                clienteInfo.cp}}</span></span>
+                    </div>
+                    <div class="row d-flex justify-content-lg-start justify-content-center p-2">
+                        <span class="col-6 ps-3 text-body">Descripcion: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.descripcion}}</span></span>
+                        <span class="col-6 ps-3 text-body">Ubicacion: <span
+                                class="tps-3 text-body font-weight-bold">{{clienteInfo.ubicacion}}</span></span>
+                    </div>
+                </div>
+            </div>
+          </div>
+      </div>
+  </div>

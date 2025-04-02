@@ -69,7 +69,7 @@ export class ProfileComponent {
     this._profileservice.getCarteraAgenda(cliente).subscribe(
       response => {
         if (response != 'No existen') {
-          
+
           this.datos_agenda = response
           this.cdr.detectChanges();
         }else{
@@ -97,7 +97,7 @@ export class ProfileComponent {
 
           if (response != 'No existen') {
             this.datos_agenda_cliente = response;
-            
+            this.cdr.detectChanges();
           }else{
             this.datos_agenda_cliente = [{
               cliente_id: "HAY",

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare let $: any;
 @Component({
@@ -13,7 +14,7 @@ declare let $: any;
 export class MenuComponent {
   public profile:any;
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef, private router: Router) {
 
      }
   ngOnInit(){
@@ -25,6 +26,13 @@ export class MenuComponent {
       $('.navigation').find('li').has('ul').addClass('has-sub');
     }, 500);
     this.cdr.detectChanges();
+    $('.search-client').on('keydown', (event: { key: string; }) => {
+      if (event.key === 'Enter') {
+         this.router.navigate(['credit_history/' + $('.search-client').val()]).then(() => {
+          window.location.reload();
+        });
+      }
+  });
     $(".logout").on("click", () => {
       localStorage.clear();
       window.location.href = '';

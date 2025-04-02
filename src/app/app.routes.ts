@@ -18,6 +18,7 @@ import { ReportPaymentsComponent } from './pages/report-payments/report-payments
 import { ReportPaymentsContaComponent } from './pages/report-payments-conta/report-payments-conta.component';
 import { ReportCashboxComponent } from './pages/report-cashbox/report-cashbox.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { CreditHistoryComponent } from './pages/credit-history/credit-history.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -57,6 +58,7 @@ export const routes: Routes = [
   { path: 'report_payments_conta', component: ReportPaymentsContaComponent,canActivate: [AuthGuard] },
   { path: 'report_cashbox', component: ReportCashboxComponent,canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent,canActivate: [AuthGuard] },
+  { path: 'credit_history/:id', component: CreditHistoryComponent,canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '**', pathMatch: 'full', redirectTo: '' },
 ];
