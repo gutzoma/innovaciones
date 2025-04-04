@@ -27,7 +27,6 @@ export class ModalTablaComponent {
       response => {
         if(response != 'No existen'){
           this.creditoInfo = response;
-          console.log( this.creditoInfo);
           this.cdr.detectChanges();
         }
       },
