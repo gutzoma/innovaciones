@@ -71,7 +71,7 @@ export class ReportCashboxComponent {
   public fechaHoy: any;
 
   constructor(private _generalesservice: GeneralesService, private _reportsservice: ReportsService) {
-    
+
     this.report = new Report('', '', '', '');
     this.t_ofi =  0;
     this.t_cam =  0;
@@ -145,7 +145,7 @@ export class ReportCashboxComponent {
     popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
     if (popupWin) {
       popupWin.document.open();
-      popupWin.document.write('<link rel="stylesheet" href="http://localhost:4200/styles.css">'); 
+      popupWin.document.write('<link rel="stylesheet" href="https://adminqa0.paayito.com/styles-LFV3O6IC.css">');
       popupWin.document.write(`
 				<html>
             <body onload="window.print();window.close()" style="font-size: 10px; !important">${printContents}</body>
@@ -200,7 +200,7 @@ export class ReportCashboxComponent {
     + ($(".val8").val() * 5)
     + ($(".val9").val() * 2)
     + ($(".val10").val() * 1);
- 
+
     $(".t_efect").html( this.moneda(suma));
     var diff = this.t_number - suma;
     $(".difer").html(this.moneda(diff));

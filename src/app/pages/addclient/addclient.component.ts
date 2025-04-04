@@ -8,9 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ClienteCodeudor } from '../../_models/codeudor';
 import { ClienteNegocio } from '../../_models/negocio';
-import { MenuComponent } from "../menu/menu.component";
+import { MenuComponent } from '../menu/menu.component';
 declare let $: any;
-
 
 @Component({
   selector: 'app-addclient',
@@ -18,7 +17,7 @@ declare let $: any;
   standalone: true,
   templateUrl: './addclient.component.html',
   styles: ``,
-  providers: [ClienteService, GeneralesService, UploadService]
+  providers: [ClienteService, GeneralesService, UploadService],
 })
 export class AddclientComponent implements OnInit {
   public data: any;
@@ -26,7 +25,7 @@ export class AddclientComponent implements OnInit {
   public clientecodeudor: ClienteCodeudor;
   public clientenegocio: ClienteNegocio;
   public save_cliente: any;
-	public status!: string;
+  public status!: string;
   public sexo!: any;
   public vivienda!: any;
   public negocio!: any;
@@ -44,106 +43,211 @@ export class AddclientComponent implements OnInit {
     private _clienteservice: ClienteService,
     private _generalesservice: GeneralesService,
     private _uploadservice: UploadService
-  ) 
-  {
-    this.cliente = new Cliente('','','','','','','','','','','','','','','','','','','','','','','');
+  ) {
+    this.cliente = new Cliente(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      ''
+    );
 
-    this.clientecodeudor = new ClienteCodeudor('','','','',''
-    ,'','','','','','','','','','','','',''
-    ,'','','','');
+    this.clientecodeudor = new ClienteCodeudor(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      ''
+    );
 
-    this.clientenegocio = new ClienteNegocio('','','','',''
-    ,'','','','','','','','');
-
-
+    this.clientenegocio = new ClienteNegocio(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      ''
+    );
   }
-  date : any;
+  date: any;
   ngOnInit(): void {
     this.getTcliente();
     this.getTvivienda();
     this.getTnegocio();
     this.getTedociv();
     this.getSucursales();
-    $("input[name=sol_curp]").blur(() =>{
-      var nac = $("input[name=sol_curp]").val().substr(4,6);
-      nac = this.agregarCaracter(nac, "-", 2);
-      nac = nac.split("-");
-      $("input[name=sol_fecha_nac]").val(nac[0]+'-'+nac[1]+'-'+nac[2]);
-  });
+    $('input[name=sol_curp]').blur(() => {
+      var nac = $('input[name=sol_curp]').val().substr(4, 6);
+      nac = this.agregarCaracter(nac, '-', 2);
+      nac = nac.split('-');
+      $('input[name=sol_fecha_nac]').val(nac[0] + '-' + nac[1] + '-' + nac[2]);
+    });
 
-  $("input[name=cod_curp]").blur(() =>{
-    var nac2 = $("input[name=cod_curp]").val().substr(4,6);
-    nac2 = this.agregarCaracter(nac2, "-", 2);
-    nac2 = nac2.split("-");
-    $("input[name=cod_fecha_nac]").val(nac2[0]+'-'+nac2[1]+'-'+nac2[2]);
-});
+    $('input[name=cod_curp]').blur(() => {
+      var nac2 = $('input[name=cod_curp]').val().substr(4, 6);
+      nac2 = this.agregarCaracter(nac2, '-', 2);
+      nac2 = nac2.split('-');
+      $('input[name=cod_fecha_nac]').val(
+        nac2[0] + '-' + nac2[1] + '-' + nac2[2]
+      );
+    });
 
-  $(".custom-file-input1").on("change", function() {
-    var fileName = $(".custom-file-input1").val().split("\\").pop();
-    $(".custom-file-input1").siblings(".custom-file-label1").addClass("selected").html(fileName);
-  });
-  $(".custom-file-input2").on("change", function() {
-    var fileName = $(".custom-file-input2").val().split("\\").pop();
-    $(".custom-file-input2").siblings(".custom-file-label2").addClass("selected").html(fileName);
-  });
-  $(".custom-file-input3").on("change", function() {
-    var fileName = $(".custom-file-input3").val().split("\\").pop();
-    $(".custom-file-input3").siblings(".custom-file-label3").addClass("selected").html(fileName);
-  });  
-
+    $('.custom-file-input1').on('change', function () {
+      var fileName = $('.custom-file-input1').val().split('\\').pop();
+      $('.custom-file-input1')
+        .siblings('.custom-file-label1')
+        .addClass('selected')
+        .html(fileName);
+    });
+    $('.custom-file-input2').on('change', function () {
+      var fileName = $('.custom-file-input2').val().split('\\').pop();
+      $('.custom-file-input2')
+        .siblings('.custom-file-label2')
+        .addClass('selected')
+        .html(fileName);
+    });
+    $('.custom-file-input3').on('change', function () {
+      var fileName = $('.custom-file-input3').val().split('\\').pop();
+      $('.custom-file-input3')
+        .siblings('.custom-file-label3')
+        .addClass('selected')
+        .html(fileName);
+    });
   }
-  saveClient(form: { reset: () => void; }){
-
-     this.cliente.sol_fecha_nac = $("input[name=sol_fecha_nac]").val();
-     this.clientecodeudor.cod_fecha_nac = $("input[name=cod_fecha_nac]").val();
+  saveClient(form: { reset: () => void }) {
+    this.cliente.sol_fecha_nac = $('input[name=sol_fecha_nac]').val();
+    this.clientecodeudor.cod_fecha_nac = $('input[name=cod_fecha_nac]').val();
 
     this.asesor = JSON.parse(localStorage.getItem('userData')!);
-    this.asesor = {'id':this.asesor.id, 'sucursal':this.asesor.sucursal};
+    this.asesor = { id: this.asesor.id, sucursal: this.asesor.sucursal };
 
     this.imgs = {
-      'ine':this.filesToUpload1[0].name,
-      'curp':this.filesToUpload2[0].name,
-      'domicilio':this.filesToUpload3[0].name};
+      ine: this.filesToUpload1[0].name,
+      curp: this.filesToUpload2[0].name,
+      domicilio: this.filesToUpload3[0].name,
+    };
 
-		this._clienteservice.saveCliente(this.cliente, this.clientecodeudor, this.clientenegocio, this.asesor, this.imgs).subscribe(
-			response => {
-				if(response){
-          this.save_cliente = response;
-          
-          this._uploadservice.makeFileRequest(Global.url+'save-img/ine', [], this.filesToUpload1, 'image').then((result:any) => {});
-          this._uploadservice.makeFileRequest(Global.url+'save-img/curp', [], this.filesToUpload2, 'image').then((result:any) => {});
-          this._uploadservice.makeFileRequest(Global.url+'save-img/domicilio', [], this.filesToUpload3, 'image').then((result:any) => {});
-          alert('Registro exitoso');
-          location.reload();
-				}else{
-					this.status = 'failed';
-				}
-			},
-			error => {
-				//console.log(<any>error.error);
-        var errortype = error.error;
-        if (errortype.includes('Duplicate entry') && errortype.includes('curp')){
-                alert('Curp Duplicada');
+    this._clienteservice
+      .saveCliente(
+        this.cliente,
+        this.clientecodeudor,
+        this.clientenegocio,
+        this.asesor,
+        this.imgs
+      )
+      .subscribe(
+        (response) => {
+          if (response[0].Error) {
+            if (
+              response[0].Error.includes('Duplicate entry') &&
+              response[0].Error.includes('clientes.curp')
+            ) {
+              alert('Este Cliente ya esta registrado');
+            }
+            else if(
+              response[0].Error.includes('Duplicate entry') &&
+              response[0].Error.includes('codeudores.curp')
+            ) {
+              alert('Este Codeudor ya esta registrado');
+            }else{
+              alert(response[0].Error);
+            }
+          } else {
+            this._uploadservice
+              .makeFileRequest(
+                Global.url + 'save-img/ine',
+                [],
+                this.filesToUpload1,
+                'image'
+              )
+              .then((result: any) => {});
+            this._uploadservice
+              .makeFileRequest(
+                Global.url + 'save-img/curp',
+                [],
+                this.filesToUpload2,
+                'image'
+              )
+              .then((result: any) => {});
+            this._uploadservice
+              .makeFileRequest(
+                Global.url + 'save-img/domicilio',
+                [],
+                this.filesToUpload3,
+                'image'
+              )
+              .then((result: any) => {});
+            alert('Registro exitoso');
+            location.reload();
+          }
+        },
+        (error) => {
+          //console.log(<any>error.error);
+          var errortype = error.error;
+          if (
+            error.status === 400 ||
+            (error.status === 401 && !errortype.includes('SQLSTATE'))
+          ) {
+            localStorage.clear();
+            window.location.href = '';
+          }
+          alert('Error Valida que tu informacion sea correcta');
         }
-        if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
-          localStorage.clear();
-          window.location.href = '';
-        }
-        alert('Error Valida que tu informacion sea correcta');
-			}
-		);
+      );
     //form.reset();
   }
 
   getTcliente() {
     this._generalesservice.getTcliente().subscribe(
-      response => {
+      (response) => {
         if (response) {
           this.sexo = response;
         }
       },
-      error => {
-        if(error.status === 401){
+      (error) => {
+        if (error.status === 401) {
           localStorage.clear();
           window.location.href = '';
         }
@@ -153,36 +257,36 @@ export class AddclientComponent implements OnInit {
   }
   getTvivienda() {
     this._generalesservice.getTvivienda().subscribe(
-      response => {
+      (response) => {
         if (response) {
           this.vivienda = response;
         }
       },
-      error => {
+      (error) => {
         console.log(<any>error);
       }
     );
   }
   getTnegocio() {
     this._generalesservice.getTnegocio().subscribe(
-      response => {
+      (response) => {
         if (response) {
           this.negocio = response;
         }
       },
-      error => {
+      (error) => {
         console.log(<any>error);
       }
     );
   }
   getTedociv() {
     this._generalesservice.getTedociv().subscribe(
-      response => {
+      (response) => {
         if (response) {
           this.edociv = response;
         }
       },
-      error => {
+      (error) => {
         console.log(<any>error);
       }
     );
@@ -199,29 +303,28 @@ export class AddclientComponent implements OnInit {
       }
     );
   }
-  fileChangeEvent1(fileInput:any){
+  fileChangeEvent1(fileInput: any) {
     this.filesToUpload1 = <Array<File>>fileInput.target.files;
     console.log(this.filesToUpload1);
   }
-  fileChangeEvent2(fileInput:any){
+  fileChangeEvent2(fileInput: any) {
     this.filesToUpload2 = <Array<File>>fileInput.target.files;
     console.log(this.filesToUpload2);
   }
-  fileChangeEvent3(fileInput:any){
+  fileChangeEvent3(fileInput: any) {
     this.filesToUpload3 = <Array<File>>fileInput.target.files;
     console.log(this.filesToUpload3);
   }
   agregarCaracter = (cadena: string, caracter: any, pasos: number) => {
-    let cadenaConCaracteres = "";
+    let cadenaConCaracteres = '';
     const longitudCadena = cadena.length;
     for (let i = 0; i < longitudCadena; i += pasos) {
-        if (i + pasos < longitudCadena) {
-            cadenaConCaracteres += cadena.substring(i, i + pasos) + caracter;
-        } else {
-            cadenaConCaracteres += cadena.substring(i, longitudCadena);
-        }
+      if (i + pasos < longitudCadena) {
+        cadenaConCaracteres += cadena.substring(i, i + pasos) + caracter;
+      } else {
+        cadenaConCaracteres += cadena.substring(i, longitudCadena);
+      }
     }
     return cadenaConCaracteres;
+  };
 }
-}
-
