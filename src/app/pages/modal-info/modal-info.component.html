@@ -1,0 +1,22 @@
+@if(data.tipo == 'error'){
+  <div class="media info-modal">
+    <div class="media-left align-self-center"><i class="ft-alert-triangle icon-bg-circle bg-red bg-darken-3"></i></div>
+    <div class="media-body">
+      <div class="card-header text-center pt-4 pb-3 bg-transparent">
+        <h3 class="font-weight-bold mt-2 text-body media-heading red darken-3">AVISO</h3>
+        <p class="notification-text text-muted">{{data.info}}.</p>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-gradient-secondary" mat-button (click)="cerrarModal()">Cerrar</button>
+}@else{
+<div class="media info-modal">
+  <div class="media-left align-self-center"><i class="ft-bell icon-bg-circle bg-success bg-darken-3"></i></div>
+  <div class="media-body">
+    <div class="card-header text-center pt-4 pb-3 bg-transparent">
+      <h3 class="font-weight-bold mt-2 text-body media-heading success darken-3">AVISO</h3>
+      <p class="notification-text text-muted">{{data.info}}.</p>
+    </div>
+  </div>
+</div>
+}

@@ -9,6 +9,9 @@ import { CommonModule } from '@angular/common';
 import { ClienteCodeudor } from '../../_models/codeudor';
 import { ClienteNegocio } from '../../_models/negocio';
 import { MenuComponent } from '../menu/menu.component';
+import { ModalInfoComponent } from '../modal-info/modal-info.component';
+import { MatDialog } from '@angular/material/dialog';
+
 declare let $: any;
 
 @Component({
@@ -42,7 +45,8 @@ export class AddclientComponent implements OnInit {
   constructor(
     private _clienteservice: ClienteService,
     private _generalesservice: GeneralesService,
-    private _uploadservice: UploadService
+    private _uploadservice: UploadService,
+    public dialog: MatDialog
   ) {
     this.cliente = new Cliente(
       '',
@@ -184,15 +188,15 @@ export class AddclientComponent implements OnInit {
               response[0].Error.includes('Duplicate entry') &&
               response[0].Error.includes('clientes.curp')
             ) {
-              alert('Este Cliente ya esta registrado');
+              this.modalInfo('Este Cliente ya esta registrado', 'error');
             }
             else if(
               response[0].Error.includes('Duplicate entry') &&
               response[0].Error.includes('codeudores.curp')
             ) {
-              alert('Este Codeudor ya esta registrado');
+              this.modalInfo('Este Codeudor ya esta registrado', 'error');
             }else{
-              alert(response[0].Error);
+              this.modalInfo(response[0].Error, 'error');
             }
           } else {
             this._uploadservice
@@ -219,8 +223,10 @@ export class AddclientComponent implements OnInit {
                 'image'
               )
               .then((result: any) => {});
-            alert('Registro exitoso');
-            location.reload();
+              this.modalInfo('Registro Exitoso', 'success');
+              setTimeout(() => {
+                location.reload();
+              }, 2000);
           }
         },
         (error) => {
@@ -233,7 +239,7 @@ export class AddclientComponent implements OnInit {
             localStorage.clear();
             window.location.href = '';
           }
-          alert('Error Valida que tu informacion sea correcta');
+          this.modalInfo('Valida que tu informacion sea correcta', 'error');
         }
       );
     //form.reset();
@@ -326,5 +332,11 @@ export class AddclientComponent implements OnInit {
       }
     }
     return cadenaConCaracteres;
-  };
+  }
+  modalInfo(info: any, tipo:any): void {
+      this.dialog.open(ModalInfoComponent, {
+        width: '500px',
+        data: { info: info, tipo: tipo },
+      });
+    }
 }
