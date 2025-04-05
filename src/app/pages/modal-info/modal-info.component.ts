@@ -9,14 +9,15 @@ import { ProfileService } from '../../_services/profile.service';
   templateUrl: './modal-info.component.html',
   styles: ``,
   providers: [ProfileService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalInfoComponent {
   public creditoInfo!: any;
 
-  constructor(private cdr: ChangeDetectorRef,
+  constructor(
+    private cdr: ChangeDetectorRef,
     public dialogRef: MatDialogRef<ModalInfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { info: any, tipo: any}
+    @Inject(MAT_DIALOG_DATA) public data: { info: any; tipo: any }
   ) {}
 
   cerrarModal(): void {

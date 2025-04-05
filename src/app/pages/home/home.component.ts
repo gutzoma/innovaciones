@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../_services/home.service';
 import { CommonModule } from '@angular/common';
-import { MenuComponent } from "../menu/menu.component";
+import { MenuComponent } from '../menu/menu.component';
 
 declare let $: any;
 
@@ -11,18 +11,15 @@ declare let $: any;
   imports: [CommonModule, MenuComponent],
   templateUrl: './home.component.html',
   styles: ``,
-  providers: [HomeService]
+  providers: [HomeService],
 })
-
 export class HomeComponent implements OnInit {
-  constructor(
-    private _homeservice: HomeService
-  ) { }
+  constructor(private _homeservice: HomeService) {}
 
   ngOnInit(): void {
     this.getCartera();
     setTimeout(() => {
-      $(".home").removeClass('disp-n');
+      $('.home').removeClass('disp-n');
     }, 600);
   }
 
@@ -30,18 +27,18 @@ export class HomeComponent implements OnInit {
     const formatter = new Intl.NumberFormat('es-MX', {
       style: 'currency',
       currency: 'MXN',
-      minimumFractionDigits: 2
-    })
+      minimumFractionDigits: 2,
+    });
     this._homeservice.getCartera().subscribe(
-      response => {
+      (response) => {
         if (response != 'No existen') {
           $('.n-clientes').html(response[0].no_clientes);
           $('.n-prestamos').html(response[0].no_prestamos);
           $('.total-cartera').html(formatter.format(response[0].saldo_cartera));
         }
       },
-      error => {
-        if(error.status === 401){
+      (error) => {
+        if (error.status === 401) {
           localStorage.clear();
           window.location.href = '';
         }

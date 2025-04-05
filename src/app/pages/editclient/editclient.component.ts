@@ -8,8 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ClienteCodeudor } from '../../_models/codeudor';
 import { ClienteNegocio } from '../../_models/negocio';
-import { SelectDropDownModule } from 'ngx-select-dropdown'
-import { MenuComponent } from "../menu/menu.component";
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { MenuComponent } from '../menu/menu.component';
+import { ModalInfoComponent } from '../modal-info/modal-info.component';
+import { MatDialog } from '@angular/material/dialog';
 declare let $: any;
 
 @Component({
@@ -18,20 +20,16 @@ declare let $: any;
   standalone: true,
   templateUrl: './editclient.component.html',
   styles: ``,
-  providers: [ClienteService, GeneralesService, UploadService, CreditosService]
+  providers: [ClienteService, GeneralesService, UploadService, CreditosService],
 })
 export class EditclientComponent {
-
   public clientes: any;
   public clienteInfo: any;
   public save_credito: any;
-  public status!: string;
   public cliente_id!: string;
-  public data: any;
   public cliente: Cliente;
   public clientecodeudor: ClienteCodeudor;
   public clientenegocio: ClienteNegocio;
-  public save_cliente: any;
 
   public sexo!: any;
   public vivienda!: any;
@@ -40,26 +38,87 @@ export class EditclientComponent {
   public sucursales!: any;
 
   overlay = false;
-  public config!:any;
-  
-  constructor(private _creditosservice: CreditosService,
+  public config!: any;
+
+  constructor(
+    private _creditosservice: CreditosService,
     private _clienteservice: ClienteService,
-    private _generalesservice: GeneralesService) {
-    this.cliente = new Cliente('','', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '','');
+    private _generalesservice: GeneralesService,
+    public dialog: MatDialog
+  ) {
+    this.cliente = new Cliente(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      ''
+    );
 
-    this.clientecodeudor = new ClienteCodeudor('', '', '', '', ''
-      , '', '', '', '', '', '', '', '', '', '', '', '', ''
-      , '', '', '', '');
+    this.clientecodeudor = new ClienteCodeudor(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      ''
+    );
 
-    this.clientenegocio = new ClienteNegocio('', '', '', '', ''
-      , '', '', '', '', '', '', '', '');
+    this.clientenegocio = new ClienteNegocio(
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      ''
+    );
 
     this.cliente_id = '';
     this.config = {
-      displayKey: "name",
+      displayKey: 'name',
       search: true,
-      searchPlaceholder:'Buscar Cliente',
-      clearOnSelection: true
+      searchPlaceholder: 'Buscar Cliente',
+      clearOnSelection: true,
     };
   }
 
@@ -72,44 +131,53 @@ export class EditclientComponent {
     this.getTedociv();
     this.getSucursales();
 
-    $("input[name=sol_curp]").blur(() => {
-      var nac = $("input[name=sol_curp]").val().substr(4, 6);
-      nac = this.agregarCaracter(nac, "-", 2);
-      nac = nac.split("-");
-      $("input[name=sol_fecha_nac]").val(nac[0] + '-' + nac[1] + '-' + nac[2]);
+    $('input[name=sol_curp]').blur(() => {
+      var nac = $('input[name=sol_curp]').val().substr(4, 6);
+      nac = this.agregarCaracter(nac, '-', 2);
+      nac = nac.split('-');
+      $('input[name=sol_fecha_nac]').val(nac[0] + '-' + nac[1] + '-' + nac[2]);
     });
 
-    $("input[name=cod_curp]").blur(() => {
-      var nac2 = $("input[name=cod_curp]").val().substr(4, 6);
-      nac2 = this.agregarCaracter(nac2, "-", 2);
-      nac2 = nac2.split("-");
-      $("input[name=cod_fecha_nac]").val(nac2[0] + '-' + nac2[1] + '-' + nac2[2]);
+    $('input[name=cod_curp]').blur(() => {
+      var nac2 = $('input[name=cod_curp]').val().substr(4, 6);
+      nac2 = this.agregarCaracter(nac2, '-', 2);
+      nac2 = nac2.split('-');
+      $('input[name=cod_fecha_nac]').val(
+        nac2[0] + '-' + nac2[1] + '-' + nac2[2]
+      );
     });
-    
   }
 
   onSelectionChange(event: any) {
     this.cliente_id = event.value.id;
-    this.getCliente(this.cliente_id); 
-
+    this.getCliente(this.cliente_id);
   }
 
   getClientes() {
     var data = new Array();
     this._creditosservice.getClientes().subscribe(
-      response => {
+      (response) => {
         if (response != 'No existen') {
           response.forEach(function (cliente: any) {
             data.push({
-              'id': cliente.cliente_id,
-              'name': cliente.cliente_id + ' / ' + cliente.nombres + ' ' + cliente.paterno + ' ' + cliente.materno + ' / ' + cliente.curp
+              id: cliente.cliente_id,
+              name:
+                cliente.cliente_id +
+                ' / ' +
+                cliente.nombres +
+                ' ' +
+                cliente.paterno +
+                ' ' +
+                cliente.materno +
+                ' / ' +
+                cliente.curp,
             });
           });
           this.clientes = data;
         }
       },
-      error => {
-        if(error.status === 401){
+      (error) => {
+        if (error.status === 401) {
           localStorage.clear();
           window.location.href = '';
         }
@@ -117,16 +185,15 @@ export class EditclientComponent {
       }
     );
   }
-  
 
   getCliente(cliente: any) {
     this._creditosservice.getCliente(cliente).subscribe(
-      response => {
+      (response) => {
         if (response) {
           this.clienteInfo = response;
           if (response) {
-            $("#idCli").html(response[0].curp);
-            $("#noCreCli").html(parseFloat(response[0].no_credito) + 1);
+            $('#idCli').html(response[0].curp);
+            $('#noCreCli').html(parseFloat(response[0].no_credito) + 1);
 
             this.cliente = new Cliente(
               response[0].sucursal,
@@ -151,7 +218,8 @@ export class EditclientComponent {
               response[0].estado,
               response[0].cp,
               response[0].descripcion,
-              response[0].ubicacion);
+              response[0].ubicacion
+            );
 
             this.clientecodeudor = new ClienteCodeudor(
               response[0].cod_nombres,
@@ -195,94 +263,111 @@ export class EditclientComponent {
             );
 
             setTimeout(() => {
-              $("input[name=sol_fecha_nac]").val(response[0].fecha_de_nacimiento);
-              $("input[name=cod_fecha_nac]").val(response[0].cod_fecha_de_nacimiento);
-              $("#formEdit").removeClass('disp-n');
-              $("input").select();
+              $('input[name=sol_fecha_nac]').val(
+                response[0].fecha_de_nacimiento
+              );
+              $('input[name=cod_fecha_nac]').val(
+                response[0].cod_fecha_de_nacimiento
+              );
+              $('#formEdit').removeClass('disp-n');
+              $('input').select();
             }, 300);
           }
         }
       },
-      error => {
+      (error) => {
         console.log(<any>error);
-        if(error.status === 401){
+        if (error.status === 401) {
           localStorage.clear();
           window.location.href = '';
         }
       }
     );
   }
-  saveClient(form: { reset: () => void; }) {
-    this.cliente.sol_fecha_nac = $("input[name=sol_fecha_nac]").val();
-    this.clientecodeudor.cod_fecha_nac = $("input[name=cod_fecha_nac]").val();
+  saveClient(form: { reset: () => void }) {
+    this.cliente.sol_fecha_nac = $('input[name=sol_fecha_nac]').val();
+    this.clientecodeudor.cod_fecha_nac = $('input[name=cod_fecha_nac]').val();
 
     // Actuaalizar Cliente
-		this._clienteservice.upCliente(this.cliente, this.clientecodeudor, this.clientenegocio, this.cliente_id).subscribe(
-			response => {
-				if(response){
-          this.save_cliente = response;
-          this.status = 'success';
-          alert('Registro exitoso');
-          location.reload();
-				}else{
-					this.status = 'failed';
-				}
-			},
-			error => {
-				var errortype = error.error;
-            if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
-              localStorage.clear();
-              window.location.href = '';
-            }
-            alert('Error Valida que tu informacion sea correcta');
-			}
-		);
+    this._clienteservice
+      .upCliente(
+        this.cliente,
+        this.clientecodeudor,
+        this.clientenegocio,
+        this.cliente_id
+      )
+      .subscribe(
+        (response) => {
+          if (response[0].Error) {
+            this.modalInfo(response[0].Error, 'error');
+          } else {
+            this.modalInfo('Registro Exitoso', 'success');
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
+          }
+        },
+        (error) => {
+          var errortype = error.error;
+          if (
+            error.status === 400 ||
+            (error.status === 401 && !errortype.includes('SQLSTATE'))
+          ) {
+            localStorage.clear();
+            window.location.href = '';
+          }
+          this.modalInfo(
+            'Error Valida que tu informacion sea correcta',
+            'error'
+          );
+        }
+      );
   }
 
   getTcliente() {
     this._generalesservice.getTcliente().subscribe(
-      response => {
+      (response) => {
         if (response) {
           this.sexo = response;
         }
       },
-      error => {
+      (error) => {
         console.log(<any>error);
       }
     );
   }
   getTvivienda() {
     this._generalesservice.getTvivienda().subscribe(
-      response => {
+      (response) => {
         if (response) {
           this.vivienda = response;
         }
       },
-      error => {
+      (error) => {
         console.log(<any>error);
       }
     );
   }
   getTnegocio() {
     this._generalesservice.getTnegocio().subscribe(
-      response => {
+      (response) => {
         if (response) {
           this.negocio = response;
         }
       },
-      error => {
+      (error) => {
         console.log(<any>error);
       }
     );
   }
   getTedociv() {
     this._generalesservice.getTedociv().subscribe(
-      response => {
+      (response) => {
         if (response) {
           this.edociv = response;
         }
       },
-      error => {
+      (error) => {
         console.log(<any>error);
       }
     );
@@ -300,17 +385,22 @@ export class EditclientComponent {
     );
   }
 
-    agregarCaracter = (cadena: string, caracter: any, pasos: number) => {
-    let cadenaConCaracteres = "";
+  agregarCaracter = (cadena: string, caracter: any, pasos: number) => {
+    let cadenaConCaracteres = '';
     const longitudCadena = cadena.length;
     for (let i = 0; i < longitudCadena; i += pasos) {
-        if (i + pasos < longitudCadena) {
-            cadenaConCaracteres += cadena.substring(i, i + pasos) + caracter;
-        } else {
-            cadenaConCaracteres += cadena.substring(i, longitudCadena);
-        }
+      if (i + pasos < longitudCadena) {
+        cadenaConCaracteres += cadena.substring(i, i + pasos) + caracter;
+      } else {
+        cadenaConCaracteres += cadena.substring(i, longitudCadena);
+      }
     }
     return cadenaConCaracteres;
-}
-
+  };
+  modalInfo(info: any, tipo: any): void {
+    this.dialog.open(ModalInfoComponent, {
+      width: '500px',
+      data: { info: info, tipo: tipo },
+    });
+  }
 }

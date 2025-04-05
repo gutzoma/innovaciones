@@ -8,14 +8,16 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ModalInfoComponent } from '../modal-info/modal-info.component';
+import { MatDialog } from '@angular/material/dialog';
 
 import {
   NativeDateAdapter,
   DateAdapter,
   MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE
+  MAT_DATE_LOCALE,
 } from '@angular/material/core';
-import { MenuComponent } from "../menu/menu.component";
+import { MenuComponent } from '../menu/menu.component';
 
 declare let $: any;
 
@@ -48,8 +50,8 @@ class PickDateAdapter extends NativeDateAdapter {
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MenuComponent
-],
+    MenuComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cashbox.component.html',
   styles: ``,
@@ -57,7 +59,7 @@ class PickDateAdapter extends NativeDateAdapter {
     SearchService,
     GeneralesService,
     { provide: DateAdapter, useClass: PickDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS },
   ],
 })
 export class CashboxComponent {
@@ -71,7 +73,8 @@ export class CashboxComponent {
 
   constructor(
     private _generalesservice: GeneralesService,
-    private _searchservice: SearchService
+    private _searchservice: SearchService,
+    public dialog: MatDialog
   ) {
     this.payment = {};
     this.payment.payment_type = 'Efectivo';
@@ -195,26 +198,35 @@ export class CashboxComponent {
 
         this._generalesservice.runInsertCashbox(this.payment).subscribe(
           (response) => {
-            if (response) {
-              console.log(response);
-              alert('Pago ingresado con exito');
-              location.reload();
+            if (response[0].Error) {
+              this.modalInfo(response[0].Error, 'error');
+            } else {
+              this.modalInfo('Pago ingresado con exito', 'success');
+              setTimeout(() => {
+                location.reload();
+              }, 2000);
             }
           },
           (error) => {
             var errortype = error.error;
-            if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
+            if (
+              error.status === 400 ||
+              (error.status === 401 && !errortype.includes('SQLSTATE'))
+            ) {
               localStorage.clear();
               window.location.href = '';
             }
-            alert('Error Valida que tu informacion sea correcta');
+            this.modalInfo(
+              'Error Valida que tu informacion sea correcta',
+              'error'
+            );
           }
         );
       } else {
-        alert('Ingresa una fecha valida');
+        this.modalInfo('Ingresa una fecha valida', 'error');
       }
     } else {
-      alert('Valida la impresion del Recibo');
+      this.modalInfo('Valida la impresion del Recibo', 'error');
     }
   }
 
@@ -239,7 +251,7 @@ export class CashboxComponent {
         popupWin.document.close();
       }
     } else {
-      alert('Ingresa una fecha valida');
+      this.modalInfo('Ingresa una fecha valida', 'error');
     }
   }
 
@@ -260,5 +272,11 @@ export class CashboxComponent {
       return (dato = '$' + num);
     }
     return num;
+  }
+  modalInfo(info: any, tipo: any): void {
+    this.dialog.open(ModalInfoComponent, {
+      width: '500px',
+      data: { info: info, tipo: tipo },
+    });
   }
 }

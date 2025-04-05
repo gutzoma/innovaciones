@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Inject, ChangeDetectorRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProfileService } from '../../_services/profile.service';
 
@@ -9,28 +14,30 @@ import { ProfileService } from '../../_services/profile.service';
   templateUrl: './modal-tabla.component.html',
   styles: ``,
   providers: [ProfileService],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalTablaComponent {
   public creditoInfo!: any;
 
-  constructor(private _profileservice: ProfileService, private cdr: ChangeDetectorRef,
+  constructor(
+    private _profileservice: ProfileService,
+    private cdr: ChangeDetectorRef,
     public dialogRef: MatDialogRef<ModalTablaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { prestamo_id: any }
   ) {}
-  ngOnInit (){
-    this.getCreditHistory3(this.data.prestamo_id)
+  ngOnInit() {
+    this.getCreditHistory3(this.data.prestamo_id);
   }
 
   getCreditHistory3(params: any) {
-    this._profileservice.getCreditHistory3 (params).subscribe(
-      response => {
-        if(response != 'No existen'){
+    this._profileservice.getCreditHistory3(params).subscribe(
+      (response) => {
+        if (response != 'No existen') {
           this.creditoInfo = response;
           this.cdr.detectChanges();
         }
       },
-      error => {
+      (error) => {
         console.log(<any>error);
       }
     );

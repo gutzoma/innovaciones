@@ -13,13 +13,15 @@ import { UploadService } from '../../_services/upload.service';
 import { ClienteCredito } from '../../_models/credito';
 import { ClienteGarantia } from '../../_models/garantia';
 import { Global } from '../../_services/global';
+import { ModalInfoComponent } from '../modal-info/modal-info.component';
+import { MatDialog } from '@angular/material/dialog';
 import {
   NativeDateAdapter,
   DateAdapter,
   MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE
+  MAT_DATE_LOCALE,
 } from '@angular/material/core';
-import { MenuComponent } from "../menu/menu.component";
+import { MenuComponent } from '../menu/menu.component';
 
 declare let $: any;
 
@@ -52,8 +54,8 @@ class PickDateAdapter extends NativeDateAdapter {
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MenuComponent
-],
+    MenuComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './approve.component.html',
   styles: ``,
@@ -63,7 +65,7 @@ class PickDateAdapter extends NativeDateAdapter {
     GeneralesService,
     UploadService,
     { provide: DateAdapter, useClass: PickDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS },
   ],
 })
 export class ApproveComponent {
@@ -87,7 +89,8 @@ export class ApproveComponent {
   constructor(
     private _creditosservice: CreditosService,
     private _generalesservice: GeneralesService,
-    private _uploadservice: UploadService
+    private _uploadservice: UploadService,
+    public dialog: MatDialog
   ) {
     this.apro_cliente_id = '';
     this.clientegarantia = new ClienteGarantia('', '', '');
@@ -247,7 +250,7 @@ export class ApproveComponent {
 
   upCredit(form: { reset: () => void }) {
     if (this.clientecredito.cred_status == '0') {
-      alert('Cambia el Estado del Credito');
+      this.modalInfo('Cambia el Estado del Credito', 'error');
     } else {
       if (this.filesToUpload1) {
         this.clientegarantia.garantia_img = this.filesToUpload1[0].name;
@@ -286,19 +289,27 @@ export class ApproveComponent {
                   )
                   .then((result: any) => {});
               }
-              alert('Registro exitoso');
-              location.reload();
+              this.modalInfo('Registro Exitoso', 'success');
+              setTimeout(() => {
+                location.reload();
+              }, 2000);
             } else {
               this.status = 'failed';
             }
           },
           (error) => {
             var errortype = error.error;
-            if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
+            if (
+              error.status === 400 ||
+              (error.status === 401 && !errortype.includes('SQLSTATE'))
+            ) {
               localStorage.clear();
               window.location.href = '';
             }
-            alert('Error Valida que tu informacion sea correcta');
+            this.modalInfo(
+              'Error Valida que tu informacion sea correcta',
+              'error'
+            );
           }
         );
       form.reset();
@@ -327,5 +338,11 @@ export class ApproveComponent {
     } else {
       $('.warranty').addClass('disp-n');
     }
+  }
+  modalInfo(info: any, tipo: any): void {
+    this.dialog.open(ModalInfoComponent, {
+      width: '500px',
+      data: { info: info, tipo: tipo },
+    });
   }
 }

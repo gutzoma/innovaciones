@@ -9,14 +9,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Report } from '../../_models/report';
 import * as ExcelJS from 'exceljs';
+import { ModalInfoComponent } from '../modal-info/modal-info.component';
+import { MatDialog } from '@angular/material/dialog';
 
 import {
   NativeDateAdapter,
   DateAdapter,
-  MAT_DATE_FORMATS
+  MAT_DATE_FORMATS,
 } from '@angular/material/core';
 import { ReportsService } from '../../_services/reports.service';
-import { MenuComponent } from "../menu/menu.component";
+import { MenuComponent } from '../menu/menu.component';
 
 declare let $: any;
 
@@ -49,8 +51,8 @@ class PickDateAdapter extends NativeDateAdapter {
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MenuComponent
-],
+    MenuComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './report-payments-conta.component.html',
   styles: ``,
@@ -58,35 +60,36 @@ class PickDateAdapter extends NativeDateAdapter {
     GeneralesService,
     ReportsService,
     { provide: DateAdapter, useClass: PickDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS },
   ],
 })
-
 export class ReportPaymentsContaComponent {
-
   public asesores!: any;
   public report: Report;
   public reportInfo!: any;
 
-  constructor(private _generalesservice: GeneralesService, private _reportsservice: ReportsService) {
-    
+  constructor(
+    private _generalesservice: GeneralesService,
+    private _reportsservice: ReportsService,
+    public dialog: MatDialog
+  ) {
     this.report = new Report('', '', '', '');
-   }
+  }
 
-   date : any;
+  date: any;
 
-   ngOnInit(): void {
-     this.getAsesores();
-   }
+  ngOnInit(): void {
+    this.getAsesores();
+  }
 
-   getAsesores() {
+  getAsesores() {
     this._generalesservice.getAsesores().subscribe(
-      response => {
+      (response) => {
         if (response) {
           this.asesores = response;
         }
       },
-      error => {
+      (error) => {
         console.log(<any>error);
         if (error.status === 401) {
           localStorage.clear();
@@ -96,37 +99,44 @@ export class ReportPaymentsContaComponent {
     );
   }
 
-  getReportPayments(form: { reset: () => void; }){
-    if($("input[name=f_inicial]").val() == '' || $("input[name=f_final]").val() == '') {
-     alert('ingresa fechas validas')
-    }else{
-      var f_inicial:any = $("input[name=f_inicial]").val();
-      f_inicial = f_inicial.split("-");
-      this.report.f_inicial = f_inicial[2]+'-'+f_inicial[1]+'-'+f_inicial[0];
-      var f_final:any = $("input[name=f_final]").val();
-      f_final = f_final.split("-");
-      this.report.f_final = f_final[2]+'-'+f_final[1]+'-'+f_final[0];
+  getReportPayments(form: { reset: () => void }) {
+    if (
+      $('input[name=f_inicial]').val() == '' ||
+      $('input[name=f_final]').val() == ''
+    ) {
+      this.modalInfo('ingresa fechas validas', 'error');
+    } else {
+      var f_inicial: any = $('input[name=f_inicial]').val();
+      f_inicial = f_inicial.split('-');
+      this.report.f_inicial =
+        f_inicial[2] + '-' + f_inicial[1] + '-' + f_inicial[0];
+      var f_final: any = $('input[name=f_final]').val();
+      f_final = f_final.split('-');
+      this.report.f_final = f_final[2] + '-' + f_final[1] + '-' + f_final[0];
       this._reportsservice.getReportPayments(this.report).subscribe(
-        response => {
+        (response) => {
           if (response) {
-            if(response == 'No existen'){
-              this.reportInfo = [{'cliente_id': 'No hay datos'}];
-            }else{
+            if (response == 'No existen') {
+              this.reportInfo = [{ cliente_id: 'No hay datos' }];
+            } else {
               this.reportInfo = response;
-              $(".print-report").removeClass("disp-n");
+              $('.print-report').removeClass('disp-n');
             }
             setTimeout(() => {
               $('input').select();
             }, 300);
           }
         },
-        error => {
+        (error) => {
           var errortype = error.error;
-            if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
-              localStorage.clear();
-              window.location.href = '';
-            }
-            alert('Error Valida que tu informacion sea correcta');
+          if (
+            error.status === 400 ||
+            (error.status === 401 && !errortype.includes('SQLSTATE'))
+          ) {
+            localStorage.clear();
+            window.location.href = '';
+          }
+          this.modalInfo('Valida que tu informacion sea correcta', 'error');
         }
       );
     }
@@ -136,22 +146,26 @@ export class ReportPaymentsContaComponent {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Tabla');
 
-    const table:any = document.getElementById('miTabla');
-    const rows:any = table.querySelectorAll('tr');
-    rows.forEach((row: { querySelectorAll: (arg0: string) => any[]; }) => {
+    const table: any = document.getElementById('miTabla');
+    const rows: any = table.querySelectorAll('tr');
+    rows.forEach((row: { querySelectorAll: (arg0: string) => any[] }) => {
       const rowData: any[] = [];
-      row.querySelectorAll('th, td').forEach((cell: { textContent: string; }) => {
-        rowData.push(cell.textContent.trim());
-      });
+      row
+        .querySelectorAll('th, td')
+        .forEach((cell: { textContent: string }) => {
+          rowData.push(cell.textContent.trim());
+        });
       worksheet.addRow(rowData);
     });
 
-    workbook.xlsx.writeBuffer().then(buffer => {
+    workbook.xlsx.writeBuffer().then((buffer) => {
       this.saveExcelFile(buffer, 'tabla.xlsx');
     });
   }
   saveExcelFile(buffer: ArrayBuffer, fileName: string): void {
-    const data = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const data = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
     const url = window.URL.createObjectURL(data);
     const a = document.createElement('a');
     a.href = url;
@@ -159,6 +173,10 @@ export class ReportPaymentsContaComponent {
     a.click();
     window.URL.revokeObjectURL(url);
   }
-
-
+  modalInfo(info: any, tipo: any): void {
+    this.dialog.open(ModalInfoComponent, {
+      width: '500px',
+      data: { info: info, tipo: tipo },
+    });
+  }
 }

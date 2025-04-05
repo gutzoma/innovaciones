@@ -8,14 +8,16 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Report } from '../../_models/report';
+import { ModalInfoComponent } from '../modal-info/modal-info.component';
+import { MatDialog } from '@angular/material/dialog';
 
 import {
   NativeDateAdapter,
   DateAdapter,
-  MAT_DATE_FORMATS
+  MAT_DATE_FORMATS,
 } from '@angular/material/core';
 import { ReportsService } from '../../_services/reports.service';
-import { MenuComponent } from "../menu/menu.component";
+import { MenuComponent } from '../menu/menu.component';
 
 declare let $: any;
 
@@ -48,8 +50,8 @@ class PickDateAdapter extends NativeDateAdapter {
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MenuComponent
-],
+    MenuComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './report-credits.component.html',
   styles: ``,
@@ -57,25 +59,24 @@ class PickDateAdapter extends NativeDateAdapter {
     GeneralesService,
     ReportsService,
     { provide: DateAdapter, useClass: PickDateAdapter },
-    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS },
   ],
 })
-
 export class ReportCreditsComponent {
-
   public asesores!: any;
   public report: Report;
   public reportInfo!: any;
   public sucursales!: any;
-  
 
-  constructor(private _generalesservice: GeneralesService, private _reportsservice: ReportsService) {
-    
+  constructor(
+    private _generalesservice: GeneralesService,
+    private _reportsservice: ReportsService,
+    public dialog: MatDialog
+  ) {
     this.report = new Report('', '', '', '');
-   }
-  
-  
-   date : any;
+  }
+
+  date: any;
 
   ngOnInit(): void {
     this.getAsesores();
@@ -83,12 +84,12 @@ export class ReportCreditsComponent {
   }
   getAsesores() {
     this._generalesservice.getAsesores().subscribe(
-      response => {
+      (response) => {
         if (response) {
           this.asesores = response;
         }
       },
-      error => {
+      (error) => {
         console.log(<any>error);
         if (error.status === 401) {
           localStorage.clear();
@@ -109,22 +110,26 @@ export class ReportCreditsComponent {
       }
     );
   }
-  genReport(form: { reset: () => void; }){
-    if($("input[name=f_inicial]").val() == '' || $("input[name=f_final]").val() == '') {
-     alert('ingresa fechas validas')
-    }else{
-      var f_inicial:any = $("input[name=f_inicial]").val();
-      f_inicial = f_inicial.split("-");
-      this.report.f_inicial = f_inicial[2]+'-'+f_inicial[1]+'-'+f_inicial[0];
-      var f_final:any = $("input[name=f_final]").val();
-      f_final = f_final.split("-");
-      this.report.f_final = f_final[2]+'-'+f_final[1]+'-'+f_final[0];
+  genReport(form: { reset: () => void }) {
+    if (
+      $('input[name=f_inicial]').val() == '' ||
+      $('input[name=f_final]').val() == ''
+    ) {
+      this.modalInfo('ingresa fechas validas', 'error');
+    } else {
+      var f_inicial: any = $('input[name=f_inicial]').val();
+      f_inicial = f_inicial.split('-');
+      this.report.f_inicial =
+        f_inicial[2] + '-' + f_inicial[1] + '-' + f_inicial[0];
+      var f_final: any = $('input[name=f_final]').val();
+      f_final = f_final.split('-');
+      this.report.f_final = f_final[2] + '-' + f_final[1] + '-' + f_final[0];
       this._reportsservice.getReport(this.report).subscribe(
-        response => {
+        (response) => {
           if (response) {
-            if(response == 'No existen'){
-              this.reportInfo = [{'cliente_id': 'No hay datos'}];
-            }else{
+            if (response == 'No existen') {
+              this.reportInfo = [{ cliente_id: 'No hay datos' }];
+            } else {
               this.reportInfo = response;
             }
             setTimeout(() => {
@@ -132,15 +137,24 @@ export class ReportCreditsComponent {
             }, 300);
           }
         },
-        error => {
+        (error) => {
           var errortype = error.error;
-            if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
-              localStorage.clear();
-              window.location.href = '';
-            }
-            alert('Error Valida que tu informacion sea correcta');
+          if (
+            error.status === 400 ||
+            (error.status === 401 && !errortype.includes('SQLSTATE'))
+          ) {
+            localStorage.clear();
+            window.location.href = '';
+          }
+          this.modalInfo('Valida que tu informacion sea correcta', 'error');
         }
       );
     }
+  }
+  modalInfo(info: any, tipo: any): void {
+    this.dialog.open(ModalInfoComponent, {
+      width: '500px',
+      data: { info: info, tipo: tipo },
+    });
   }
 }

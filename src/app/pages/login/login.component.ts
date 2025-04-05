@@ -13,7 +13,7 @@ declare let $: any;
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styles: ``,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   public login: Login;
@@ -21,10 +21,10 @@ export class LoginComponent {
   isLogin: boolean = false;
 
   constructor(private authenticationService: AuthenticationService) {
-    this.login = new Login('','');
-   }
+    this.login = new Login('', '');
+  }
 
-   ngOnInit() {
+  ngOnInit() {
     this.isUserLogin();
   }
 
@@ -32,10 +32,9 @@ export class LoginComponent {
     this.authenticationService.login(this.login);
   }
 
-  isUserLogin(){
-    if(this.authenticationService.isLoggedIn()){
-        this.isLogin = true;
+  isUserLogin() {
+    if (this.authenticationService.isLoggedIn()) {
+      this.isLogin = true;
     }
-
   }
 }

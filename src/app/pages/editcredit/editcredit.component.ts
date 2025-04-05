@@ -5,7 +5,9 @@ import { GeneralesService } from '../../_services/generales.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
-import { MenuComponent } from "../menu/menu.component";
+import { MenuComponent } from '../menu/menu.component';
+import { ModalInfoComponent } from '../modal-info/modal-info.component';
+import { MatDialog } from '@angular/material/dialog';
 
 declare let $: any;
 @Component({
@@ -18,12 +20,9 @@ declare let $: any;
 })
 export class EditcreditComponent {
   public cliente_cred_id!: any;
-  public data: any;
   public clientes: any;
   public creditoInfo: any;
   public clientecredito: ClienteCredito;
-  public edit_credito: any;
-  public status!: string;
   public plazos: any;
 
   overlay = false;
@@ -31,7 +30,8 @@ export class EditcreditComponent {
 
   constructor(
     private _creditosservice: CreditosService,
-    private _generalesservice: GeneralesService
+    private _generalesservice: GeneralesService,
+    public dialog: MatDialog
   ) {
     this.cliente_cred_id = '';
     this.clientecredito = new ClienteCredito(
@@ -145,7 +145,7 @@ export class EditcreditComponent {
       },
       (error) => {
         console.log(<any>error);
-        if(error.status === 401){
+        if (error.status === 401) {
           localStorage.clear();
           window.location.href = '';
         }
@@ -178,7 +178,7 @@ export class EditcreditComponent {
       },
       (error) => {
         console.log(<any>error);
-        if(error.status === 401){
+        if (error.status === 401) {
           localStorage.clear();
           window.location.href = '';
         }
@@ -192,23 +192,32 @@ export class EditcreditComponent {
     this.clientecredito.cred_cli_id = this.cliente_cred_id;
     this._creditosservice.editCredito(this.clientecredito).subscribe(
       (response) => {
-        if (response) {
-          this.edit_credito = response;
-          this.status = 'success';
-          alert('Registro exitoso');
-          location.reload();
+        if (response[0].Error) {
+          this.modalInfo(response[0].Error, 'error');
         } else {
-          this.status = 'failed';
+          this.modalInfo('Registro Exitoso', 'success');
+          setTimeout(() => {
+            location.reload();
+          }, 2000);
         }
       },
       (error) => {
         var errortype = error.error;
-        if(error.status === 400 || (error.status === 401 && !errortype.includes('SQLSTATE'))){
+        if (
+          error.status === 400 ||
+          (error.status === 401 && !errortype.includes('SQLSTATE'))
+        ) {
           localStorage.clear();
           window.location.href = '';
         }
-        alert('Error Valida que tu informacion sea correcta');
+        this.modalInfo('Valida que tu informacion sea correcta', 'error');
       }
     );
+  }
+  modalInfo(info: any, tipo: any): void {
+    this.dialog.open(ModalInfoComponent, {
+      width: '500px',
+      data: { info: info, tipo: tipo },
+    });
   }
 }

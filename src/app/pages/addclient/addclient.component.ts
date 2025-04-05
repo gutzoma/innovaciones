@@ -23,21 +23,16 @@ declare let $: any;
   providers: [ClienteService, GeneralesService, UploadService],
 })
 export class AddclientComponent implements OnInit {
-  public data: any;
   public cliente: Cliente;
   public clientecodeudor: ClienteCodeudor;
   public clientenegocio: ClienteNegocio;
-  public save_cliente: any;
-  public status!: string;
   public sexo!: any;
   public vivienda!: any;
   public negocio!: any;
   public edociv!: any;
-
   public asesor!: any;
   public sucursales!: any;
   public imgs!: any;
-
   public filesToUpload1!: Array<File>;
   public filesToUpload2!: Array<File>;
   public filesToUpload3!: Array<File>;
@@ -189,13 +184,12 @@ export class AddclientComponent implements OnInit {
               response[0].Error.includes('clientes.curp')
             ) {
               this.modalInfo('Este Cliente ya esta registrado', 'error');
-            }
-            else if(
+            } else if (
               response[0].Error.includes('Duplicate entry') &&
               response[0].Error.includes('codeudores.curp')
             ) {
               this.modalInfo('Este Codeudor ya esta registrado', 'error');
-            }else{
+            } else {
               this.modalInfo(response[0].Error, 'error');
             }
           } else {
@@ -223,10 +217,10 @@ export class AddclientComponent implements OnInit {
                 'image'
               )
               .then((result: any) => {});
-              this.modalInfo('Registro Exitoso', 'success');
-              setTimeout(() => {
-                location.reload();
-              }, 2000);
+            this.modalInfo('Registro Exitoso', 'success');
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
           }
         },
         (error) => {
@@ -332,11 +326,11 @@ export class AddclientComponent implements OnInit {
       }
     }
     return cadenaConCaracteres;
+  };
+  modalInfo(info: any, tipo: any): void {
+    this.dialog.open(ModalInfoComponent, {
+      width: '500px',
+      data: { info: info, tipo: tipo },
+    });
   }
-  modalInfo(info: any, tipo:any): void {
-      this.dialog.open(ModalInfoComponent, {
-        width: '500px',
-        data: { info: info, tipo: tipo },
-      });
-    }
 }
