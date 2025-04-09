@@ -27,6 +27,7 @@ export class CreditHistoryComponent {
   public prestamosInfo!: any;
   public info = false;
   public infoAval = false;
+  public creditNull = false;
 
   constructor(
     private _router: ActivatedRoute,
@@ -99,6 +100,10 @@ export class CreditHistoryComponent {
         if (response != 'No existen') {
           this.prestamosInfo = response;
           this.info = true;
+          this.cdr.detectChanges();
+        }else{
+          this.info = true;
+          this.creditNull = true;
           this.cdr.detectChanges();
         }
       },

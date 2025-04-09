@@ -97,72 +97,83 @@
             </div>
           </div>
         </div>
-        <div class="card hadow-lg">
-          <div class="card-header text-center pt-4 pb-3 bg-transparent">
-            <h3 class="font-weight-bold mt-2 text-body">
-              Prestamos
-            </h3>
+        @if(creditNull){
+          <div class="card hadow-lg">
+            <div class="card-header text-center pt-4 pb-3 bg-transparent">
+              <h3 class="font-weight-bold mt-2 text-body">
+                No Tiene Prestamos
+              </h3>
+            </div>
           </div>
-          <div class="card-body text-lg-start text-center pt-0">
-            <div class="row">
-              <div class="card">
-                <div class="table-responsive">
-                  <table class="table align-items-center mb-0">
-                    <thead>
-                      <tr>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No. Credito
-                        </th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prestamo
-                          ID</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Monto
-                        </th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cuota
-                        </th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Pagos
-                        </th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Plazo
-                        </th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Primer Pago
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @for (prestamo of prestamosInfo; track $index) {
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div class="d-flex flex-column justify-content-center">
-                              <p class="text-xs font-weight-bold mb-0">{{prestamo.pres_no_credito}}</p>
+        }@else{
+          <div class="card hadow-lg">
+            <div class="card-header text-center pt-4 pb-3 bg-transparent">
+              <h3 class="font-weight-bold mt-2 text-body">
+                Prestamos
+              </h3>
+            </div>
+            <div class="card-body text-lg-start text-center pt-0">
+              <div class="row">
+                <div class="card">
+                  <div class="table-responsive">
+                    <table class="table align-items-center mb-0">
+                      <thead>
+                        <tr>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No. Credito
+                          </th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prestamo
+                            ID</th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Monto
+                          </th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cuota
+                          </th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Pagos
+                          </th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Plazo
+                          </th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Primer Pago
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @for (prestamo of prestamosInfo; track $index) {
+                        <tr>
+                          <td>
+                            <div class="d-flex px-2 py-1">
+                              <div class="d-flex flex-column justify-content-center">
+                                <p class="text-xs font-weight-bold mb-0">{{prestamo.pres_no_credito}}</p>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td>
-                          <p class="text-xs font-weight-bold mb-0"><button class="btn btn-gradient-primary" (click)="modalHistory(prestamo.prestamo_id)">{{prestamo.prestamo_id}}</button></p>
-                        </td>
-                        <td class="align-middle text-sm">
-                          <span class="text-xs font-weight-bold mb-0">{{prestamo.pres_monto}}</span>
-                        </td>
-                        <td class="align-middle text-sm">
-                          <span class="text-xs font-weight-bold mb-0">{{prestamo.pres_cuota}}</span>
-                        </td>
-                        <td class="align-middle">
-                          <span class="text-xs font-weight-bold mb-0">{{prestamo.plazo_cuotas}}</span>
-                        </td>
-                        <td class="align-middle">
-                          <span class="text-xs font-weight-bold mb-0">{{prestamo.plazo_periodos}}</span>
-                        </td>
-                        <td class="align-middletext-sm">
-                          <span class="text-xs font-weight-bold mb-0">{{prestamo.pres_fecha_ini}}</span>
-                        </td>
-                      </tr>
-                      }
-                    </tbody>
-                  </table>
+                          </td>
+                          <td>
+                            <p class="text-xs font-weight-bold mb-0"><button class="btn btn-gradient-primary" (click)="modalHistory(prestamo.prestamo_id)">{{prestamo.prestamo_id}}</button></p>
+                          </td>
+                          <td class="align-middle text-sm">
+                            <span class="text-xs font-weight-bold mb-0">{{prestamo.pres_monto}}</span>
+                          </td>
+                          <td class="align-middle text-sm">
+                            <span class="text-xs font-weight-bold mb-0">{{prestamo.pres_cuota}}</span>
+                          </td>
+                          <td class="align-middle">
+                            <span class="text-xs font-weight-bold mb-0">{{prestamo.plazo_cuotas}}</span>
+                          </td>
+                          <td class="align-middle">
+                            <span class="text-xs font-weight-bold mb-0">{{prestamo.plazo_periodos}}</span>
+                          </td>
+                          <td class="align-middletext-sm">
+                            <span class="text-xs font-weight-bold mb-0">{{prestamo.pres_fecha_ini}}</span>
+                          </td>
+                        </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        }
+
       }@else{
         <div class="card hadow-lg">
           <div class="card-header text-center pt-4 pb-3 bg-transparent">
