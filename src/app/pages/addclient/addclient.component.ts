@@ -178,19 +178,21 @@ export class AddclientComponent implements OnInit {
       )
       .subscribe(
         (response) => {
-          if (response[0].Error) {
-            if (
-              response[0].Error.includes('Duplicate entry') &&
-              response[0].Error.includes('clientes.curp')
-            ) {
-              this.modalInfo('Este Cliente ya esta registrado', 'error');
-            } else if (
-              response[0].Error.includes('Duplicate entry') &&
-              response[0].Error.includes('codeudores.curp')
-            ) {
-              this.modalInfo('Este Codeudor ya esta registrado', 'error');
-            } else {
-              this.modalInfo(response[0].Error, 'error');
+          if (response) {
+            if(response[0].Error){
+              if (
+                response[0].Error.includes('Duplicate entry') &&
+                response[0].Error.includes('clientes.curp')
+              ) {
+                this.modalInfo('Este Cliente ya esta registrado', 'error');
+              } else if (
+                response[0].Error.includes('Duplicate entry') &&
+                response[0].Error.includes('codeudores.curp')
+              ) {
+                this.modalInfo('Este Codeudor ya esta registrado', 'error');
+              } else {
+                this.modalInfo(response[0].Error, 'error');
+              }
             }
           } else {
             this._uploadservice

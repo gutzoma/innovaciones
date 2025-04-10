@@ -315,7 +315,7 @@
         <div class="col-md-6">
           <div class="input-group-outline my-3">
             <label class="form-label">CURP</label>
-            <input required type="text" name="cod_curp" class="form-control" #cod_curp="ngModel"
+            <input required type="text" name="cod_curp" maxlength="18" class="form-control" #cod_curp="ngModel"
               [(ngModel)]="clientecodeudor.cod_curp">
             <span class="col-12 error-form" *ngIf="cod_curp.touched && !cod_curp.valid">Campo obligatorio</span>
           </div>
