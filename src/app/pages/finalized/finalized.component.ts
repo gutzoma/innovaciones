@@ -37,7 +37,7 @@ export class FinalizedComponent {
     this.liquidaciones.asesor = this.asesor;
     this._generalesservice.runLiquidacion(this.liquidaciones).subscribe(
       (response) => {
-        if (response[0].Error) {
+        if (response[0].Error != '') {
           this.modalInfo(response[0].Error, 'error');
         } else {
           this.modalInfo('Credito Liquidado', 'success');

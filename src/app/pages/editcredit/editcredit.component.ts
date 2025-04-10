@@ -192,7 +192,7 @@ export class EditcreditComponent {
     this.clientecredito.cred_cli_id = this.cliente_cred_id;
     this._creditosservice.editCredito(this.clientecredito).subscribe(
       (response) => {
-        if (response[0].Error) {
+        if (response[0].Error != '') {
           this.modalInfo(response[0].Error, 'error');
         } else {
           this.modalInfo('Registro Exitoso', 'success');

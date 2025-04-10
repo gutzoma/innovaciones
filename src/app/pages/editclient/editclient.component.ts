@@ -298,7 +298,7 @@ export class EditclientComponent {
       )
       .subscribe(
         (response) => {
-          if (response[0].Error) {
+          if (response[0].Error != '') {
             this.modalInfo(response[0].Error, 'error');
           } else {
             this.modalInfo('Registro Exitoso', 'success');

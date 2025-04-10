@@ -198,7 +198,7 @@ export class CashboxComponent {
 
         this._generalesservice.runInsertCashbox(this.payment).subscribe(
           (response) => {
-            if (response[0].Error) {
+            if (response[0].Error != '') {
               this.modalInfo(response[0].Error, 'error');
             } else {
               this.modalInfo('Pago ingresado con exito', 'success');

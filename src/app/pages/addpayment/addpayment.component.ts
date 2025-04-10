@@ -183,7 +183,7 @@ export class AddpaymentComponent {
       this.payment.cantidad = $('input[name=cantidad]').val();
       this._generalesservice.runInsertPayment(this.payment).subscribe(
         (response) => {
-          if (response[0].Error) {
+          if (response[0].Error != '') {
             this.modalInfo(response[0].Error, 'error');
           } else {
             this.modalInfo('Pago ingresado con exito', 'success');

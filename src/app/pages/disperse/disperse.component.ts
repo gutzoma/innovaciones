@@ -405,7 +405,7 @@ export class DisperseComponent {
       .createPrest(this.data_credito, this.fechas_pagos[0], this.asesor)
       .subscribe(
         (response) => {
-          if (response[0].Error) {
+          if (response[0].Error != '') {
             this.modalInfo(response[0].Error, 'error');
           } else {
             this.modalInfo('Registro Exitoso', 'success');
